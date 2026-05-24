@@ -1,0 +1,23 @@
+# =====================================================================
+# Configuração explícita pro Netlify buildar este projeto Next.js.
+# Sem este arquivo, o Netlify tratava o repo como site estático (de
+# quando a gente usou Netlify Drop com o mockup HTML).
+# =====================================================================
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Next.js 16 requer Node 20+
+  NODE_VERSION = "20"
+  # Evita reinstalação de devDependencies em produção que quebram TS
+  NPM_FLAGS = "--include=dev"
+
+# Plugin oficial do Netlify pra Next.js (detecta auto, mas explícito é melhor)
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Cache de dependências entre builds
+[build.processing]
+  skip_processing = false

@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "Chi sono",
+    "services": "Servizi",
+    "team": "Squadra",
+    "testimonials": "Testimonianze",
+    "gallery": "Galleria",
+    "pricing": "Tariffe",
+    "faq": "FAQ",
+    "articles": "Articoli",
+    "contact": "Contatti"
+  },
+  "cta": {
+    "whatsapp": "Scrivi su WhatsApp",
+    "whatsappShort": "WhatsApp",
+    "talkNow": "Parla ora",
+    "schedule": "Prenota una consulenza",
+    "knowMore": "Scopri di più",
+    "viewDetails": "Vedi dettagli",
+    "continueReading": "Continua a leggere",
+    "sendMessage": "Invia messaggio"
+  },
+  "labels": {
+    "credentials": "Credenziali",
+    "offices": "Uffici",
+    "yearsOfExperience": "anni di esperienza",
+    "location": "Località",
+    "specialty": "Specialità",
+    "rating": "Valutazione",
+    "before": "Prima",
+    "after": "Dopo"
+  },
+  "footer": {
+    "rightsReserved": "Tutti i diritti riservati",
+    "siteBy": "Sito di"
+  },
+  "language": {
+    "switcherLabel": "Lingua",
+    "pt": "Portoghese",
+    "en": "Inglese",
+    "it": "Italiano"
+  },
+  "common": {
+    "loading": "Caricamento…",
+    "error": "Qualcosa è andato storto. Riprova.",
+    "comingSoon": "Prossimamente"
+  }
+}

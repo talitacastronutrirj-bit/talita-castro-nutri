@@ -1,0 +1,49 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "team": "Team",
+    "testimonials": "Testimonials",
+    "gallery": "Gallery",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "articles": "Articles",
+    "contact": "Contact"
+  },
+  "cta": {
+    "whatsapp": "Message on WhatsApp",
+    "whatsappShort": "WhatsApp",
+    "talkNow": "Talk now",
+    "schedule": "Schedule consultation",
+    "knowMore": "Learn more",
+    "viewDetails": "View details",
+    "continueReading": "Continue reading",
+    "sendMessage": "Send message"
+  },
+  "labels": {
+    "credentials": "Credentials",
+    "offices": "Offices",
+    "yearsOfExperience": "years of experience",
+    "location": "Location",
+    "specialty": "Specialty",
+    "rating": "Rating",
+    "before": "Before",
+    "after": "After"
+  },
+  "footer": {
+    "rightsReserved": "All rights reserved",
+    "siteBy": "Site by"
+  },
+  "language": {
+    "switcherLabel": "Language",
+    "pt": "Portuguese",
+    "en": "English",
+    "it": "Italian"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "comingSoon": "Coming soon"
+  }
+}

@@ -1,0 +1,399 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cores semânticas — usar via Tailwind: bg-navy-900, text-gold-400, etc. */
+  --color-navy-50: #eef3fa;
+  --color-navy-100: #d4e2f0;
+  --color-navy-700: #1e3a5f;
+  --color-navy-800: #142c4c;
+  --color-navy-900: #0c1f3d;
+
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+
+  --color-cream-50: #fbf8f3;
+  --color-cream-100: #f5efe5;
+
+  --color-gold-300: #ffaa3a;
+  --color-gold-400: #d4b06a;
+  --color-gold-500: #c9a961;
+  --color-gold-600: #a88842;
+
+  --color-ink-700: #2c3530;
+  --color-ink-900: #111915;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+}
+
+/* ============================================
+   PALETAS — controladas via data-palette no <html>
+   ============================================ */
+:root {
+  --bg-page: #fbf8f3;
+  --bg-page-2: #f5efe5;
+  --bg-dark: #0c1f3d;
+  --bg-dark-2: #142c4c;
+  --bg-dark-3: #1e3a5f;
+  --bg-darkest: #0a1729;
+  --text-light: #fbf8f3;
+  --text-light-soft: rgba(245, 239, 229, 0.8);
+  --text-light-soft-2: rgba(245, 239, 229, 0.6);
+  --text-dark: #2c3530;
+  --text-darker: #111915;
+  --accent: #c9a961;
+  --accent-hover: #b8985a;
+  --accent-soft: #d4b06a;
+  --accent-bright: #ffaa3a;
+  --border-soft: #d4e2f0;
+  --border-soft-dark: rgba(251, 248, 243, 0.1);
+  --hero-overlay-1: rgba(12, 31, 61, 0.92);
+  --hero-overlay-2: rgba(168, 136, 66, 0.75);
+}
+
+[data-palette="emerald"] {
+  --bg-page: #f5f0e8;
+  --bg-page-2: #ebe3d5;
+  --bg-dark: #064e3b;
+  --bg-dark-2: #065f46;
+  --bg-dark-3: #047857;
+  --bg-darkest: #033324;
+  --text-light: #f5f0e8;
+  --text-light-soft: rgba(245, 240, 232, 0.8);
+  --text-light-soft-2: rgba(245, 240, 232, 0.6);
+  --text-dark: #1f2937;
+  --text-darker: #0f1419;
+  --accent: #b08d57;
+  --accent-hover: #9a7a4a;
+  --accent-soft: #c5a572;
+  --accent-bright: #d4ad6f;
+  --border-soft: #d6cab8;
+  --border-soft-dark: rgba(245, 240, 232, 0.1);
+  --hero-overlay-1: rgba(6, 78, 59, 0.92);
+  --hero-overlay-2: rgba(176, 141, 87, 0.75);
+}
+
+[data-palette="black"] {
+  --bg-page: #f8f5ed;
+  --bg-page-2: #ede8d8;
+  --bg-dark: #0a0a0a;
+  --bg-dark-2: #1a1a1a;
+  --bg-dark-3: #2a2a2a;
+  --bg-darkest: #000000;
+  --text-light: #f8f5ed;
+  --text-light-soft: rgba(248, 245, 237, 0.8);
+  --text-light-soft-2: rgba(248, 245, 237, 0.6);
+  --text-dark: #1a1a1a;
+  --text-darker: #000000;
+  --accent: #c9a161;
+  --accent-hover: #b8915a;
+  --accent-soft: #d4b078;
+  --accent-bright: #e8c87d;
+  --border-soft: #d6cab8;
+  --border-soft-dark: rgba(248, 245, 237, 0.1);
+  --hero-overlay-1: rgba(10, 10, 10, 0.92);
+  --hero-overlay-2: rgba(201, 161, 97, 0.75);
+}
+
+[data-palette="wine"] {
+  --bg-page: #faf6ef;
+  --bg-page-2: #f0e6d6;
+  --bg-dark: #5c1a1b;
+  --bg-dark-2: #6e1f20;
+  --bg-dark-3: #7a2526;
+  --bg-darkest: #3d1010;
+  --text-light: #faf6ef;
+  --text-light-soft: rgba(250, 246, 239, 0.85);
+  --text-light-soft-2: rgba(250, 246, 239, 0.65);
+  --text-dark: #2a1818;
+  --text-darker: #1a0a0a;
+  --accent: #c9a161;
+  --accent-hover: #b8915a;
+  --accent-soft: #d4b078;
+  --accent-bright: #e8c87d;
+  --border-soft: #e2d2bc;
+  --border-soft-dark: rgba(250, 246, 239, 0.12);
+  --hero-overlay-1: rgba(92, 26, 27, 0.92);
+  --hero-overlay-2: rgba(201, 161, 97, 0.75);
+}
+
+[data-palette="graphite"] {
+  --bg-page: #f4f3f0;
+  --bg-page-2: #e6e4df;
+  --bg-dark: #2c3036;
+  --bg-dark-2: #3a3f47;
+  --bg-dark-3: #474d56;
+  --bg-darkest: #1c1f24;
+  --text-light: #f4f3f0;
+  --text-light-soft: rgba(244, 243, 240, 0.85);
+  --text-light-soft-2: rgba(244, 243, 240, 0.65);
+  --text-dark: #2a2d33;
+  --text-darker: #11141a;
+  --accent: #b07b3a;
+  --accent-hover: #9a6a30;
+  --accent-soft: #c0904f;
+  --accent-bright: #d8a368;
+  --border-soft: #cfcdc6;
+  --border-soft-dark: rgba(244, 243, 240, 0.12);
+  --hero-overlay-1: rgba(44, 48, 54, 0.92);
+  --hero-overlay-2: rgba(176, 123, 58, 0.75);
+}
+
+[data-palette="coffee"] {
+  --bg-page: #f9f3e8;
+  --bg-page-2: #ede2cf;
+  --bg-dark: #3d2914;
+  --bg-dark-2: #4d331a;
+  --bg-dark-3: #5c3e22;
+  --bg-darkest: #2a1b0c;
+  --text-light: #f9f3e8;
+  --text-light-soft: rgba(249, 243, 232, 0.85);
+  --text-light-soft-2: rgba(249, 243, 232, 0.65);
+  --text-dark: #3a2614;
+  --text-darker: #1f1308;
+  --accent: #d4a574;
+  --accent-hover: #c39763;
+  --accent-soft: #ddb486;
+  --accent-bright: #ecc89a;
+  --border-soft: #ddc9a8;
+  --border-soft-dark: rgba(249, 243, 232, 0.12);
+  --hero-overlay-1: rgba(61, 41, 20, 0.92);
+  --hero-overlay-2: rgba(212, 165, 116, 0.75);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-darker);
+  font-family: var(--font-sans);
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Classes utilitárias que mapeiam pras variáveis da paleta ativa */
+.bg-page { background: var(--bg-page); }
+.bg-page-2 { background: var(--bg-page-2); }
+.bg-dark { background: var(--bg-dark); }
+.bg-dark-2 { background: var(--bg-dark-2); }
+.bg-darkest { background: var(--bg-darkest); }
+.text-light { color: var(--text-light); }
+.text-light-soft { color: var(--text-light-soft); }
+.text-light-soft-2 { color: var(--text-light-soft-2); }
+.text-dark { color: var(--text-dark); }
+.text-darker { color: var(--text-darker); }
+.text-accent { color: var(--accent); }
+.text-accent-soft { color: var(--accent-soft); }
+.text-accent-bright { color: var(--accent-bright); }
+.bg-accent { background: var(--accent); }
+.border-accent { border-color: var(--accent); }
+.border-soft { border-color: var(--border-soft); }
+.border-soft-dark { border-color: var(--border-soft-dark); }
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg-dark);
+  transition: background 0.2s ease;
+}
+.btn-primary:hover { background: var(--accent-hover); }
+
+.btn-outline-light {
+  border: 1px solid rgba(251, 248, 243, 0.4);
+  color: var(--text-light);
+  transition: background 0.2s ease;
+}
+.btn-outline-light:hover { background: rgba(251, 248, 243, 0.1); }
+
+.btn-dark {
+  background: var(--bg-dark-2);
+  color: var(--text-light);
+  transition: background 0.2s ease;
+}
+.btn-dark:hover { background: var(--bg-dark); }
+
+.gold-rule {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  height: 1px;
+}
+
+/* ============================================
+   HERO ANIMADO — cross-fade entre 2 overlays
+   ============================================ */
+.hero-grad {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&q=80') center/cover;
+  isolation: isolate;
+}
+.hero-grad::before,
+.hero-grad::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-grad::before {
+  background: var(--hero-overlay-1);
+  animation: hero-a 18s ease-in-out infinite;
+  transition: background 0.5s ease;
+}
+.hero-grad::after {
+  background: var(--hero-overlay-2);
+  animation: hero-b 18s ease-in-out infinite;
+  transition: background 0.5s ease;
+}
+.hero-grad > * { position: relative; z-index: 1; }
+@keyframes hero-a {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes hero-b {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   FAQ accordion (native <details>)
+   ============================================ */
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .faq-icon { transform: rotate(45deg); }
+.faq-icon { transition: transform 0.25s ease; }
+
+/* ============================================
+   CARDS hover
+   ============================================ */
+.card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(12, 31, 61, 0.25);
+}
+
+/* ============================================
+   WhatsApp floating pulse
+   ============================================ */
+.wa-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  background: #22c55e;
+  opacity: 0.35;
+  animation: wa-pulse 2s infinite;
+}
+@keyframes wa-pulse {
+  0% { transform: scale(0.95); opacity: 0.5; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ============================================
+   Modal fade-in
+   ============================================ */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   LOGO HERO — keyframes (aplicadas via JS no admin/cliente)
+   ============================================ */
+.hero-logo { animation-fill-mode: both; }
+
+@keyframes heroLogoFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes heroLogoSlide {
+  from { opacity: 0; transform: translateY(60px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroLogoZoom {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes heroLogoRotate {
+  from { opacity: 0; transform: rotate(-20deg) scale(0.88); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+}
+@keyframes heroLogoSpin {
+  from { opacity: 0; transform: rotate(360deg) scale(0.3); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+}
+@keyframes heroLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+@keyframes heroLogoPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+@keyframes heroLogoSlowRotate {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   PROSE (artigos) — tipografia rica
+   ============================================ */
+.prose-custom h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--bg-dark);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.prose-custom h3 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--bg-dark);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+.prose-custom p {
+  color: var(--text-dark);
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+.prose-custom strong { color: var(--bg-dark); font-weight: 600; }
+.prose-custom ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
+}
+.prose-custom ul li { margin-bottom: 0.5rem; line-height: 1.7; }
+.prose-custom blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--text-dark);
+  margin: 1.5rem 0;
+}
+.prose-custom table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.prose-custom th, .prose-custom td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid var(--border-soft);
+}
+.prose-custom th {
+  background: var(--bg-page-2);
+  color: var(--bg-dark);
+  font-weight: 600;
+}
