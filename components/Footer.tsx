@@ -1,9 +1,13 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { site } from "@/lib/site";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function Footer() {
-  const settings = await getSiteSettings();
+  const [settings, t] = await Promise.all([
+    getSiteSettings(),
+    getTranslations(),
+  ]);
 
   type SocialLink = { label: string; href: string; icon: React.ReactNode };
   const socialLinks: SocialLink[] = [];
@@ -70,57 +74,67 @@ export default async function Footer() {
           )}
         </div>
 
-        {/* Coluna 2: credenciais */}
-        <div className="md:col-span-3">
-          <div className="text-light font-medium mb-3">Credenciais</div>
-          <ul className="space-y-1 text-xs">
-            {site.oab.rj.map((n) => (
-              <li key={`rj-${n}`}>OAB/RJ {n}</li>
-            ))}
-            {site.oab.es.map((n) => (
-              <li key={`es-${n}`}>OAB/ES {n}</li>
-            ))}
-          </ul>
-        </div>
+        {/* Coluna 2: credenciais (CRN / OAB / etc) */}
+        {site.credential.numbers.length > 0 && (
+          <div className="md:col-span-3">
+            <div className="text-light font-medium mb-3">
+              {t("labels.credentials")}
+            </div>
+            <ul className="space-y-1 text-xs">
+              {site.credential.numbers.map((n) => (
+                <li key={n}>
+                  {site.credential.type} {n}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Coluna 3: endereços (todos os escritórios) */}
-        <div className="md:col-span-5">
-          <div className="text-light font-medium mb-3">Escritórios</div>
-          <ul className="space-y-4 text-xs">
-            {site.offices.map((o) => (
-              <li key={o.id}>
-                <div className="text-light font-medium mb-0.5">
-                  {o.city} · {o.state}
-                </div>
-                <div className="leading-relaxed">
-                  {o.address}
-                  {o.neighborhood && (
-                    <>
-                      <br />
-                      {o.neighborhood}
-                    </>
-                  )}
-                </div>
+        {site.offices.length > 0 && (
+          <div className="md:col-span-5">
+            <div className="text-light font-medium mb-3">
+              {t("labels.offices")}
+            </div>
+            <ul className="space-y-4 text-xs">
+              {site.offices.map((o) => (
+                <li key={o.id}>
+                  <div className="text-light font-medium mb-0.5">
+                    {o.city} · {o.state}
+                  </div>
+                  <div className="leading-relaxed">
+                    {o.address}
+                    {o.neighborhood && (
+                      <>
+                        <br />
+                        {o.neighborhood}
+                      </>
+                    )}
+                  </div>
+                  <a
+                    href={o.whatsapp.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-1 hover:text-accent"
+                  >
+                    {o.whatsapp.display}
+                  </a>
+                </li>
+              ))}
+              <li
+                className="pt-2 border-t"
+                style={{ borderColor: "var(--border-soft-dark)" }}
+              >
                 <a
-                  href={o.whatsapp.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-1 hover:text-accent"
+                  href={`mailto:${site.email}`}
+                  className="hover:text-accent"
                 >
-                  {o.whatsapp.display}
+                  {site.email}
                 </a>
               </li>
-            ))}
-            <li className="pt-2 border-t" style={{ borderColor: "var(--border-soft-dark)" }}>
-              <a
-                href={`mailto:${site.email}`}
-                className="hover:text-accent"
-              >
-                {site.email}
-              </a>
-            </li>
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
       </div>
 
       <div
@@ -129,10 +143,9 @@ export default async function Footer() {
       >
         <div className="max-w-6xl mx-auto px-6 py-5 text-xs flex flex-wrap gap-3 justify-between text-light-soft-2">
           <span>
-            © {new Date().getFullYear()} {site.name}. Todos os direitos
-            reservados.
+            © {new Date().getFullYear()} {site.name}. {t("footer.rightsReserved")}.
           </span>
-          <span>nogueiraporto.adv.br</span>
+          <span>{site.url.replace(/^https?:\/\//, "")}</span>
         </div>
       </div>
     </footer>

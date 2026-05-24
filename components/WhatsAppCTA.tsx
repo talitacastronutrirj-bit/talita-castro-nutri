@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import { site } from "@/lib/site";
 
 type Props = {
@@ -13,11 +14,6 @@ type Props = {
   office?: string;
 };
 
-const SCOPE_ITEMS = [
-  "Atendimento jurídico personalizado",
-  "Contato direto com o advogado",
-];
-
 export default function WhatsAppCTA({
   className,
   style,
@@ -25,6 +21,7 @@ export default function WhatsAppCTA({
   ariaLabel,
   office,
 }: Props) {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const headingId = useId();
@@ -51,12 +48,36 @@ export default function WhatsAppCTA({
     ? site.offices.filter((o) => o.id === office)
     : site.offices;
 
+  // Se só tem 1 WhatsApp pra mostrar (ou caiu no primaryWhatsapp), abre
+  // direto sem modal — UX mais ágil. Modal só faz sentido com múltiplas
+  // opções pra escolher.
+  const skipModal = officesToShow.length <= 1;
+  const directHref =
+    officesToShow.length === 1
+      ? officesToShow[0].whatsapp.href
+      : site.primaryWhatsapp.href;
+
+  if (skipModal) {
+    return (
+      <a
+        href={directHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={ariaLabel ?? t("cta.whatsapp")}
+        className={`appearance-none ${className ?? ""}`}
+        style={style}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ?? t("cta.whatsapp")}
         aria-haspopup="dialog"
         className={`appearance-none cursor-pointer ${className ?? ""}`}
         style={style}
@@ -87,7 +108,7 @@ export default function WhatsAppCTA({
                 <button
                   type="button"
                   onClick={close}
-                  aria-label="Fechar"
+                  aria-label="✕"
                   className="absolute top-4 right-4 w-9 h-9 grid place-items-center rounded-full hover:opacity-70 text-dark transition-colors"
                 >
                   <svg
@@ -102,123 +123,34 @@ export default function WhatsAppCTA({
                 </button>
 
                 <div className="p-7 md:p-8">
-                  <div className="text-[11px] uppercase tracking-[0.3em] text-accent mb-3">
-                    Antes de continuar
-                  </div>
                   <h2
                     id={headingId}
                     className="font-serif text-2xl md:text-[1.7rem] leading-tight mb-4 pr-8"
                     style={{ color: "var(--bg-dark)" }}
                   >
-                    Antes de continuar
+                    {t("labels.location")}
                   </h2>
                   <div className="gold-rule w-16 mb-5" />
 
                   <p className="text-sm leading-relaxed mb-5 text-dark">
-                    {site.name} — atendimento jurídico personalizado.
+                    {site.name}
                   </p>
 
-                  <ul className="space-y-2.5 mb-6">
-                    {SCOPE_ITEMS.map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-2.5 text-sm text-dark"
+                  <div className="space-y-2.5">
+                    {officesToShow.map((o) => (
+                      <a
+                        key={o.id}
+                        href={o.whatsapp.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={close}
+                        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3.5 rounded-full font-semibold w-full transition-colors"
                       >
-                        <span
-                          className="mt-1 grid place-items-center w-4 h-4 rounded-full shrink-0"
-                          style={{ background: "rgba(201, 169, 97, 0.15)" }}
-                        >
-                          <svg
-                            className="w-2.5 h-2.5 text-accent"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M5 12l5 5L20 7"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
-                        <span className="leading-relaxed">{item}</span>
-                      </li>
+                        <WhatsAppIcon />
+                        {o.city} · {o.whatsapp.display}
+                      </a>
                     ))}
-                  </ul>
-
-                  <div
-                    className="rounded-xl p-4 mb-6 text-xs space-y-1 border text-dark"
-                    style={{
-                      background: "var(--bg-page-2)",
-                      borderColor: "var(--border-soft)",
-                    }}
-                  >
-                    {site.oab.rj.length > 0 && (
-                      <div>
-                        <span
-                          className="font-medium"
-                          style={{ color: "var(--bg-dark)" }}
-                        >
-                          OAB/RJ:
-                        </span>{" "}
-                        {site.oab.rj.join(" · ")}
-                      </div>
-                    )}
-                    {site.oab.es.length > 0 && (
-                      <div>
-                        <span
-                          className="font-medium"
-                          style={{ color: "var(--bg-dark)" }}
-                        >
-                          OAB/ES:
-                        </span>{" "}
-                        {site.oab.es.join(" · ")}
-                      </div>
-                    )}
-                    <div
-                      className="text-[11px] pt-1"
-                      style={{ opacity: 0.7 }}
-                    >
-                      Atendimento direto com {site.shortName}
-                    </div>
                   </div>
-
-                  {officesToShow.length === 1 ? (
-                    <a
-                      href={officesToShow[0].whatsapp.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={close}
-                      className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-full font-semibold w-full transition-colors"
-                    >
-                      <WhatsAppIcon />
-                      Continuar · {officesToShow[0].city}
-                    </a>
-                  ) : (
-                    <div className="space-y-2.5">
-                      {officesToShow.map((o) => (
-                        <a
-                          key={o.id}
-                          href={o.whatsapp.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={close}
-                          className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3.5 rounded-full font-semibold w-full transition-colors"
-                        >
-                          <WhatsAppIcon />
-                          Continuar · {o.city} · {o.whatsapp.display}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-
-                  <p
-                    className="text-[11px] text-center mt-4 text-dark"
-                    style={{ opacity: 0.6 }}
-                  >
-                    Você será direcionado para uma conversa direta com a banca.
-                  </p>
                 </div>
               </div>
             </div>,

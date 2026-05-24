@@ -48,7 +48,14 @@ export const site = {
     href: "https://wa.me/5500000000000",
   },
 
-  // Credenciais profissionais — vai migrar pra setting
+  // Credencial profissional (CRN, OAB, CRM, etc) — genérico
+  credential: {
+    type: "CRN",
+    numbers: [] as string[],
+  },
+
+  // Legacy alias — alguns componentes ainda referenciam site.oab.rj/es.
+  // Manter vazio até remover os usos.
   oab: {
     rj: [] as string[],
     es: [] as string[],

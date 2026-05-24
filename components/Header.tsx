@@ -1,8 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
+import { site } from "@/lib/site";
 import WhatsAppCTA from "./WhatsAppCTA";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Header() {
+export default async function Header() {
+  const t = await getTranslations();
+
   return (
     <header
       className="sticky top-0 z-40 backdrop-blur border-b"
@@ -15,7 +20,7 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <Image
             src="/images/logo.png"
-            alt="Poli, Tostes e Archanjo · Advocacia"
+            alt={site.name}
             width={180}
             height={72}
             priority
@@ -31,34 +36,37 @@ export default function Header() {
           style={{ color: "var(--text-dark)" }}
         >
           <Link href="/#areas" className="hover:opacity-70">
-            Áreas
+            {t("nav.services")}
           </Link>
           <Link href="/#equipe" className="hover:opacity-70">
-            Equipe
+            {t("nav.team")}
           </Link>
           <Link href="/#quando" className="hover:opacity-70">
-            Sobre
+            {t("nav.about")}
           </Link>
           <Link href="/#faq" className="hover:opacity-70">
-            FAQ
+            {t("nav.faq")}
           </Link>
           <Link href="/artigos" className="hover:opacity-70">
-            Artigos
+            {t("nav.articles")}
           </Link>
         </nav>
 
-        <WhatsAppCTA className="hidden md:inline-flex items-center gap-2 btn-dark px-4 py-2 rounded-full text-sm font-medium">
-          Falar agora
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M13 5l7 7-7 7" />
-          </svg>
-        </WhatsAppCTA>
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          <WhatsAppCTA className="hidden md:inline-flex items-center gap-2 btn-dark px-4 py-2 rounded-full text-sm font-medium">
+            {t("cta.talkNow")}
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </WhatsAppCTA>
+        </div>
       </div>
     </header>
   );

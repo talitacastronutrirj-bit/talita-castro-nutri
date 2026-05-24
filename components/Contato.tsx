@@ -1,7 +1,10 @@
+import { getTranslations } from "next-intl/server";
 import { site } from "@/lib/site";
 import WhatsAppCTA from "./WhatsAppCTA";
 
-export default function Contato() {
+export default async function Contato() {
+  const t = await getTranslations();
+
   return (
     <section
       id="contato"
@@ -10,60 +13,56 @@ export default function Contato() {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="text-center mb-12">
           <div className="text-[11px] uppercase tracking-[0.3em] text-accent mb-4">
-            Vamos conversar
+            {t("nav.contact")}
           </div>
           <h2 className="font-serif text-3xl md:text-5xl mb-6 leading-tight">
-            Fale com a gente
+            {t("nav.contact")}
           </h2>
-          <p className="text-light-soft max-w-xl mx-auto leading-relaxed">
-            Atendimento presencial e remoto. Conte sua situação pelo WhatsApp
-            do escritório mais próximo.
-          </p>
         </div>
 
-        <div
-          className={`grid gap-6 mb-10 mx-auto ${
-            site.offices.length === 1
-              ? "md:grid-cols-1 max-w-md"
-              : site.offices.length === 2
-                ? "md:grid-cols-2 max-w-3xl"
-                : "md:grid-cols-3 max-w-5xl"
-          }`}
-        >
-          {site.offices.map((o) => (
-            <div
-              key={o.id}
-              className="rounded-2xl p-7 border bg-dark-2"
-              style={{ borderColor: "var(--border-soft-dark)" }}
-            >
-              <div className="text-[10px] uppercase tracking-[0.3em] text-accent mb-3">
-                {o.city} · {o.state}
-              </div>
-              <h3 className="font-serif text-2xl mb-4">
-                Escritório {o.city}
-              </h3>
-              <div className="space-y-2 text-sm text-light-soft mb-6">
-                <div>{o.address}</div>
-                <div>
-                  {o.neighborhood} · {o.city} · {o.state}
-                </div>
-              </div>
-              <WhatsAppCTA
-                office={o.id}
-                className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold text-sm w-full justify-center"
+        {site.offices.length > 0 && (
+          <div
+            className={`grid gap-6 mb-10 mx-auto ${
+              site.offices.length === 1
+                ? "md:grid-cols-1 max-w-md"
+                : site.offices.length === 2
+                  ? "md:grid-cols-2 max-w-3xl"
+                  : "md:grid-cols-3 max-w-5xl"
+            }`}
+          >
+            {site.offices.map((o) => (
+              <div
+                key={o.id}
+                className="rounded-2xl p-7 border bg-dark-2"
+                style={{ borderColor: "var(--border-soft-dark)" }}
               >
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
+                <div className="text-[10px] uppercase tracking-[0.3em] text-accent mb-3">
+                  {o.city} · {o.state}
+                </div>
+                <h3 className="font-serif text-2xl mb-4">{o.city}</h3>
+                <div className="space-y-2 text-sm text-light-soft mb-6">
+                  <div>{o.address}</div>
+                  <div>
+                    {o.neighborhood} · {o.city} · {o.state}
+                  </div>
+                </div>
+                <WhatsAppCTA
+                  office={o.id}
+                  className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold text-sm w-full justify-center"
                 >
-                  <path d="M20.52 3.48A12 12 0 003.45 20.42L2 22l1.66-1.42a12 12 0 0016.86-17.1zM12 20a8 8 0 01-4.07-1.11l-.29-.17-3 .8.8-2.92-.18-.3A8 8 0 1112 20z" />
-                </svg>
-                WhatsApp · {o.whatsapp.display}
-              </WhatsAppCTA>
-            </div>
-          ))}
-        </div>
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M20.52 3.48A12 12 0 003.45 20.42L2 22l1.66-1.42a12 12 0 0016.86-17.1zM12 20a8 8 0 01-4.07-1.11l-.29-.17-3 .8.8-2.92-.18-.3A8 8 0 1112 20z" />
+                  </svg>
+                  {t("cta.whatsappShort")} · {o.whatsapp.display}
+                </WhatsAppCTA>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="text-center">
           <a
