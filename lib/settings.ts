@@ -40,6 +40,12 @@ export type HeroEntrance =
 
 export type HeroIdle = "none" | "float" | "pulse" | "slowrotate";
 
+// Como o site capta agendamentos:
+// - "whatsapp": só WhatsApp (default — mais simples)
+// - "calendly": embed do Calendly inline na home (cliente agenda direto)
+// - "both": Calendly + WhatsApp como opções alternativas
+export type BookingMode = "whatsapp" | "calendly" | "both";
+
 export type SiteSettings = {
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;
@@ -50,6 +56,8 @@ export type SiteSettings = {
   instagramUrl: string;
   facebookUrl: string;
   linkedinUrl: string;
+  bookingMode: BookingMode;
+  calendlyUrl: string;
 
   // Localized (objeto {pt, en, it} pra cada)
   heroEyebrow: LocalizedText;
@@ -76,6 +84,8 @@ const DEFAULTS: SiteSettings = {
   instagramUrl: "",
   facebookUrl: "",
   linkedinUrl: "",
+  bookingMode: "whatsapp",
+  calendlyUrl: "",
   // Defaults com PT preenchido pra preview funcionar antes do cliente editar
   heroEyebrow: { pt: "Atendimento profissional", en: "", it: "" },
   heroHeading: {
@@ -110,6 +120,8 @@ const KEY_MAP = {
   instagramUrl: "instagram_url",
   facebookUrl: "facebook_url",
   linkedinUrl: "linkedin_url",
+  bookingMode: "booking_mode",
+  calendlyUrl: "calendly_url",
   // localized
   heroEyebrow: "hero_eyebrow",
   heroHeading: "hero_heading",
@@ -187,6 +199,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       instagramUrl: getScalar(map, "instagramUrl") || DEFAULTS.instagramUrl,
       facebookUrl: getScalar(map, "facebookUrl") || DEFAULTS.facebookUrl,
       linkedinUrl: getScalar(map, "linkedinUrl") || DEFAULTS.linkedinUrl,
+      bookingMode:
+        (getScalar(map, "bookingMode") as BookingMode) ||
+        DEFAULTS.bookingMode,
+      calendlyUrl: getScalar(map, "calendlyUrl") || DEFAULTS.calendlyUrl,
 
       heroEyebrow: getLocalized(map, "heroEyebrow", DEFAULTS.heroEyebrow),
       heroHeading: getLocalized(map, "heroHeading", DEFAULTS.heroHeading),

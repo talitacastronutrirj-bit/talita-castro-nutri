@@ -9,6 +9,7 @@ import {
   type HeroMode,
   type HeroEntrance,
   type HeroIdle,
+  type BookingMode,
 } from "@/lib/settings";
 import { readLocalizedFromFormData } from "@/lib/localized";
 
@@ -30,6 +31,7 @@ const ENTRANCES: HeroEntrance[] = [
   "spin",
 ];
 const IDLES: HeroIdle[] = ["none", "float", "pulse", "slowrotate"];
+const BOOKING_MODES: BookingMode[] = ["whatsapp", "calendly", "both"];
 
 export async function saveAppearance(formData: FormData) {
   const session = await getSession();
@@ -46,6 +48,8 @@ export async function saveAppearance(formData: FormData) {
   const instagramUrl = String(formData.get("instagramUrl") ?? "").trim();
   const facebookUrl = String(formData.get("facebookUrl") ?? "").trim();
   const linkedinUrl = String(formData.get("linkedinUrl") ?? "").trim();
+  const bookingMode = String(formData.get("bookingMode") ?? "whatsapp") as BookingMode;
+  const calendlyUrl = String(formData.get("calendlyUrl") ?? "").trim();
 
   // ─── Localized (lê <name>__pt, <name>__en, <name>__it) ────
   const heroEyebrow = readLocalizedFromFormData(formData, "heroEyebrow");
@@ -73,6 +77,9 @@ export async function saveAppearance(formData: FormData) {
   if (!IDLES.includes(heroLogoIdle)) {
     redirect("/admin/aparencia?error=idle");
   }
+  if (!BOOKING_MODES.includes(bookingMode)) {
+    redirect("/admin/aparencia?error=booking");
+  }
 
   await updateSiteSettings({
     palette,
@@ -86,6 +93,8 @@ export async function saveAppearance(formData: FormData) {
     instagramUrl,
     facebookUrl,
     linkedinUrl,
+    bookingMode,
+    calendlyUrl,
     trustBar1Label,
     trustBar1Value,
     trustBar2Label,

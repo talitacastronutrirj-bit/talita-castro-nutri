@@ -56,6 +56,9 @@ export default async function AdminLayout({
             <Link href="/admin/gallery" className="hover:opacity-70">
               Galeria
             </Link>
+            <Link href="/admin/pricing" className="hover:opacity-70">
+              Preços
+            </Link>
             <Link href="/admin/faq" className="hover:opacity-70">
               FAQ
             </Link>

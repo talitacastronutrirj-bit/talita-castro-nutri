@@ -257,6 +257,92 @@ export default async function AppearancePage({
           </div>
         </section>
 
+        {/* ============ BOOKING (WhatsApp / Calendly) ============ */}
+        <section
+          className="pt-6 border-t"
+          style={{ borderColor: "var(--border-soft)" }}
+        >
+          <h3
+            className="font-serif text-lg font-semibold mb-1"
+            style={{ color: "var(--bg-dark)" }}
+          >
+            Booking / Agendamento
+          </h3>
+          <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
+            Como o site capta novos contatos. WhatsApp é o default mais
+            simples. Calendly permite que o cliente agende horário sozinho
+            direto no site.
+          </p>
+
+          <div className="space-y-4">
+            <div>
+              <label
+                htmlFor="bookingMode"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                Modo de booking
+              </label>
+              <select
+                id="bookingMode"
+                name="bookingMode"
+                defaultValue={settings.bookingMode}
+                className="block w-full rounded-lg border px-3 py-2 text-sm"
+                style={{
+                  borderColor: "var(--border-soft)",
+                  background: "white",
+                }}
+              >
+                <option value="whatsapp">
+                  Apenas WhatsApp (cliente fala via WhatsApp)
+                </option>
+                <option value="calendly">
+                  Apenas Calendly (cliente agenda direto no site)
+                </option>
+                <option value="both">
+                  Ambos (WhatsApp + Calendly lado a lado)
+                </option>
+              </select>
+            </div>
+
+            <div>
+              <label
+                htmlFor="calendlyUrl"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                URL do Calendly{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (obrigatório se usar &quot;Calendly&quot; ou
+                  &quot;Ambos&quot;)
+                </span>
+              </label>
+              <input
+                id="calendlyUrl"
+                name="calendlyUrl"
+                type="url"
+                defaultValue={settings.calendlyUrl}
+                placeholder="https://calendly.com/seu-nome/consulta-30min"
+                className="block w-full rounded-lg border px-3 py-2 text-sm"
+                style={{
+                  borderColor: "var(--border-soft)",
+                  background: "white",
+                }}
+              />
+              <p
+                className="text-[11px] text-dark mt-1.5"
+                style={{ opacity: 0.6 }}
+              >
+                Crie em calendly.com (plano grátis), publique um tipo de
+                evento e cole a URL pública aqui.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ============ REDES SOCIAIS ============ */}
         <section
           className="pt-6 border-t"

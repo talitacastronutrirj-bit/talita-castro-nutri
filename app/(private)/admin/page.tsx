@@ -5,10 +5,11 @@ import { getAllAreas } from "@/lib/practice-areas";
 import { getAllTestimonials } from "@/lib/testimonials";
 import { getAllGallery } from "@/lib/gallery";
 import { getAllFaq } from "@/lib/faq";
+import { getAllPricingPlans } from "@/lib/pricing";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function AdminDashboard() {
-  const [team, posts, areas, testimonials, gallery, faq, settings] =
+  const [team, posts, areas, testimonials, gallery, faq, pricing, settings] =
     await Promise.all([
       getAllTeam(),
       getAllPostsIncludingDrafts(),
@@ -16,6 +17,7 @@ export default async function AdminDashboard() {
       getAllTestimonials().catch(() => []),
       getAllGallery().catch(() => []),
       getAllFaq().catch(() => []),
+      getAllPricingPlans().catch(() => []),
       getSiteSettings(),
     ]);
 
@@ -26,6 +28,7 @@ export default async function AdminDashboard() {
   const activeTestimonials = testimonials.filter((t) => t.isActive).length;
   const activeGallery = gallery.filter((g) => g.isActive).length;
   const activeFaq = faq.filter((f) => f.isActive).length;
+  const activePricing = pricing.filter((p) => p.isActive).length;
 
   const PALETTE_LABELS: Record<string, string> = {
     navy: "Marinho clássico",
@@ -79,6 +82,16 @@ export default async function AdminDashboard() {
         activeGallery > 0
           ? `${activeGallery} foto${activeGallery === 1 ? "" : "s"} ativa${activeGallery === 1 ? "" : "s"}`
           : "Nenhuma foto",
+    },
+    {
+      href: "/admin/pricing",
+      title: "Preços / Pacotes",
+      description:
+        "Pacotes de serviço com preço, moeda e features (multi-moeda).",
+      meta:
+        activePricing > 0
+          ? `${activePricing} pacote${activePricing === 1 ? "" : "s"}`
+          : "Nenhum cadastrado",
     },
     {
       href: "/admin/faq",
