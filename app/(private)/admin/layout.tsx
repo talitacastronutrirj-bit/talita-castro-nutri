@@ -40,7 +40,7 @@ export default async function AdminLayout({
             </p>
           </div>
 
-          <nav className="flex items-center gap-5 text-sm text-dark">
+          <nav className="flex items-center gap-4 text-sm text-dark flex-wrap">
             <Link href="/admin/aparencia" className="hover:opacity-70">
               Aparência
             </Link>
@@ -49,6 +49,15 @@ export default async function AdminLayout({
             </Link>
             <Link href="/admin/equipe" className="hover:opacity-70">
               Equipe
+            </Link>
+            <Link href="/admin/testimonials" className="hover:opacity-70">
+              Depoimentos
+            </Link>
+            <Link href="/admin/gallery" className="hover:opacity-70">
+              Galeria
+            </Link>
+            <Link href="/admin/faq" className="hover:opacity-70">
+              FAQ
             </Link>
             <Link href="/admin/artigos" className="hover:opacity-70">
               Artigos

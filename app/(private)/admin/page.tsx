@@ -2,20 +2,30 @@ import Link from "next/link";
 import { getAllTeam } from "@/lib/team";
 import { getAllPostsIncludingDrafts } from "@/lib/posts";
 import { getAllAreas } from "@/lib/practice-areas";
+import { getAllTestimonials } from "@/lib/testimonials";
+import { getAllGallery } from "@/lib/gallery";
+import { getAllFaq } from "@/lib/faq";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function AdminDashboard() {
-  const [team, posts, areas, settings] = await Promise.all([
-    getAllTeam(),
-    getAllPostsIncludingDrafts(),
-    getAllAreas(),
-    getSiteSettings(),
-  ]);
+  const [team, posts, areas, testimonials, gallery, faq, settings] =
+    await Promise.all([
+      getAllTeam(),
+      getAllPostsIncludingDrafts(),
+      getAllAreas(),
+      getAllTestimonials().catch(() => []),
+      getAllGallery().catch(() => []),
+      getAllFaq().catch(() => []),
+      getSiteSettings(),
+    ]);
 
   const activeMembers = team.filter((m) => m.isActive).length;
   const publishedPosts = posts.filter((p) => p.isPublished).length;
   const draftPosts = posts.length - publishedPosts;
   const activeAreas = areas.filter((a) => a.isActive).length;
+  const activeTestimonials = testimonials.filter((t) => t.isActive).length;
+  const activeGallery = gallery.filter((g) => g.isActive).length;
+  const activeFaq = faq.filter((f) => f.isActive).length;
 
   const PALETTE_LABELS: Record<string, string> = {
     navy: "Marinho clássico",
@@ -51,9 +61,39 @@ export default async function AdminDashboard() {
       meta: `${activeMembers} membro${activeMembers === 1 ? "" : "s"} ativo${activeMembers === 1 ? "" : "s"}`,
     },
     {
+      href: "/admin/testimonials",
+      title: "Depoimentos",
+      description:
+        "Provas sociais de pacientes/clientes — texto + foto + estrelas.",
+      meta:
+        activeTestimonials > 0
+          ? `${activeTestimonials} ativo${activeTestimonials === 1 ? "" : "s"}`
+          : "Nenhum cadastrado",
+    },
+    {
+      href: "/admin/gallery",
+      title: "Galeria",
+      description:
+        "Fotos do trabalho ou antes/depois (transformações de pacientes).",
+      meta:
+        activeGallery > 0
+          ? `${activeGallery} foto${activeGallery === 1 ? "" : "s"} ativa${activeGallery === 1 ? "" : "s"}`
+          : "Nenhuma foto",
+    },
+    {
+      href: "/admin/faq",
+      title: "FAQ",
+      description:
+        "Perguntas frequentes — multi-idioma, expansíveis na home.",
+      meta:
+        activeFaq > 0
+          ? `${activeFaq} pergunta${activeFaq === 1 ? "" : "s"}`
+          : "Nenhuma cadastrada",
+    },
+    {
       href: "/admin/artigos",
       title: "Artigos",
-      description: "Publicar, editar e remover posts do blog da banca.",
+      description: "Publicar, editar e remover posts do blog.",
       meta:
         draftPosts > 0
           ? `${publishedPosts} publicado${publishedPosts === 1 ? "" : "s"} · ${draftPosts} rascunho${draftPosts === 1 ? "" : "s"}`

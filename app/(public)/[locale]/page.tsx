@@ -3,7 +3,8 @@ import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import Areas from "@/components/Areas";
 import Equipe from "@/components/Equipe";
-import QuandoProcurar from "@/components/QuandoProcurar";
+import Testimonials from "@/components/Testimonials";
+import Gallery from "@/components/Gallery";
 import FAQ from "@/components/FAQ";
 import ArtigosSection from "@/components/ArtigosSection";
 import Contato from "@/components/Contato";
@@ -25,7 +26,8 @@ export default async function Home({ params }: Props) {
       <TrustBar />
       <Areas />
       <Equipe />
-      <QuandoProcurar />
+      <Gallery />
+      <Testimonials />
       <FAQ />
       <ArtigosSection />
       <Contato />
