@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import WhatsAppCTA from "./WhatsAppCTA";
 import OrganicDecor from "./OrganicDecor";
-import { getSiteSettings } from "@/lib/settings";
+import { getSiteSettings, PASTEL_PALETTES } from "@/lib/settings";
 import { renderHeroHeading } from "@/lib/hero-text";
 import { resolveSiteData } from "@/lib/site";
 import { pickLocale, type Locale } from "@/i18n/config";
@@ -16,8 +16,17 @@ export default async function Hero() {
   const siteData = resolveSiteData(settings);
   const useImage = settings.heroMode === "image" && settings.heroImageUrl;
 
+  // Background custom sobrescreve a foto default do .hero-grad. Mas em
+  // paletas pastel, o CSS força gradient da paleta — não devemos sobrepor
+  // a foto via style inline (style inline ganha de CSS).
+  const isPastel = PASTEL_PALETTES.includes(settings.palette);
+  const heroBgStyle =
+    !isPastel && settings.heroBackgroundUrl
+      ? { backgroundImage: `url("${settings.heroBackgroundUrl}")` }
+      : undefined;
+
   return (
-    <section className="hero-grad text-light relative">
+    <section className="hero-grad text-light relative" style={heroBgStyle}>
       <OrganicDecor variant="hero" />
       <div className="relative max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10 items-center" style={{ zIndex: 2 }}>
         <div className="md:col-span-7">

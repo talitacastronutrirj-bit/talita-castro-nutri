@@ -783,6 +783,39 @@ export default async function AppearancePage({
                 ou GIF, até 5MB. A imagem fica hospedada no Cloudinary.
               </p>
             </div>
+
+            <div>
+              <label
+                className="block text-sm font-medium mb-2"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                Imagem de FUNDO do hero{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (atrás dos textos — opcional)
+                </span>
+              </label>
+              <ImageUpload
+                name="heroBackgroundUrl"
+                context="hero"
+                aspectRatio="wide"
+                defaultValue={settings.heroBackgroundUrl}
+                label="Selecionar imagem de fundo"
+              />
+              <p
+                className="text-[11px] text-dark mt-2"
+                style={{ opacity: 0.6 }}
+              >
+                Aparece atrás dos textos do hero (com sobreposição da paleta
+                pra garantir legibilidade). Se vazio, usa a imagem padrão do
+                template (ingredientes frescos). <strong>Dica:</strong> escolha
+                fotos horizontais com bastante área neutra. Em paletas pastel
+                (sage/blush/honey/mint), a imagem é ignorada — usa só o
+                gradient da paleta.
+              </p>
+            </div>
           </div>
         </section>
 

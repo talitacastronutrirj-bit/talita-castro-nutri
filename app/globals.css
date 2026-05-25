@@ -338,7 +338,9 @@ body {
    ============================================ */
 .hero-grad {
   position: relative;
-  background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&q=80') center/cover;
+  /* Default: ingredientes frescos / wellness — neutro pra várias áreas de saúde.
+     Cliente sobrescreve via admin (settings.heroBackgroundUrl) com foto própria. */
+  background: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1800&q=80') center/cover;
   isolation: isolate;
 }
 .hero-grad::before,

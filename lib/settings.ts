@@ -71,7 +71,8 @@ export type SiteSettings = {
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;
   heroMode: HeroMode;
-  heroImageUrl: string;
+  heroImageUrl: string;       // Foto que aparece NO CARD do hero quando heroMode=image
+  heroBackgroundUrl: string;  // Imagem de FUNDO do hero (atrás dos textos) — "" cai pro CSS default
   heroLogoEntrance: HeroEntrance;
   heroLogoIdle: HeroIdle;
   instagramUrl: string;
@@ -110,6 +111,7 @@ const DEFAULTS: SiteSettings = {
   palette: "navy",
   heroMode: "logo",
   heroImageUrl: "",
+  heroBackgroundUrl: "",
   heroLogoEntrance: "slide",
   heroLogoIdle: "none",
   instagramUrl: "",
@@ -155,6 +157,7 @@ const KEY_MAP = {
   palette: "palette",
   heroMode: "hero_mode",
   heroImageUrl: "hero_image_url",
+  heroBackgroundUrl: "hero_background_url",
   heroLogoEntrance: "hero_logo_entrance",
   heroLogoIdle: "hero_logo_idle",
   instagramUrl: "instagram_url",
@@ -254,6 +257,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       heroMode:
         (getScalar(map, "heroMode") as HeroMode) || DEFAULTS.heroMode,
       heroImageUrl: getScalar(map, "heroImageUrl") || DEFAULTS.heroImageUrl,
+      heroBackgroundUrl:
+        getScalar(map, "heroBackgroundUrl") || DEFAULTS.heroBackgroundUrl,
       heroLogoEntrance:
         (getScalar(map, "heroLogoEntrance") as HeroEntrance) ||
         DEFAULTS.heroLogoEntrance,

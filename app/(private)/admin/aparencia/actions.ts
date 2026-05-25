@@ -66,6 +66,7 @@ export async function saveAppearance(formData: FormData) {
   const palette = String(formData.get("palette") ?? "") as Palette;
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
   const heroImageUrl = String(formData.get("heroImageUrl") ?? "").trim();
+  const heroBackgroundUrl = String(formData.get("heroBackgroundUrl") ?? "").trim();
   const heroLogoEntrance = String(
     formData.get("heroLogoEntrance") ?? ""
   ) as HeroEntrance;
@@ -118,6 +119,7 @@ export async function saveAppearance(formData: FormData) {
     palette,
     heroMode,
     heroImageUrl,
+    heroBackgroundUrl,
     heroLogoEntrance,
     heroLogoIdle,
     heroEyebrow,
