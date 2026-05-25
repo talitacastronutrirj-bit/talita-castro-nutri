@@ -44,7 +44,7 @@ export default async function PostsListPage({
             Artigos
           </h2>
           <p className="text-sm text-dark" style={{ opacity: 0.7 }}>
-            Posts publicados e rascunhos do blog da banca.
+            Posts publicados e rascunhos do blog do site.
           </p>
         </div>
         <div className="flex items-center gap-3">

@@ -16,7 +16,7 @@ type Props = {
   style?: React.CSSProperties;
   children: React.ReactNode;
   ariaLabel?: string;
-  /** Qual escritório o usuário quer falar com. Se omitido, mostra todos. */
+  /** ID da unidade/filial específica. Se omitido, usa o WhatsApp principal. */
   office?: string;
   /** WhatsApp principal vindo do admin (override do fallback estático). */
   primaryWhatsapp?: PrimaryWhatsapp;

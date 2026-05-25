@@ -60,7 +60,7 @@ export default async function AdminDashboard() {
       href: "/admin/equipe",
       title: "Equipe",
       description:
-        "Adicionar, remover e reordenar advogados e equipe de apoio.",
+        "Adicionar, remover e reordenar profissionais e equipe de apoio.",
       meta: `${activeMembers} membro${activeMembers === 1 ? "" : "s"} ativo${activeMembers === 1 ? "" : "s"}`,
     },
     {

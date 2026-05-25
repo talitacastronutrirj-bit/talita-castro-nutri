@@ -441,8 +441,8 @@ export default async function AppearancePage({
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
             A faixa escura abaixo do hero, com 4 indicadores rápidos do
-            escritório. Deixe um <em>valor</em> vazio para esconder aquele
-            item (a barra se reorganiza automaticamente).
+            site. Deixe um <em>valor</em> vazio para esconder aquele item
+            (a barra se reorganiza automaticamente).
           </p>
 
           <div className="space-y-6">
@@ -587,8 +587,8 @@ export default async function AppearancePage({
             Redes sociais
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
-            URLs das redes sociais do escritório. Os ícones aparecem no rodapé
-            do site apenas se o link estiver preenchido.
+            URLs das redes sociais. Os ícones aparecem no rodapé do site
+            apenas se o link estiver preenchido.
           </p>
 
           <div className="space-y-4">
@@ -605,7 +605,7 @@ export default async function AppearancePage({
                 name="instagramUrl"
                 type="url"
                 defaultValue={settings.instagramUrl}
-                placeholder="https://www.instagram.com/nogueiraportoadvogados/"
+                placeholder="https://www.instagram.com/seuperfil/"
                 className="block w-full rounded-lg border px-3 py-2 text-sm"
                 style={{
                   borderColor: "var(--border-soft)",
@@ -627,7 +627,7 @@ export default async function AppearancePage({
                 name="facebookUrl"
                 type="url"
                 defaultValue={settings.facebookUrl}
-                placeholder="https://www.facebook.com/nogueiraportoadv/"
+                placeholder="https://www.facebook.com/suapagina/"
                 className="block w-full rounded-lg border px-3 py-2 text-sm"
                 style={{
                   borderColor: "var(--border-soft)",
@@ -655,7 +655,7 @@ export default async function AppearancePage({
                 name="linkedinUrl"
                 type="url"
                 defaultValue={settings.linkedinUrl}
-                placeholder="https://www.linkedin.com/company/nogueira-porto-advogados/"
+                placeholder="https://www.linkedin.com/company/sua-empresa/"
                 className="block w-full rounded-lg border px-3 py-2 text-sm"
                 style={{
                   borderColor: "var(--border-soft)",
@@ -698,10 +698,10 @@ export default async function AppearancePage({
                   className="font-medium text-sm mb-1"
                   style={{ color: "var(--bg-dark)" }}
                 >
-                  Logo da banca
+                  Logo do site
                 </div>
                 <div className="text-xs text-dark" style={{ opacity: 0.7 }}>
-                  Mostra a logo NP com efeitos animados configuráveis abaixo.
+                  Mostra o logo configurado acima com efeitos animados.
                 </div>
               </label>
 

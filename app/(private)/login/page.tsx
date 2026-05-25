@@ -38,10 +38,10 @@ export default async function LoginPage({
             className="font-serif text-3xl mb-2"
             style={{ color: "var(--bg-dark)" }}
           >
-            Painel da banca
+            Painel do site
           </h1>
           <p className="text-sm text-dark mb-8" style={{ opacity: 0.7 }}>
-            Entre com a senha de administrador para gerenciar o site.
+            Entre com a senha de administrador para gerenciar o conteúdo.
           </p>
 
           {errorMsg && (

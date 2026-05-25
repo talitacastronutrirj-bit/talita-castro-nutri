@@ -86,7 +86,7 @@ export default function TeamMemberForm({
             type="text"
             required
             defaultValue={member?.role ?? ""}
-            placeholder="Ex: Sócio fundador, Advogada, Assistente Jurídica"
+            placeholder="Ex: Fundador, Especialista, Assistente"
             className="block w-full rounded-lg border px-3 py-2 text-sm"
             style={{
               borderColor: "var(--border-soft)",

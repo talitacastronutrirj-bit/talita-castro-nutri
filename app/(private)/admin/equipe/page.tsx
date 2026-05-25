@@ -47,7 +47,7 @@ export default async function TeamListPage({
             className="text-sm text-dark"
             style={{ opacity: 0.7 }}
           >
-            Advogados e equipe de apoio que aparecem na seção &quot;A banca&quot;.
+            Profissionais e equipe de apoio que aparecem na seção &quot;Equipe&quot;.
           </p>
         </div>
         <div className="flex items-center gap-3">
