@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { site } from "@/lib/site";
+import { site, resolveSiteData } from "@/lib/site";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function Footer() {
@@ -8,6 +8,7 @@ export default async function Footer() {
     getSiteSettings(),
     getTranslations(),
   ]);
+  const siteData = resolveSiteData(settings);
 
   type SocialLink = { label: string; href: string; icon: React.ReactNode };
   const socialLinks: SocialLink[] = [];
@@ -42,14 +43,15 @@ export default async function Footer() {
         {/* Coluna 1: logo + descrição + redes sociais */}
         <div className="md:col-span-4">
           <Image
-            src="/images/logo.png"
-            alt={site.name}
+            src={siteData.logoUrl}
+            alt={siteData.name}
             width={160}
             height={80}
             className="h-20 w-auto mb-4"
+            unoptimized={siteData.logoUrl.startsWith("https://res.cloudinary.com")}
           />
           <p className="leading-relaxed text-xs">
-            {site.name}. Atendimento jurídico personalizado.
+            {siteData.name}.
           </p>
 
           {socialLinks.length > 0 && (
@@ -75,63 +77,50 @@ export default async function Footer() {
         </div>
 
         {/* Coluna 2: credenciais (CRN / OAB / etc) */}
-        {site.credential.numbers.length > 0 && (
+        {siteData.credential.numbers.length > 0 && (
           <div className="md:col-span-3">
             <div className="text-light font-medium mb-3">
               {t("labels.credentials")}
             </div>
             <ul className="space-y-1 text-xs">
-              {site.credential.numbers.map((n) => (
+              {siteData.credential.numbers.map((n) => (
                 <li key={n}>
-                  {site.credential.type} {n}
+                  {siteData.credential.type} {n}
                 </li>
               ))}
             </ul>
           </div>
         )}
 
-        {/* Coluna 3: endereços (todos os escritórios) */}
-        {site.offices.length > 0 && (
+        {/* Coluna 3: contato (WhatsApp principal + email) */}
+        {(siteData.primaryWhatsapp.number || siteData.email) && (
           <div className="md:col-span-5">
             <div className="text-light font-medium mb-3">
-              {t("labels.offices")}
+              {t("labels.contact")}
             </div>
-            <ul className="space-y-4 text-xs">
-              {site.offices.map((o) => (
-                <li key={o.id}>
-                  <div className="text-light font-medium mb-0.5">
-                    {o.city} · {o.state}
-                  </div>
-                  <div className="leading-relaxed">
-                    {o.address}
-                    {o.neighborhood && (
-                      <>
-                        <br />
-                        {o.neighborhood}
-                      </>
-                    )}
-                  </div>
+            <ul className="space-y-2 text-xs">
+              {siteData.primaryWhatsapp.number && (
+                <li>
                   <a
-                    href={o.whatsapp.href}
+                    href={siteData.primaryWhatsapp.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-1 hover:text-accent"
+                    className="hover:text-accent"
                   >
-                    {o.whatsapp.display}
+                    {siteData.primaryWhatsapp.display}
                   </a>
                 </li>
-              ))}
-              <li
-                className="pt-2 border-t"
-                style={{ borderColor: "var(--border-soft-dark)" }}
-              >
-                <a
-                  href={`mailto:${site.email}`}
-                  className="hover:text-accent"
-                >
-                  {site.email}
-                </a>
-              </li>
+              )}
+              {siteData.email && (
+                <li>
+                  <a
+                    href={`mailto:${siteData.email}`}
+                    className="hover:text-accent"
+                  >
+                    {siteData.email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         )}
@@ -143,7 +132,7 @@ export default async function Footer() {
       >
         <div className="max-w-6xl mx-auto px-6 py-5 text-xs flex flex-wrap gap-3 justify-between text-light-soft-2">
           <span>
-            © {new Date().getFullYear()} {site.name}. {t("footer.rightsReserved")}.
+            © {new Date().getFullYear()} {siteData.name}. {t("footer.rightsReserved")}.
           </span>
           <span>{site.url.replace(/^https?:\/\//, "")}</span>
         </div>

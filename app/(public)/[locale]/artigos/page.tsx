@@ -4,7 +4,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getAllPosts, formatDate } from "@/lib/posts";
 import { pickLocale, type Locale } from "@/i18n/config";
-import { site } from "@/lib/site";
+import { resolveSiteData } from "@/lib/site";
+import { getSiteSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
   title: "Artigos",
@@ -18,7 +19,12 @@ export default async function ArtigosListPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [posts, t] = await Promise.all([getAllPosts(), getTranslations()]);
+  const [posts, t, settings] = await Promise.all([
+    getAllPosts(),
+    getTranslations(),
+    getSiteSettings(),
+  ]);
+  const siteData = resolveSiteData(settings);
 
   return (
     <section className="py-16 md:py-24">
@@ -68,7 +74,7 @@ export default async function ArtigosListPage({ params }: Props) {
                         style={{ background: "var(--bg-dark)" }}
                       >
                         <span className="font-serif text-6xl text-accent">
-                          {site.shortName.slice(0, 2).toUpperCase()}
+                          {siteData.shortName.slice(0, 2).toUpperCase()}
                         </span>
                       </div>
                     )}

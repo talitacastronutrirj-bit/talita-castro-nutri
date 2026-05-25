@@ -5,6 +5,12 @@ import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
 import { site } from "@/lib/site";
 
+type PrimaryWhatsapp = {
+  number: string;
+  display: string;
+  href: string;
+};
+
 type Props = {
   className?: string;
   style?: React.CSSProperties;
@@ -12,6 +18,10 @@ type Props = {
   ariaLabel?: string;
   /** Qual escritório o usuário quer falar com. Se omitido, mostra todos. */
   office?: string;
+  /** WhatsApp principal vindo do admin (override do fallback estático). */
+  primaryWhatsapp?: PrimaryWhatsapp;
+  /** Nome do site/profissional (override do fallback estático). */
+  siteName?: string;
 };
 
 export default function WhatsAppCTA({
@@ -20,6 +30,8 @@ export default function WhatsAppCTA({
   children,
   ariaLabel,
   office,
+  primaryWhatsapp,
+  siteName,
 }: Props) {
   const t = useTranslations();
   const [open, setOpen] = useState(false);
@@ -48,6 +60,9 @@ export default function WhatsAppCTA({
     ? site.offices.filter((o) => o.id === office)
     : site.offices;
 
+  const effectivePrimary = primaryWhatsapp ?? site.primaryWhatsapp;
+  const effectiveName = siteName ?? site.name;
+
   // Se só tem 1 WhatsApp pra mostrar (ou caiu no primaryWhatsapp), abre
   // direto sem modal — UX mais ágil. Modal só faz sentido com múltiplas
   // opções pra escolher.
@@ -55,7 +70,7 @@ export default function WhatsAppCTA({
   const directHref =
     officesToShow.length === 1
       ? officesToShow[0].whatsapp.href
-      : site.primaryWhatsapp.href;
+      : effectivePrimary.href;
 
   if (skipModal) {
     return (
@@ -133,7 +148,7 @@ export default function WhatsAppCTA({
                   <div className="gold-rule w-16 mb-5" />
 
                   <p className="text-sm leading-relaxed mb-5 text-dark">
-                    {site.name}
+                    {effectiveName}
                   </p>
 
                   <div className="space-y-2.5">

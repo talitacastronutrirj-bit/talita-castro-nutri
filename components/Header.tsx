@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { site } from "@/lib/site";
+import { resolveSiteData } from "@/lib/site";
+import { getSiteSettings } from "@/lib/settings";
 import WhatsAppCTA from "./WhatsAppCTA";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default async function Header() {
-  const t = await getTranslations();
+  const [t, settings] = await Promise.all([
+    getTranslations(),
+    getSiteSettings(),
+  ]);
+  const siteData = resolveSiteData(settings);
 
   return (
     <header
@@ -19,8 +24,8 @@ export default async function Header() {
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
-            src="/images/logo.png"
-            alt={site.name}
+            src={siteData.logoUrl}
+            alt={siteData.name}
             width={180}
             height={72}
             priority
@@ -28,6 +33,7 @@ export default async function Header() {
             style={{
               filter: "drop-shadow(0 0 2px rgba(12,31,61,0.25))",
             }}
+            unoptimized={siteData.logoUrl.startsWith("https://res.cloudinary.com")}
           />
         </Link>
 
@@ -54,7 +60,11 @@ export default async function Header() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          <WhatsAppCTA className="hidden md:inline-flex items-center gap-2 btn-dark px-4 py-2 rounded-full text-sm font-medium">
+          <WhatsAppCTA
+            primaryWhatsapp={siteData.primaryWhatsapp}
+            siteName={siteData.name}
+            className="hidden md:inline-flex items-center gap-2 btn-dark px-4 py-2 rounded-full text-sm font-medium"
+          >
             {t("cta.talkNow")}
             <svg
               className="w-4 h-4"

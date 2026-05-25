@@ -1,9 +1,18 @@
 import { getTranslations } from "next-intl/server";
-import { site } from "@/lib/site";
+import { site, resolveSiteData } from "@/lib/site";
+import { getSiteSettings } from "@/lib/settings";
 import WhatsAppCTA from "./WhatsAppCTA";
 
 export default async function Contato() {
-  const t = await getTranslations();
+  const [t, settings] = await Promise.all([
+    getTranslations(),
+    getSiteSettings(),
+  ]);
+  const siteData = resolveSiteData(settings);
+
+  if (!siteData.email && !siteData.primaryWhatsapp.number && site.offices.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -48,6 +57,8 @@ export default async function Contato() {
                 </div>
                 <WhatsAppCTA
                   office={o.id}
+                  primaryWhatsapp={siteData.primaryWhatsapp}
+                  siteName={siteData.name}
                   className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold text-sm w-full justify-center"
                 >
                   <svg
@@ -64,22 +75,40 @@ export default async function Contato() {
           </div>
         )}
 
-        <div className="text-center">
-          <a
-            href={`mailto:${site.email}`}
-            className="inline-flex items-center gap-2 btn-outline-light px-7 py-4 rounded-full font-medium"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+          {siteData.primaryWhatsapp.number && (
+            <WhatsAppCTA
+              primaryWhatsapp={siteData.primaryWhatsapp}
+              siteName={siteData.name}
+              className="inline-flex items-center gap-2 btn-primary px-7 py-4 rounded-full font-semibold"
             >
-              <path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            {site.email}
-          </a>
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M20.52 3.48A12 12 0 003.45 20.42L2 22l1.66-1.42a12 12 0 0016.86-17.1zM12 20a8 8 0 01-4.07-1.11l-.29-.17-3 .8.8-2.92-.18-.3A8 8 0 1112 20z" />
+              </svg>
+              {t("cta.whatsappShort")} · {siteData.primaryWhatsapp.display}
+            </WhatsAppCTA>
+          )}
+          {siteData.email && (
+            <a
+              href={`mailto:${siteData.email}`}
+              className="inline-flex items-center gap-2 btn-outline-light px-7 py-4 rounded-full font-medium"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {siteData.email}
+            </a>
+          )}
         </div>
       </div>
     </section>

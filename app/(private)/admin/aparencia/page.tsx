@@ -76,8 +76,240 @@ export default async function AppearancePage({
         className="space-y-8 rounded-2xl border bg-page p-6 md:p-8"
         style={{ borderColor: "var(--border-soft)" }}
       >
-        {/* ============ PALETA ============ */}
+        {/* ============ IDENTIFICAÇÃO DO PROFISSIONAL ============ */}
         <section>
+          <h3
+            className="font-serif text-lg font-semibold mb-1"
+            style={{ color: "var(--bg-dark)" }}
+          >
+            Identificação
+          </h3>
+          <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
+            Seus dados profissionais. Aparecem no Header, Footer, metadata
+            (Google) e no botão flutuante de WhatsApp.
+          </p>
+
+          <div className="space-y-4">
+            {/* Logo */}
+            <div>
+              <label
+                className="block text-sm font-medium mb-2"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                Logo / marca
+              </label>
+              <ImageUpload
+                name="logoUrl"
+                context="hero"
+                aspectRatio="wide"
+                defaultValue={settings.logoUrl}
+                label="Selecionar logo"
+              />
+              <p
+                className="text-[11px] text-dark mt-1.5"
+                style={{ opacity: 0.6 }}
+              >
+                Idealmente PNG com fundo transparente. Se vazio, usa
+                <code> /images/logo.png </code> (placeholder do template).
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="siteName"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  Nome completo / nome do negócio
+                </label>
+                <input
+                  id="siteName"
+                  name="siteName"
+                  type="text"
+                  defaultValue={settings.siteName}
+                  placeholder="Ex: Talita Castro · Nutricionista"
+                  className="block w-full rounded-lg border px-3 py-2 text-sm"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="siteShortName"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  Nome curto{" "}
+                  <span
+                    className="font-normal text-dark"
+                    style={{ opacity: 0.6 }}
+                  >
+                    (atalho usado em copyright)
+                  </span>
+                </label>
+                <input
+                  id="siteShortName"
+                  name="siteShortName"
+                  type="text"
+                  defaultValue={settings.siteShortName}
+                  placeholder="Ex: Talita Castro"
+                  className="block w-full rounded-lg border px-3 py-2 text-sm"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="contactEmail"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  Email institucional
+                </label>
+                <input
+                  id="contactEmail"
+                  name="contactEmail"
+                  type="email"
+                  defaultValue={settings.contactEmail}
+                  placeholder="contato@exemplo.com"
+                  className="block w-full rounded-lg border px-3 py-2 text-sm"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="credentialType"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  Tipo de credencial{" "}
+                  <span
+                    className="font-normal text-dark"
+                    style={{ opacity: 0.6 }}
+                  >
+                    (CRN, OAB, CRM, CREA…)
+                  </span>
+                </label>
+                <input
+                  id="credentialType"
+                  name="credentialType"
+                  type="text"
+                  defaultValue={settings.credentialType}
+                  placeholder="Ex: CRN-4"
+                  maxLength={16}
+                  className="block w-full rounded-lg border px-3 py-2 text-sm"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                htmlFor="credentialNumbers"
+                className="block text-sm font-medium mb-1.5"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                Números da credencial{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (um por linha)
+                </span>
+              </label>
+              <textarea
+                id="credentialNumbers"
+                name="credentialNumbers"
+                rows={2}
+                defaultValue={settings.credentialNumbers.join("\n")}
+                placeholder="12345&#10;67890"
+                className="block w-full rounded-lg border px-3 py-2 text-sm font-mono"
+                style={{
+                  borderColor: "var(--border-soft)",
+                  background: "white",
+                }}
+              />
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  htmlFor="primaryWhatsappNumber"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  WhatsApp{" "}
+                  <span
+                    className="font-normal text-dark"
+                    style={{ opacity: 0.6 }}
+                  >
+                    (DDI+DDD+número, só dígitos)
+                  </span>
+                </label>
+                <input
+                  id="primaryWhatsappNumber"
+                  name="primaryWhatsappNumber"
+                  type="text"
+                  defaultValue={settings.primaryWhatsappNumber}
+                  placeholder="Ex: 5521987654321"
+                  pattern="\d*"
+                  className="block w-full rounded-lg border px-3 py-2 text-sm font-mono"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="primaryWhatsappDisplay"
+                  className="block text-sm font-medium mb-1.5"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  WhatsApp formatado{" "}
+                  <span
+                    className="font-normal text-dark"
+                    style={{ opacity: 0.6 }}
+                  >
+                    (como aparece pro usuário)
+                  </span>
+                </label>
+                <input
+                  id="primaryWhatsappDisplay"
+                  name="primaryWhatsappDisplay"
+                  type="text"
+                  defaultValue={settings.primaryWhatsappDisplay}
+                  placeholder="Ex: (21) 98765-4321"
+                  className="block w-full rounded-lg border px-3 py-2 text-sm"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ PALETA ============ */}
+        <section className="pt-6 border-t" style={{ borderColor: "var(--border-soft)" }}>
           <h3
             className="font-serif text-lg font-semibold mb-1"
             style={{ color: "var(--bg-dark)" }}

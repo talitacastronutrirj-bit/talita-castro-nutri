@@ -47,6 +47,17 @@ export type HeroIdle = "none" | "float" | "pulse" | "slowrotate";
 export type BookingMode = "whatsapp" | "calendly" | "both";
 
 export type SiteSettings = {
+  // ─── Identificação do profissional (editável pelo admin) ───
+  // Sobrescrevem os defaults de lib/site.ts. Vazios = usa lib/site.ts.
+  siteName: string;
+  siteShortName: string;
+  contactEmail: string;
+  credentialType: string;        // "CRN-4", "OAB/RJ", "CRM/SP", etc
+  credentialNumbers: string[];   // ["12345", "67890"]
+  primaryWhatsappNumber: string; // "5521987654321" (DDI + DDD + número)
+  primaryWhatsappDisplay: string; // "(21) 98765-4321"
+  logoUrl: string;               // URL Cloudinary OU "" (cai pra /images/logo.png)
+
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;
   heroMode: HeroMode;
@@ -76,6 +87,16 @@ export type SiteSettings = {
 // ─── Defaults (template — cliente substitui via admin) ────────
 
 const DEFAULTS: SiteSettings = {
+  // Identificação — vazios = usa fallback de lib/site.ts
+  siteName: "",
+  siteShortName: "",
+  contactEmail: "",
+  credentialType: "",
+  credentialNumbers: [],
+  primaryWhatsappNumber: "",
+  primaryWhatsappDisplay: "",
+  logoUrl: "",
+
   palette: "navy",
   heroMode: "logo",
   heroImageUrl: "",
@@ -111,6 +132,15 @@ const DEFAULTS: SiteSettings = {
 // ─── Mapeamento JS → DB ──────────────────────────────────────
 
 const KEY_MAP = {
+  // identificação
+  siteName: "site_name",
+  siteShortName: "site_short_name",
+  contactEmail: "contact_email",
+  credentialType: "credential_type",
+  credentialNumbers: "credential_numbers",
+  primaryWhatsappNumber: "primary_whatsapp_number",
+  primaryWhatsappDisplay: "primary_whatsapp_display",
+  logoUrl: "logo_url",
   // scalars
   palette: "palette",
   heroMode: "hero_mode",
@@ -185,7 +215,30 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     const map = new Map<string, string>();
     for (const r of rows) map.set(r.key, r.value);
 
+    // Parser pra array de strings (newline-separated). Usado em credentialNumbers.
+    const credentialNumbersRaw = getScalar(map, "credentialNumbers");
+    const credentialNumbers = credentialNumbersRaw
+      ? credentialNumbersRaw
+          .split("\n")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+      : DEFAULTS.credentialNumbers;
+
     return {
+      siteName: getScalar(map, "siteName") || DEFAULTS.siteName,
+      siteShortName: getScalar(map, "siteShortName") || DEFAULTS.siteShortName,
+      contactEmail: getScalar(map, "contactEmail") || DEFAULTS.contactEmail,
+      credentialType:
+        getScalar(map, "credentialType") || DEFAULTS.credentialType,
+      credentialNumbers,
+      primaryWhatsappNumber:
+        getScalar(map, "primaryWhatsappNumber") ||
+        DEFAULTS.primaryWhatsappNumber,
+      primaryWhatsappDisplay:
+        getScalar(map, "primaryWhatsappDisplay") ||
+        DEFAULTS.primaryWhatsappDisplay,
+      logoUrl: getScalar(map, "logoUrl") || DEFAULTS.logoUrl,
+
       palette:
         (getScalar(map, "palette") as Palette) || DEFAULTS.palette,
       heroMode:
@@ -279,6 +332,13 @@ export async function updateSiteSettings(
       updates.push({
         key: dbKey,
         value: JSON.stringify(value),
+      });
+    } else if (Array.isArray(value)) {
+      // Array de strings (credentialNumbers) — junta com newline pra
+      // ficar legível no DB e fácil de editar como textarea
+      updates.push({
+        key: dbKey,
+        value: value.join("\n"),
       });
     } else {
       // Scalar — converte pra string

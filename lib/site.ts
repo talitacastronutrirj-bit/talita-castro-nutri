@@ -12,6 +12,56 @@
 // 1. Edita `name`, `url`, `email` aqui
 // 2. Tudo o resto é editado via /admin
 
+// Helpers que combinam dados das settings (DB, editável) com fallback
+// pros valores estáticos de `site`. Usar em componentes públicos pra
+// pegar nome/logo/WhatsApp corretos.
+
+import type { SiteSettings } from "./settings";
+
+export function resolveSiteData(settings: SiteSettings) {
+  return {
+    name:
+      settings.siteName.trim().length > 0
+        ? settings.siteName
+        : site.name,
+    shortName:
+      settings.siteShortName.trim().length > 0
+        ? settings.siteShortName
+        : site.shortName,
+    email:
+      settings.contactEmail.trim().length > 0
+        ? settings.contactEmail
+        : site.email,
+    logoUrl:
+      settings.logoUrl.trim().length > 0
+        ? settings.logoUrl
+        : "/images/logo.png",
+    credential: {
+      type:
+        settings.credentialType.trim().length > 0
+          ? settings.credentialType
+          : site.credential.type,
+      numbers:
+        settings.credentialNumbers.length > 0
+          ? settings.credentialNumbers
+          : site.credential.numbers,
+    },
+    primaryWhatsapp:
+      settings.primaryWhatsappNumber.trim().length > 0
+        ? {
+            number: settings.primaryWhatsappNumber,
+            display:
+              settings.primaryWhatsappDisplay.trim().length > 0
+                ? settings.primaryWhatsappDisplay
+                : settings.primaryWhatsappNumber,
+            href: `https://wa.me/${settings.primaryWhatsappNumber}?text=${encodeURIComponent(
+              "Olá, gostaria de uma orientação profissional."
+            )}`,
+          }
+        : site.primaryWhatsapp,
+  };
+}
+
 export const site = {
   // Nome do profissional / negócio
   name: "Novo Site",

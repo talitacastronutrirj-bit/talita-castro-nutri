@@ -24,6 +24,7 @@
   "labels": {
     "credentials": "Credentials",
     "offices": "Offices",
+    "contact": "Contact",
     "yearsOfExperience": "years of experience",
     "location": "Location",
     "specialty": "Specialty",

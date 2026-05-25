@@ -3,14 +3,17 @@ import { Link } from "@/i18n/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getAllPosts, formatDate } from "@/lib/posts";
 import { pickLocale, type Locale } from "@/i18n/config";
-import { site } from "@/lib/site";
+import { resolveSiteData } from "@/lib/site";
+import { getSiteSettings } from "@/lib/settings";
 
 export default async function ArtigosSection() {
-  const [posts, locale, t] = await Promise.all([
+  const [posts, locale, t, settings] = await Promise.all([
     getAllPosts().then((p) => p.slice(0, 2)),
     getLocale() as Promise<Locale>,
     getTranslations(),
+    getSiteSettings(),
   ]);
+  const siteData = resolveSiteData(settings);
 
   if (posts.length === 0) return null;
 
@@ -59,7 +62,7 @@ export default async function ArtigosSection() {
                       style={{ background: "var(--bg-dark)" }}
                     >
                       <span className="font-serif text-6xl text-accent">
-                        {site.shortName.slice(0, 2).toUpperCase()}
+                        {siteData.shortName.slice(0, 2).toUpperCase()}
                       </span>
                     </div>
                   )}

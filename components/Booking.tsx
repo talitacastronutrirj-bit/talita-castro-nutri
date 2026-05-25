@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { getSiteSettings } from "@/lib/settings";
-import { site } from "@/lib/site";
+import { site, resolveSiteData } from "@/lib/site";
 import WhatsAppCTA from "./WhatsAppCTA";
 
 // =================================================================
@@ -21,6 +21,7 @@ export default async function Booking() {
     getSiteSettings(),
     getTranslations(),
   ]);
+  const siteData = resolveSiteData(settings);
 
   const wantsCalendly =
     settings.bookingMode === "calendly" || settings.bookingMode === "both";
@@ -33,7 +34,7 @@ export default async function Booking() {
 
   const hasWhatsApp =
     wantsWhatsApp &&
-    (site.offices.length > 0 || Boolean(site.primaryWhatsapp.number));
+    (site.offices.length > 0 || Boolean(siteData.primaryWhatsapp.number));
 
   if (!hasCalendly && !hasWhatsApp) return null;
 
@@ -92,9 +93,13 @@ export default async function Booking() {
               </div>
               <h3 className="font-serif text-2xl mb-2">{t("cta.whatsapp")}</h3>
               <p className="text-sm text-light-soft mb-6">
-                {site.name}
+                {siteData.name}
               </p>
-              <WhatsAppCTA className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold">
+              <WhatsAppCTA
+                primaryWhatsapp={siteData.primaryWhatsapp}
+                siteName={siteData.name}
+                className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold"
+              >
                 {t("cta.talkNow")}
                 <svg
                   className="w-4 h-4"

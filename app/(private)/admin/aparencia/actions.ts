@@ -37,6 +37,27 @@ export async function saveAppearance(formData: FormData) {
   const session = await getSession();
   if (!session) redirect("/login");
 
+  // ─── Identificação do profissional ────────────────────────
+  const siteName = String(formData.get("siteName") ?? "").trim();
+  const siteShortName = String(formData.get("siteShortName") ?? "").trim();
+  const contactEmail = String(formData.get("contactEmail") ?? "").trim();
+  const credentialType = String(formData.get("credentialType") ?? "").trim();
+  const credentialNumbersRaw = String(
+    formData.get("credentialNumbers") ?? ""
+  );
+  const credentialNumbers = credentialNumbersRaw
+    .split("\n")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+  const primaryWhatsappNumber = String(
+    formData.get("primaryWhatsappNumber") ?? ""
+  )
+    .replace(/[^\d]/g, ""); // só dígitos (DDI + DDD + número)
+  const primaryWhatsappDisplay = String(
+    formData.get("primaryWhatsappDisplay") ?? ""
+  ).trim();
+  const logoUrl = String(formData.get("logoUrl") ?? "").trim();
+
   // ─── Scalars ──────────────────────────────────────────────
   const palette = String(formData.get("palette") ?? "") as Palette;
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
@@ -82,6 +103,14 @@ export async function saveAppearance(formData: FormData) {
   }
 
   await updateSiteSettings({
+    siteName,
+    siteShortName,
+    contactEmail,
+    credentialType,
+    credentialNumbers,
+    primaryWhatsappNumber,
+    primaryWhatsappDisplay,
+    logoUrl,
     palette,
     heroMode,
     heroImageUrl,

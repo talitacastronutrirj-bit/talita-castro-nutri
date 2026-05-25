@@ -18,7 +18,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingWhatsapp from "@/components/FloatingWhatsapp";
 import { getSiteSettings } from "@/lib/settings";
-import { site } from "@/lib/site";
+import { site, resolveSiteData } from "@/lib/site";
 import { LOCALES, isLocale, type Locale } from "@/i18n/config";
 import "../../globals.css";
 
@@ -44,21 +44,25 @@ export async function generateMetadata({
     it: "it_IT",
   };
 
+  const settings = await getSiteSettings();
+  const siteData = resolveSiteData(settings);
+  const tagline = site.tagline;
+
   return {
     metadataBase: new URL(site.url),
     title: {
-      default: `${site.name} — ${site.tagline}`,
-      template: `%s | ${site.name}`,
+      default: `${siteData.name} — ${tagline}`,
+      template: `%s | ${siteData.name}`,
     },
-    description: site.tagline,
-    authors: [{ name: site.name }],
+    description: tagline,
+    authors: [{ name: siteData.name }],
     openGraph: {
       type: "website",
       locale: ogLocaleMap[locale] ?? "pt_BR",
       url: `${site.url}/${locale}`,
-      siteName: site.name,
-      title: `${site.name} — ${site.tagline}`,
-      description: site.tagline,
+      siteName: siteData.name,
+      title: `${siteData.name} — ${tagline}`,
+      description: tagline,
     },
     alternates: {
       canonical: `${site.url}/${locale}`,

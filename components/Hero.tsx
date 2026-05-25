@@ -3,7 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import WhatsAppCTA from "./WhatsAppCTA";
 import { getSiteSettings } from "@/lib/settings";
 import { renderHeroHeading } from "@/lib/hero-text";
-import { site } from "@/lib/site";
+import { resolveSiteData } from "@/lib/site";
 import { pickLocale, type Locale } from "@/i18n/config";
 
 export default async function Hero() {
@@ -12,6 +12,7 @@ export default async function Hero() {
     getLocale() as Promise<Locale>,
     getTranslations(),
   ]);
+  const siteData = resolveSiteData(settings);
   const useImage = settings.heroMode === "image" && settings.heroImageUrl;
 
   return (
@@ -43,7 +44,11 @@ export default async function Hero() {
             {pickLocale(settings.heroDescription, locale)}
           </p>
           <div className="flex flex-wrap gap-4">
-            <WhatsAppCTA className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold">
+            <WhatsAppCTA
+              primaryWhatsapp={siteData.primaryWhatsapp}
+              siteName={siteData.name}
+              className="inline-flex items-center gap-2 btn-primary px-6 py-3 rounded-full font-semibold"
+            >
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 24 24"
@@ -74,17 +79,18 @@ export default async function Hero() {
             {useImage ? (
               <Image
                 src={settings.heroImageUrl}
-                alt={site.name}
+                alt={siteData.name}
                 fill
                 sizes="(max-width: 768px) 0px, 40vw"
                 priority
                 className="object-cover"
+                unoptimized={settings.heroImageUrl.startsWith("https://res.cloudinary.com")}
               />
             ) : (
               <div className="absolute inset-0 flex items-center justify-center p-12">
                 <Image
-                  src="/images/logo.png"
-                  alt={site.name}
+                  src={siteData.logoUrl}
+                  alt={siteData.name}
                   width={280}
                   height={280}
                   priority
@@ -96,6 +102,7 @@ export default async function Hero() {
                       settings.heroLogoIdle
                     ),
                   }}
+                  unoptimized={siteData.logoUrl.startsWith("https://res.cloudinary.com")}
                 />
               </div>
             )}

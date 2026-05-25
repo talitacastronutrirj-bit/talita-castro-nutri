@@ -1,8 +1,17 @@
 import WhatsAppCTA from "./WhatsAppCTA";
+import { getSiteSettings } from "@/lib/settings";
+import { resolveSiteData } from "@/lib/site";
 
-export default function FloatingWhatsapp() {
+export default async function FloatingWhatsapp() {
+  const settings = await getSiteSettings();
+  const siteData = resolveSiteData(settings);
+
+  if (!siteData.primaryWhatsapp.number) return null;
+
   return (
     <WhatsAppCTA
+      primaryWhatsapp={siteData.primaryWhatsapp}
+      siteName={siteData.name}
       ariaLabel="Falar no WhatsApp"
       className="fixed bottom-6 right-6 z-50"
     >
