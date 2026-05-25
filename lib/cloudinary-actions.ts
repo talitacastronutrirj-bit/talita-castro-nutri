@@ -11,7 +11,10 @@ type SignaturePayload = {
   folder: string;
 };
 
-const BASE_FOLDER = "nogueiraporto";
+// Pasta-raiz no Cloudinary onde TODOS uploads deste site vão.
+// Configurável por env var pra cada deploy isolar seus próprios assets.
+// Fallback: nome genérico só pra não quebrar quando rodando sem config.
+const BASE_FOLDER = process.env.CLOUDINARY_FOLDER || "site-uploads";
 
 function ensureConfig() {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
