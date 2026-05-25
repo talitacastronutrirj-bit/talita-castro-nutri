@@ -11,10 +11,12 @@ type Session = {
 };
 
 function getSecret(): Uint8Array {
-  const secret = process.env.SESSION_SECRET;
+  // Aceita ambos os nomes — JWT_SECRET é o padrão moderno, SESSION_SECRET
+  // ficou como alias legado pra não quebrar deploys já configurados.
+  const secret = process.env.JWT_SECRET || process.env.SESSION_SECRET;
   if (!secret || secret.length < 32) {
     throw new Error(
-      "SESSION_SECRET ausente ou muito curto (mínimo 32 caracteres). Configure em .env.local ou no Netlify."
+      "JWT_SECRET ausente ou muito curto (mínimo 32 caracteres). Configure em .env.local ou no Netlify."
     );
   }
   return new TextEncoder().encode(secret);
