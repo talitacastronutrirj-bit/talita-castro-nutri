@@ -35,7 +35,7 @@ export function resolveSiteData(settings: SiteSettings) {
     logoUrl:
       settings.logoUrl.trim().length > 0
         ? settings.logoUrl
-        : "/images/logo.png",
+        : "/images/logo.svg",
     credential: {
       type:
         settings.credentialType.trim().length > 0

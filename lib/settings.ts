@@ -56,7 +56,7 @@ export type SiteSettings = {
   credentialNumbers: string[];   // ["12345", "67890"]
   primaryWhatsappNumber: string; // "5521987654321" (DDI + DDD + número)
   primaryWhatsappDisplay: string; // "(21) 98765-4321"
-  logoUrl: string;               // URL Cloudinary OU "" (cai pra /images/logo.png)
+  logoUrl: string;               // URL Cloudinary OU "" (cai pra placeholder /images/logo.svg)
 
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;

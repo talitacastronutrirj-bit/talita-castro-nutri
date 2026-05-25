@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" fill="none">
+  <!--
+    Placeholder de logo. Cada deploy do template substitui isso fazendo
+    upload do logo próprio via /admin/aparencia (vai pro Cloudinary).
+    Mantemos um SVG simples aqui só pra não quebrar a página enquanto
+    o admin ainda não configurou o logo.
+  -->
+  <rect width="480" height="200" fill="transparent"/>
+  <g transform="translate(240, 100)">
+    <circle r="44" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <text
+      text-anchor="middle"
+      dominant-baseline="central"
+      font-family="serif"
+      font-size="22"
+      font-weight="500"
+      letter-spacing="6"
+      fill="currentColor"
+      opacity="0.7"
+    >LOGO</text>
+  </g>
+</svg>

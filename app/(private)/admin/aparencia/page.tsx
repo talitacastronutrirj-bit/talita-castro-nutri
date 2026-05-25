@@ -109,8 +109,8 @@ export default async function AppearancePage({
                 className="text-[11px] text-dark mt-1.5"
                 style={{ opacity: 0.6 }}
               >
-                Idealmente PNG com fundo transparente. Se vazio, usa
-                <code> /images/logo.png </code> (placeholder do template).
+                Idealmente PNG ou SVG com fundo transparente. Se vazio, usa
+                <code> /images/logo.svg </code> (placeholder do template).
               </p>
             </div>
 
