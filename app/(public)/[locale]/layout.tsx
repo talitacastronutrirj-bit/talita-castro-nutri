@@ -10,7 +10,7 @@
 // Header/Footer/FloatingWhatsapp compartilhados pelas páginas públicas.
 
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter, Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -87,6 +87,15 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+// Tipografia alternativa pras paletas pastel (sage/blush/honey/mint).
+// CSS escolhe automaticamente via [data-palette="..."] .font-serif.
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
@@ -108,7 +117,7 @@ export default async function PublicRootLayout({ children, params }: Props) {
     <html
       lang={locale}
       data-palette={settings.palette}
-      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>

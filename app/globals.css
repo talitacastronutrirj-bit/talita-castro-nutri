@@ -25,6 +25,8 @@
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-cormorant), serif;
+  /* Tipografia alternativa carregada em paletas pastel (saúde, wellness). */
+  --font-serif-pastel: var(--font-playfair), var(--font-cormorant), serif;
 }
 
 /* ============================================
@@ -162,6 +164,115 @@
   --hero-overlay-2: rgba(212, 165, 116, 0.75);
 }
 
+/* ============================================
+   PALETAS PASTEL — saúde, wellness, beleza, terapia
+   Característica: bg-dark é tom MÉDIO (não escuro tipo navy/black)
+   pra manter o vibe acolhedor mesmo em seções "dark".
+   ============================================ */
+
+[data-palette="sage"] {
+  /* Verde-sálvia + creme + nude. Ideal pra nutri/wellness. */
+  --bg-page: #faf6f0;
+  --bg-page-2: #f1ebe0;
+  --bg-dark: #6b8e6b;
+  --bg-dark-2: #7ba17b;
+  --bg-dark-3: #8bb38b;
+  --bg-darkest: #4f6e4f;
+  --text-light: #faf6f0;
+  --text-light-soft: rgba(250, 246, 240, 0.88);
+  --text-light-soft-2: rgba(250, 246, 240, 0.65);
+  --text-dark: #3a4a3a;
+  --text-darker: #1f2a1f;
+  --accent: #b89978;
+  --accent-hover: #a68665;
+  --accent-soft: #d4bda0;
+  --accent-bright: #e8d4b8;
+  --border-soft: #ddd3c0;
+  --border-soft-dark: rgba(250, 246, 240, 0.18);
+  --hero-overlay-1: rgba(107, 142, 107, 0.88);
+  --hero-overlay-2: rgba(184, 153, 120, 0.72);
+}
+
+[data-palette="blush"] {
+  /* Rosa pó + nude + bege quente. Feminino, delicado. */
+  --bg-page: #fcf7f4;
+  --bg-page-2: #f5e8e0;
+  --bg-dark: #b08b85;
+  --bg-dark-2: #bf9a94;
+  --bg-dark-3: #cdaba6;
+  --bg-darkest: #8e6f6a;
+  --text-light: #fcf7f4;
+  --text-light-soft: rgba(252, 247, 244, 0.88);
+  --text-light-soft-2: rgba(252, 247, 244, 0.65);
+  --text-dark: #4a3a38;
+  --text-darker: #2c1f1d;
+  --accent: #c4977f;
+  --accent-hover: #b08570;
+  --accent-soft: #d8b09a;
+  --accent-bright: #e8c8b4;
+  --border-soft: #e5d1c8;
+  --border-soft-dark: rgba(252, 247, 244, 0.2);
+  --hero-overlay-1: rgba(176, 139, 133, 0.88);
+  --hero-overlay-2: rgba(196, 151, 127, 0.72);
+}
+
+[data-palette="honey"] {
+  /* Mel pastel + creme + terracota suave. Acolhedor, terapêutico. */
+  --bg-page: #fcf7ec;
+  --bg-page-2: #f5e8d0;
+  --bg-dark: #c89968;
+  --bg-dark-2: #d4a878;
+  --bg-dark-3: #dfb98a;
+  --bg-darkest: #a67d4f;
+  --text-light: #fcf7ec;
+  --text-light-soft: rgba(252, 247, 236, 0.88);
+  --text-light-soft-2: rgba(252, 247, 236, 0.65);
+  --text-dark: #4a3826;
+  --text-darker: #2c1f12;
+  --accent: #c97a5a;
+  --accent-hover: #b56a4c;
+  --accent-soft: #d99880;
+  --accent-bright: #e8b8a0;
+  --border-soft: #e8d4b0;
+  --border-soft-dark: rgba(252, 247, 236, 0.2);
+  --hero-overlay-1: rgba(200, 153, 104, 0.88);
+  --hero-overlay-2: rgba(201, 122, 90, 0.72);
+}
+
+[data-palette="mint"] {
+  /* Verde menta + offwhite + rose gold. Clean, clínica boutique. */
+  --bg-page: #f5fbf8;
+  --bg-page-2: #e1f0e8;
+  --bg-dark: #7ab8a0;
+  --bg-dark-2: #88c4ac;
+  --bg-dark-3: #9ad0b9;
+  --bg-darkest: #5a9580;
+  --text-light: #f5fbf8;
+  --text-light-soft: rgba(245, 251, 248, 0.88);
+  --text-light-soft-2: rgba(245, 251, 248, 0.65);
+  --text-dark: #2c4a3d;
+  --text-darker: #152a23;
+  --accent: #c89690;
+  --accent-hover: #b58178;
+  --accent-soft: #d8aba5;
+  --accent-bright: #e8c4be;
+  --border-soft: #c5e0d3;
+  --border-soft-dark: rgba(245, 251, 248, 0.2);
+  --hero-overlay-1: rgba(122, 184, 160, 0.88);
+  --hero-overlay-2: rgba(200, 150, 144, 0.72);
+}
+
+/* Paletas pastel usam Playfair Display (mais delicada/feminina)
+   em vez de Cormorant Garamond. Vale só pro .font-serif global. */
+[data-palette="sage"] .font-serif,
+[data-palette="blush"] .font-serif,
+[data-palette="honey"] .font-serif,
+[data-palette="mint"] .font-serif {
+  font-family: var(--font-serif-pastel);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -256,6 +367,31 @@ body {
 @keyframes hero-b {
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
+}
+
+/* Paletas pastel: hero ganha gradient suave da própria paleta em vez
+   da foto institucional. Fica mais clean e on-brand pra wellness. */
+[data-palette="sage"] .hero-grad,
+[data-palette="blush"] .hero-grad,
+[data-palette="honey"] .hero-grad,
+[data-palette="mint"] .hero-grad {
+  background: linear-gradient(
+    135deg,
+    var(--bg-dark) 0%,
+    var(--bg-dark-2) 50%,
+    var(--bg-dark-3) 100%
+  );
+}
+[data-palette="sage"] .hero-grad::before,
+[data-palette="blush"] .hero-grad::before,
+[data-palette="honey"] .hero-grad::before,
+[data-palette="mint"] .hero-grad::before,
+[data-palette="sage"] .hero-grad::after,
+[data-palette="blush"] .hero-grad::after,
+[data-palette="honey"] .hero-grad::after,
+[data-palette="mint"] .hero-grad::after {
+  /* Desliga o cross-fade de overlays — gradient já é suficiente. */
+  display: none;
 }
 
 /* ============================================

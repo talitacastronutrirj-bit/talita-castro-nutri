@@ -20,6 +20,10 @@ const PALETTES: Palette[] = [
   "wine",
   "graphite",
   "coffee",
+  "sage",
+  "blush",
+  "honey",
+  "mint",
 ];
 const HERO_MODES: HeroMode[] = ["logo", "image"];
 const ENTRANCES: HeroEntrance[] = [

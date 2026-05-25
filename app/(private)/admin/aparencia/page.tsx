@@ -10,12 +10,18 @@ import { saveAppearance } from "./actions";
 export const metadata = { title: "Aparência" };
 
 const PALETTE_OPTIONS = [
-  { value: "navy", label: "Marinho clássico", swatch: "#0c1f3d", accent: "#c9a961" },
-  { value: "emerald", label: "Verde institucional", swatch: "#064e3b", accent: "#b08d57" },
-  { value: "black", label: "Preto & Dourado", swatch: "#0a0a0a", accent: "#c9a161" },
-  { value: "wine", label: "Vinho & Dourado", swatch: "#5c1a1b", accent: "#c9a161" },
-  { value: "graphite", label: "Grafite & Bronze", swatch: "#2c3036", accent: "#b07b3a" },
-  { value: "coffee", label: "Café & Creme", swatch: "#3d2914", accent: "#d4a574" },
+  // Institucionais (formal, B2B, jurídico, finanças)
+  { value: "navy", label: "Marinho clássico", swatch: "#0c1f3d", accent: "#c9a961", group: "institutional" },
+  { value: "emerald", label: "Verde institucional", swatch: "#064e3b", accent: "#b08d57", group: "institutional" },
+  { value: "black", label: "Preto & Dourado", swatch: "#0a0a0a", accent: "#c9a161", group: "institutional" },
+  { value: "wine", label: "Vinho & Dourado", swatch: "#5c1a1b", accent: "#c9a161", group: "institutional" },
+  { value: "graphite", label: "Grafite & Bronze", swatch: "#2c3036", accent: "#b07b3a", group: "institutional" },
+  { value: "coffee", label: "Café & Creme", swatch: "#3d2914", accent: "#d4a574", group: "institutional" },
+  // Pastel (saúde, wellness, beleza, terapia, nutrição)
+  { value: "sage", label: "Sage (sálvia & nude)", swatch: "#6b8e6b", accent: "#b89978", group: "pastel" },
+  { value: "blush", label: "Blush (rosa pó & nude)", swatch: "#b08b85", accent: "#c4977f", group: "pastel" },
+  { value: "honey", label: "Honey (mel & terracota)", swatch: "#c89968", accent: "#c97a5a", group: "pastel" },
+  { value: "mint", label: "Mint (menta & rose gold)", swatch: "#7ab8a0", accent: "#c89690", group: "pastel" },
 ] as const;
 
 const ENTRANCE_OPTIONS = [
@@ -317,41 +323,60 @@ export default async function AppearancePage({
             Paleta de cores
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
-            Define o esquema de cores do site inteiro.
+            Define o esquema de cores do site inteiro. Paletas pastel
+            usam tipografia mais delicada (Playfair Display) e elementos
+            decorativos sutis — ideais pra saúde, wellness e beleza.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-3">
-            {PALETTE_OPTIONS.map((opt) => (
-              <label
-                key={opt.value}
-                className="cursor-pointer rounded-xl border p-4 hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition"
-                style={{ borderColor: "var(--border-soft)" }}
-              >
-                <input
-                  type="radio"
-                  name="palette"
-                  value={opt.value}
-                  defaultChecked={settings.palette === opt.value}
-                  className="sr-only"
-                />
-                <div className="flex items-center gap-3 mb-2">
-                  <span
-                    className="w-8 h-8 rounded-full ring-2"
-                    style={{
-                      background: opt.swatch,
-                      boxShadow: `inset 0 0 0 3px ${opt.accent}`,
-                    }}
-                  />
-                  <span
-                    className="font-medium text-sm"
-                    style={{ color: "var(--bg-dark)" }}
-                  >
-                    {opt.label}
-                  </span>
+          {(["pastel", "institutional"] as const).map((group) => {
+            const items = PALETTE_OPTIONS.filter((o) => o.group === group);
+            const label =
+              group === "pastel"
+                ? "Pastel · saúde, wellness, beleza"
+                : "Institucional · formal, jurídico, finanças";
+            return (
+              <div key={group} className="mb-6 last:mb-0">
+                <div
+                  className="text-[11px] uppercase tracking-[0.2em] mb-3"
+                  style={{ color: "var(--bg-dark)", opacity: 0.6 }}
+                >
+                  {label}
                 </div>
-              </label>
-            ))}
-          </div>
+                <div className="grid sm:grid-cols-3 gap-3">
+                  {items.map((opt) => (
+                    <label
+                      key={opt.value}
+                      className="cursor-pointer rounded-xl border p-4 hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition"
+                      style={{ borderColor: "var(--border-soft)" }}
+                    >
+                      <input
+                        type="radio"
+                        name="palette"
+                        value={opt.value}
+                        defaultChecked={settings.palette === opt.value}
+                        className="sr-only"
+                      />
+                      <div className="flex items-center gap-3 mb-2">
+                        <span
+                          className="w-8 h-8 rounded-full ring-2"
+                          style={{
+                            background: opt.swatch,
+                            boxShadow: `inset 0 0 0 3px ${opt.accent}`,
+                          }}
+                        />
+                        <span
+                          className="font-medium text-sm"
+                          style={{ color: "var(--bg-dark)" }}
+                        >
+                          {opt.label}
+                        </span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </section>
 
         {/* ============ TEXTOS DO HERO ============ */}

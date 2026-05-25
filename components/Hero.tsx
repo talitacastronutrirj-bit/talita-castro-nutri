@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import WhatsAppCTA from "./WhatsAppCTA";
+import OrganicDecor from "./OrganicDecor";
 import { getSiteSettings } from "@/lib/settings";
 import { renderHeroHeading } from "@/lib/hero-text";
 import { resolveSiteData } from "@/lib/site";
@@ -17,7 +18,8 @@ export default async function Hero() {
 
   return (
     <section className="hero-grad text-light relative">
-      <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10 items-center">
+      <OrganicDecor variant="hero" />
+      <div className="relative max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10 items-center" style={{ zIndex: 2 }}>
         <div className="md:col-span-7">
           <div
             className="text-[11px] font-semibold uppercase tracking-[0.3em] mb-5 text-accent-bright"

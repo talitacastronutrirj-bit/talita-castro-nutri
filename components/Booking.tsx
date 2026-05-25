@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { getSiteSettings } from "@/lib/settings";
 import { site, resolveSiteData } from "@/lib/site";
 import WhatsAppCTA from "./WhatsAppCTA";
+import OrganicDecor from "./OrganicDecor";
 
 // =================================================================
 // BOOKING — seção de agendamento configurável
@@ -43,9 +44,10 @@ export default async function Booking() {
   return (
     <section
       id="agendar"
-      className="py-16 md:py-24 bg-page"
+      className="py-16 md:py-24 bg-page relative overflow-hidden"
     >
-      <div className="max-w-5xl mx-auto px-6">
+      <OrganicDecor variant="section" />
+      <div className="relative max-w-5xl mx-auto px-6" style={{ zIndex: 1 }}>
         <div className="text-center mb-12">
           <div className="text-[11px] uppercase tracking-[0.3em] text-accent mb-3">
             {t("cta.schedule")}

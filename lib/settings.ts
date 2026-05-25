@@ -21,12 +21,22 @@ import {
 // ─── Tipos ────────────────────────────────────────────────────
 
 export type Palette =
+  // ─── Institucional (escuro, formal — direito, finanças, B2B) ───
   | "navy"
   | "emerald"
   | "black"
   | "wine"
   | "graphite"
-  | "coffee";
+  | "coffee"
+  // ─── Pastel (claro, acolhedor — saúde, wellness, beleza, terapia) ───
+  | "sage"
+  | "blush"
+  | "honey"
+  | "mint";
+
+// Paletas pastel ganham tipografia alternativa (mais delicada/feminina)
+// no layout. Lista usada por components/Header e <html> data-attr.
+export const PASTEL_PALETTES: Palette[] = ["sage", "blush", "honey", "mint"];
 
 export type HeroMode = "logo" | "image";
 
