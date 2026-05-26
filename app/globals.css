@@ -354,12 +354,39 @@ body {
 }
 .btn-primary:hover { background: var(--accent-hover); }
 
+/* Paletas pastel: o accent é claro e o bg-dark também é claro → o
+   btn-primary fica sem contraste. Forçamos cor escura (--bg-darkest)
+   de fundo e texto claro pra garantir leitura. */
+[data-palette="sage"] .btn-primary,
+[data-palette="blush"] .btn-primary,
+[data-palette="honey"] .btn-primary,
+[data-palette="mint"] .btn-primary {
+  background: var(--bg-darkest-tint);
+  color: var(--text-light);
+}
+[data-palette="sage"] .btn-primary:hover,
+[data-palette="blush"] .btn-primary:hover,
+[data-palette="honey"] .btn-primary:hover,
+[data-palette="mint"] .btn-primary:hover {
+  background: var(--bg-dark-tint);
+}
+
 .btn-outline-light {
   border: 1px solid rgba(251, 248, 243, 0.4);
   color: var(--text-light);
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 .btn-outline-light:hover { background: rgba(251, 248, 243, 0.1); }
+
+/* Paletas pastel: border claro sobre fundo claro fica invisível.
+   Aumentamos opacidade pra garantir presença visual. */
+[data-palette="sage"] .btn-outline-light,
+[data-palette="blush"] .btn-outline-light,
+[data-palette="honey"] .btn-outline-light,
+[data-palette="mint"] .btn-outline-light {
+  border-color: rgba(251, 248, 243, 0.75);
+  border-width: 1.5px;
+}
 
 .btn-dark {
   background: var(--bg-dark-2-tint);
@@ -411,29 +438,25 @@ body {
   50% { opacity: 1; }
 }
 
-/* Paletas pastel: hero ganha gradient suave da própria paleta em vez
-   da foto institucional. Fica mais clean e on-brand pra wellness. */
-[data-palette="sage"] .hero-grad,
-[data-palette="blush"] .hero-grad,
-[data-palette="honey"] .hero-grad,
-[data-palette="mint"] .hero-grad {
-  background: linear-gradient(
-    135deg,
-    var(--bg-dark-tint) 0%,
-    var(--bg-dark-2-tint) 50%,
-    var(--bg-dark-3-tint) 100%
-  );
-}
+/* Paletas pastel: hero mantém a foto de fundo (genérica ou custom),
+   mas com overlay mais forte da paleta pra harmonizar — não fica
+   "lavado demais" como ficava com gradient sólido. */
 [data-palette="sage"] .hero-grad::before,
 [data-palette="blush"] .hero-grad::before,
 [data-palette="honey"] .hero-grad::before,
-[data-palette="mint"] .hero-grad::before,
+[data-palette="mint"] .hero-grad::before {
+  background: var(--bg-dark-tint);
+  opacity: 0.85;
+  animation: none; /* sem cross-fade — overlay estável */
+}
 [data-palette="sage"] .hero-grad::after,
 [data-palette="blush"] .hero-grad::after,
 [data-palette="honey"] .hero-grad::after,
 [data-palette="mint"] .hero-grad::after {
-  /* Desliga o cross-fade de overlays — gradient já é suficiente. */
-  display: none;
+  /* Camada extra suave do accent pra dar profundidade */
+  background: linear-gradient(135deg, transparent 50%, var(--accent-tint));
+  opacity: 0.18;
+  animation: none;
 }
 
 /* ============================================

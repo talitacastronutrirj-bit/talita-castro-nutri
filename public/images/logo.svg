@@ -8,16 +8,16 @@
   -->
   <rect width="480" height="200" fill="transparent"/>
   <g transform="translate(240, 100)">
-    <circle r="44" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <circle r="46" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.85"/>
     <text
       text-anchor="middle"
       dominant-baseline="central"
       font-family="serif"
-      font-size="22"
-      font-weight="500"
+      font-size="24"
+      font-weight="600"
       letter-spacing="6"
       fill="currentColor"
-      opacity="0.7"
+      opacity="1"
     >LOGO</text>
   </g>
 </svg>

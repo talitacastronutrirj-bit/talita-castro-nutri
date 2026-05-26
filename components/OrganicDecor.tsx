@@ -41,7 +41,7 @@ export default async function OrganicDecor({ variant = "section", forceShow }: P
           className="absolute -top-20 -right-20 w-[480px] h-[480px]"
           viewBox="0 0 400 400"
           fill="currentColor"
-          style={{ color: "var(--accent-soft)", opacity: 0.18 }}
+          style={{ color: "var(--accent-soft)", opacity: 0.32 }}
         >
           <path d="M200,40 C290,40 360,110 360,200 C360,290 290,360 200,360 C110,360 40,290 40,200 C40,110 110,40 200,40 Z" />
         </svg>
@@ -51,8 +51,8 @@ export default async function OrganicDecor({ variant = "section", forceShow }: P
           viewBox="0 0 200 200"
           fill="none"
           stroke="currentColor"
-          strokeWidth="1.5"
-          style={{ color: "var(--text-light)", opacity: 0.25 }}
+          strokeWidth="2"
+          style={{ color: "var(--text-light)", opacity: 0.4 }}
         >
           <path d="M100,20 C140,30 170,60 175,100 C175,150 140,180 100,180 C80,170 70,140 75,100 C80,60 80,30 100,20 Z" />
           <path d="M100,30 C100,50 100,170 100,180" strokeLinecap="round" />
@@ -62,7 +62,7 @@ export default async function OrganicDecor({ variant = "section", forceShow }: P
           className="absolute top-1/2 -right-32 w-[320px] h-[320px] -translate-y-1/2"
           viewBox="0 0 200 200"
           fill="currentColor"
-          style={{ color: "var(--text-light)", opacity: 0.08 }}
+          style={{ color: "var(--text-light)", opacity: 0.15 }}
         >
           <ellipse cx="100" cy="100" rx="95" ry="80" transform="rotate(15 100 100)" />
         </svg>
