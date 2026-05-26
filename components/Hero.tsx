@@ -82,9 +82,12 @@ export default async function Hero() {
           <div
             className="aspect-[4/5] rounded-2xl overflow-hidden border shadow-2xl relative"
             style={{
-              borderColor: "var(--accent)",
-              borderWidth: "1px",
-              background: useImage ? "transparent" : "var(--bg-dark)",
+              borderColor: "var(--accent-tint)",
+              borderWidth: isPastel ? "2px" : "1px",
+              background: useImage ? "transparent" : "var(--bg-dark-tint)",
+              boxShadow: isPastel
+                ? "0 20px 50px -15px rgba(0,0,0,0.35), 0 8px 20px -10px rgba(0,0,0,0.2)"
+                : undefined,
             }}
           >
             {useImage ? (

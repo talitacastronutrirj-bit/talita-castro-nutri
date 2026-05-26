@@ -171,95 +171,95 @@
    ============================================ */
 
 [data-palette="sage"] {
-  /* Verde-sálvia + creme + nude. Ideal pra nutri/wellness. */
+  /* Verde-sálvia + creme + accent terracota. Ideal pra nutri/wellness. */
   --bg-page: #faf6f0;
   --bg-page-2: #f1ebe0;
   --bg-dark: #6b8e6b;
-  --bg-dark-2: #7ba17b;
-  --bg-dark-3: #8bb38b;
-  --bg-darkest: #4f6e4f;
+  --bg-dark-2: #5a7a5a;
+  --bg-dark-3: #4f6e4f;
+  --bg-darkest: #3a5a3a;
   --text-light: #faf6f0;
   --text-light-soft: rgba(250, 246, 240, 0.88);
   --text-light-soft-2: rgba(250, 246, 240, 0.65);
   --text-dark: #3a4a3a;
   --text-darker: #1f2a1f;
-  --accent: #b89978;
-  --accent-hover: #a68665;
-  --accent-soft: #d4bda0;
-  --accent-bright: #e8d4b8;
-  --border-soft: #ddd3c0;
-  --border-soft-dark: rgba(250, 246, 240, 0.18);
-  --hero-overlay-1: rgba(107, 142, 107, 0.88);
-  --hero-overlay-2: rgba(184, 153, 120, 0.72);
+  --accent: #a67148;            /* Terracota mais saturado pra dar contraste */
+  --accent-hover: #8f5d38;
+  --accent-soft: #c89878;
+  --accent-bright: #e0b888;
+  --border-soft: #c8bea5;       /* Border mais marcado */
+  --border-soft-dark: rgba(250, 246, 240, 0.28);
+  --hero-overlay-1: rgba(58, 90, 58, 0.88);
+  --hero-overlay-2: rgba(166, 113, 72, 0.72);
 }
 
 [data-palette="blush"] {
-  /* Rosa pó + nude + bege quente. Feminino, delicado. */
+  /* Rosa pó + nude + accent terracota rosado. Feminino, delicado. */
   --bg-page: #fcf7f4;
   --bg-page-2: #f5e8e0;
-  --bg-dark: #b08b85;
-  --bg-dark-2: #bf9a94;
-  --bg-dark-3: #cdaba6;
-  --bg-darkest: #8e6f6a;
+  --bg-dark: #a47770;
+  --bg-dark-2: #8f635c;
+  --bg-dark-3: #7a514a;
+  --bg-darkest: #6a4540;
   --text-light: #fcf7f4;
   --text-light-soft: rgba(252, 247, 244, 0.88);
   --text-light-soft-2: rgba(252, 247, 244, 0.65);
   --text-dark: #4a3a38;
   --text-darker: #2c1f1d;
-  --accent: #c4977f;
-  --accent-hover: #b08570;
-  --accent-soft: #d8b09a;
-  --accent-bright: #e8c8b4;
-  --border-soft: #e5d1c8;
-  --border-soft-dark: rgba(252, 247, 244, 0.2);
-  --hero-overlay-1: rgba(176, 139, 133, 0.88);
-  --hero-overlay-2: rgba(196, 151, 127, 0.72);
+  --accent: #b46850;            /* Terracota mais saturado */
+  --accent-hover: #9c5642;
+  --accent-soft: #d18e74;
+  --accent-bright: #e6ad94;
+  --border-soft: #d8bdb0;       /* Border mais marcado */
+  --border-soft-dark: rgba(252, 247, 244, 0.3);
+  --hero-overlay-1: rgba(106, 69, 64, 0.88);
+  --hero-overlay-2: rgba(180, 104, 80, 0.72);
 }
 
 [data-palette="honey"] {
-  /* Mel pastel + creme + terracota suave. Acolhedor, terapêutico. */
+  /* Mel pastel + creme + accent terracota fundo. Acolhedor, terapêutico. */
   --bg-page: #fcf7ec;
   --bg-page-2: #f5e8d0;
-  --bg-dark: #c89968;
-  --bg-dark-2: #d4a878;
-  --bg-dark-3: #dfb98a;
-  --bg-darkest: #a67d4f;
+  --bg-dark: #b8854a;
+  --bg-dark-2: #a06f3a;
+  --bg-dark-3: #885b2e;
+  --bg-darkest: #6b4520;
   --text-light: #fcf7ec;
   --text-light-soft: rgba(252, 247, 236, 0.88);
   --text-light-soft-2: rgba(252, 247, 236, 0.65);
   --text-dark: #4a3826;
   --text-darker: #2c1f12;
-  --accent: #c97a5a;
-  --accent-hover: #b56a4c;
-  --accent-soft: #d99880;
-  --accent-bright: #e8b8a0;
-  --border-soft: #e8d4b0;
-  --border-soft-dark: rgba(252, 247, 236, 0.2);
-  --hero-overlay-1: rgba(200, 153, 104, 0.88);
-  --hero-overlay-2: rgba(201, 122, 90, 0.72);
+  --accent: #b8492a;            /* Terracota queimado, mais punch */
+  --accent-hover: #9f3d22;
+  --accent-soft: #d4775c;
+  --accent-bright: #e89e88;
+  --border-soft: #dcc298;       /* Border mais marcado */
+  --border-soft-dark: rgba(252, 247, 236, 0.3);
+  --hero-overlay-1: rgba(107, 69, 32, 0.88);
+  --hero-overlay-2: rgba(184, 73, 42, 0.72);
 }
 
 [data-palette="mint"] {
-  /* Verde menta + offwhite + rose gold. Clean, clínica boutique. */
+  /* Verde menta + offwhite + accent rose gold. Clean, clínica boutique. */
   --bg-page: #f5fbf8;
   --bg-page-2: #e1f0e8;
-  --bg-dark: #7ab8a0;
-  --bg-dark-2: #88c4ac;
-  --bg-dark-3: #9ad0b9;
-  --bg-darkest: #5a9580;
+  --bg-dark: #5a9580;
+  --bg-dark-2: #4a8070;
+  --bg-dark-3: #3d6e60;
+  --bg-darkest: #2d564a;
   --text-light: #f5fbf8;
   --text-light-soft: rgba(245, 251, 248, 0.88);
   --text-light-soft-2: rgba(245, 251, 248, 0.65);
   --text-dark: #2c4a3d;
   --text-darker: #152a23;
-  --accent: #c89690;
-  --accent-hover: #b58178;
-  --accent-soft: #d8aba5;
-  --accent-bright: #e8c4be;
-  --border-soft: #c5e0d3;
-  --border-soft-dark: rgba(245, 251, 248, 0.2);
-  --hero-overlay-1: rgba(122, 184, 160, 0.88);
-  --hero-overlay-2: rgba(200, 150, 144, 0.72);
+  --accent: #b06a5a;            /* Rose gold mais saturado pra contraste com mint */
+  --accent-hover: #985642;
+  --accent-soft: #c8907e;
+  --accent-bright: #dcae9c;
+  --border-soft: #b4d5c4;       /* Border mais marcado */
+  --border-soft-dark: rgba(245, 251, 248, 0.3);
+  --hero-overlay-1: rgba(45, 86, 74, 0.88);
+  --hero-overlay-2: rgba(176, 106, 90, 0.72);
 }
 
 /* Paletas pastel usam Playfair Display (mais delicada/feminina)
@@ -356,19 +356,26 @@ body {
 
 /* Paletas pastel: o accent é claro e o bg-dark também é claro → o
    btn-primary fica sem contraste. Forçamos cor escura (--bg-darkest)
-   de fundo e texto claro pra garantir leitura. */
+   de fundo, texto claro e SHADOW pra criar elevação visual — sem
+   shadow os botões "achatam" na paleta clara. */
 [data-palette="sage"] .btn-primary,
 [data-palette="blush"] .btn-primary,
 [data-palette="honey"] .btn-primary,
 [data-palette="mint"] .btn-primary {
   background: var(--bg-darkest-tint);
   color: var(--text-light);
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.25),
+    0 2px 6px -2px rgba(0, 0, 0, 0.15);
 }
 [data-palette="sage"] .btn-primary:hover,
 [data-palette="blush"] .btn-primary:hover,
 [data-palette="honey"] .btn-primary:hover,
 [data-palette="mint"] .btn-primary:hover {
   background: var(--bg-dark-tint);
+  box-shadow:
+    0 6px 22px -4px rgba(0, 0, 0, 0.32),
+    0 3px 8px -2px rgba(0, 0, 0, 0.2);
 }
 
 .btn-outline-light {
@@ -398,6 +405,15 @@ body {
 .gold-rule {
   background: linear-gradient(90deg, transparent, var(--accent-tint), transparent);
   height: 1px;
+}
+/* Em paletas pastel, gold-rule fica mais marcada — separa as seções
+   visualmente sem ofuscar o vibe pastel. */
+[data-palette="sage"] .gold-rule,
+[data-palette="blush"] .gold-rule,
+[data-palette="honey"] .gold-rule,
+[data-palette="mint"] .gold-rule {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-tint) 40%, var(--accent-tint) 60%, transparent);
 }
 
 /* ============================================
@@ -439,23 +455,36 @@ body {
 }
 
 /* Paletas pastel: hero mantém a foto de fundo (genérica ou custom),
-   mas com overlay mais forte da paleta pra harmonizar — não fica
-   "lavado demais" como ficava com gradient sólido. */
+   mas com overlay equilibrado (não abafa a foto). Garantimos
+   legibilidade do texto via:
+   - Overlay diagonal do bg-dark com gradient (mais forte à esquerda
+     onde fica o texto, fade pra direita onde fica a foto bonita)
+   - Camada extra de accent no canto pra criar profundidade */
 [data-palette="sage"] .hero-grad::before,
 [data-palette="blush"] .hero-grad::before,
 [data-palette="honey"] .hero-grad::before,
 [data-palette="mint"] .hero-grad::before {
-  background: var(--bg-dark-tint);
-  opacity: 0.85;
-  animation: none; /* sem cross-fade — overlay estável */
+  background: linear-gradient(
+    100deg,
+    var(--bg-darkest-tint) 0%,
+    var(--bg-dark-tint) 35%,
+    color-mix(in srgb, var(--bg-dark-tint) 60%, transparent) 70%,
+    color-mix(in srgb, var(--bg-dark-tint) 30%, transparent) 100%
+  );
+  opacity: 0.92;
+  animation: none;
 }
 [data-palette="sage"] .hero-grad::after,
 [data-palette="blush"] .hero-grad::after,
 [data-palette="honey"] .hero-grad::after,
 [data-palette="mint"] .hero-grad::after {
-  /* Camada extra suave do accent pra dar profundidade */
-  background: linear-gradient(135deg, transparent 50%, var(--accent-tint));
-  opacity: 0.18;
+  /* Camada extra de accent no canto pra criar foco */
+  background: radial-gradient(
+    ellipse at 90% 50%,
+    var(--accent-tint) 0%,
+    transparent 60%
+  );
+  opacity: 0.25;
   animation: none;
 }
 
