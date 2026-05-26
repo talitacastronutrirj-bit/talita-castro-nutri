@@ -366,25 +366,47 @@ body {
 }
 .btn-primary:hover { background: var(--accent-hover); }
 
-/* Paletas pastel: o accent é claro e o bg-dark também é claro → o
-   btn-primary fica sem contraste. Forçamos cor escura (--bg-darkest)
-   de fundo, texto claro e SHADOW pra criar elevação visual — sem
-   shadow os botões "achatam" na paleta clara. */
-[data-palette="sage"] .btn-primary,
-[data-palette="blush"] .btn-primary,
-[data-palette="honey"] .btn-primary,
-[data-palette="mint"] .btn-primary {
+/* Paletas pastel SEM accent customizado: o accent default é claro
+   (terracota suave) sobre fundo claro = baixo contraste. Forçamos
+   cor escura (--bg-darkest) + shadow pra garantir visibilidade. */
+[data-palette="sage"]:not([data-custom-accent="true"]) .btn-primary,
+[data-palette="blush"]:not([data-custom-accent="true"]) .btn-primary,
+[data-palette="honey"]:not([data-custom-accent="true"]) .btn-primary,
+[data-palette="mint"]:not([data-custom-accent="true"]) .btn-primary {
   background: var(--bg-darkest-tint);
   color: var(--text-light);
   box-shadow:
     0 4px 16px -2px rgba(0, 0, 0, 0.25),
     0 2px 6px -2px rgba(0, 0, 0, 0.15);
 }
-[data-palette="sage"] .btn-primary:hover,
-[data-palette="blush"] .btn-primary:hover,
-[data-palette="honey"] .btn-primary:hover,
-[data-palette="mint"] .btn-primary:hover {
+[data-palette="sage"]:not([data-custom-accent="true"]) .btn-primary:hover,
+[data-palette="blush"]:not([data-custom-accent="true"]) .btn-primary:hover,
+[data-palette="honey"]:not([data-custom-accent="true"]) .btn-primary:hover,
+[data-palette="mint"]:not([data-custom-accent="true"]) .btn-primary:hover {
   background: var(--bg-dark-tint);
+  box-shadow:
+    0 6px 22px -4px rgba(0, 0, 0, 0.32),
+    0 3px 8px -2px rgba(0, 0, 0, 0.2);
+}
+
+/* Paletas pastel COM accent customizado: respeita a cor escolhida.
+   Cliente é responsável por escolher uma cor com contraste suficiente.
+   Mantemos shadow pra dar elevação. */
+[data-palette="sage"][data-custom-accent="true"] .btn-primary,
+[data-palette="blush"][data-custom-accent="true"] .btn-primary,
+[data-palette="honey"][data-custom-accent="true"] .btn-primary,
+[data-palette="mint"][data-custom-accent="true"] .btn-primary {
+  background: var(--accent);
+  color: white;
+  box-shadow:
+    0 4px 16px -2px rgba(0, 0, 0, 0.25),
+    0 2px 6px -2px rgba(0, 0, 0, 0.15);
+}
+[data-palette="sage"][data-custom-accent="true"] .btn-primary:hover,
+[data-palette="blush"][data-custom-accent="true"] .btn-primary:hover,
+[data-palette="honey"][data-custom-accent="true"] .btn-primary:hover,
+[data-palette="mint"][data-custom-accent="true"] .btn-primary:hover {
+  background: var(--accent-hover);
   box-shadow:
     0 6px 22px -4px rgba(0, 0, 0, 0.32),
     0 3px 8px -2px rgba(0, 0, 0, 0.2);
