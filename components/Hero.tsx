@@ -82,7 +82,13 @@ export default async function Hero() {
           <div
             className="aspect-[4/5] rounded-2xl overflow-hidden border shadow-2xl relative"
             style={{
-              borderColor: "var(--accent-tint)",
+              // Border neutra (não derivada do accent) pra não brigar com
+              // accents fortes (vermelho, neon, etc). Em pastel: claro
+              // translúcido. Em institucional: dourado tradicional do
+              // accent (que ali é sutil dourado, não brigaria).
+              borderColor: isPastel
+                ? "rgba(255, 255, 255, 0.4)"
+                : "var(--accent)",
               borderWidth: isPastel ? "2px" : "1px",
               background: useImage ? "transparent" : "var(--bg-dark-tint)",
               boxShadow: isPastel

@@ -185,7 +185,7 @@ export default function TeamMemberCard({ member }: Props) {
                 className="relative rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border"
                 style={{
                   background: "var(--bg-page)",
-                  borderColor: "var(--accent)",
+                  borderColor: "var(--border-soft)",
                 }}
                 onMouseLeave={close}
               >

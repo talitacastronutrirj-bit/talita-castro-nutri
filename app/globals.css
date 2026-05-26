@@ -490,13 +490,15 @@ body {
 [data-palette="blush"] .hero-grad::after,
 [data-palette="honey"] .hero-grad::after,
 [data-palette="mint"] .hero-grad::after {
-  /* Camada extra de accent no canto pra criar foco */
+  /* Brilho sutil no canto pra criar foco — usa BRANCO (não accent) pra
+     não tingir o hero com a cor do accent customizado, que pode ser
+     qualquer cor (vermelho, verde, etc) e ficaria invasivo. */
   background: radial-gradient(
     ellipse at 90% 50%,
-    var(--accent-tint) 0%,
-    transparent 60%
+    rgba(255, 255, 255, 0.18) 0%,
+    transparent 55%
   );
-  opacity: 0.25;
+  opacity: 1;
   animation: none;
 }
 
