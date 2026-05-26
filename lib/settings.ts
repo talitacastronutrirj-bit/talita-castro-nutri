@@ -38,6 +38,12 @@ export type Palette =
 // no layout. Lista usada por components/Header e <html> data-attr.
 export const PASTEL_PALETTES: Palette[] = ["sage", "blush", "honey", "mint"];
 
+// Intensidade aplicada SOBRE a paleta escolhida:
+// - soft:    cores diluídas com branco (~30%) — vibe lavado, sereno
+// - normal:  cores como definidas em cada paleta
+// - vibrant: cores misturadas com preto (~15%) — mais punch, mais contraste
+export type PaletteIntensity = "soft" | "normal" | "vibrant";
+
 export type HeroMode = "logo" | "image";
 
 export type HeroEntrance =
@@ -70,6 +76,7 @@ export type SiteSettings = {
 
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;
+  paletteIntensity: PaletteIntensity;
   heroMode: HeroMode;
   heroImageUrl: string;       // Foto que aparece NO CARD do hero quando heroMode=image
   heroBackgroundUrl: string;  // Imagem de FUNDO do hero (atrás dos textos) — "" cai pro CSS default
@@ -109,6 +116,7 @@ const DEFAULTS: SiteSettings = {
   logoUrl: "",
 
   palette: "navy",
+  paletteIntensity: "normal",
   heroMode: "logo",
   heroImageUrl: "",
   heroBackgroundUrl: "",
@@ -155,6 +163,7 @@ const KEY_MAP = {
   logoUrl: "logo_url",
   // scalars
   palette: "palette",
+  paletteIntensity: "palette_intensity",
   heroMode: "hero_mode",
   heroImageUrl: "hero_image_url",
   heroBackgroundUrl: "hero_background_url",
@@ -254,6 +263,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
       palette:
         (getScalar(map, "palette") as Palette) || DEFAULTS.palette,
+      paletteIntensity:
+        (getScalar(map, "paletteIntensity") as PaletteIntensity) ||
+        DEFAULTS.paletteIntensity,
       heroMode:
         (getScalar(map, "heroMode") as HeroMode) || DEFAULTS.heroMode,
       heroImageUrl: getScalar(map, "heroImageUrl") || DEFAULTS.heroImageUrl,

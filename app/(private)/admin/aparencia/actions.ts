@@ -6,6 +6,7 @@ import { getSession } from "@/lib/auth";
 import {
   updateSiteSettings,
   type Palette,
+  type PaletteIntensity,
   type HeroMode,
   type HeroEntrance,
   type HeroIdle,
@@ -25,6 +26,7 @@ const PALETTES: Palette[] = [
   "honey",
   "mint",
 ];
+const INTENSITIES: PaletteIntensity[] = ["soft", "normal", "vibrant"];
 const HERO_MODES: HeroMode[] = ["logo", "image"];
 const ENTRANCES: HeroEntrance[] = [
   "none",
@@ -64,6 +66,9 @@ export async function saveAppearance(formData: FormData) {
 
   // ─── Scalars ──────────────────────────────────────────────
   const palette = String(formData.get("palette") ?? "") as Palette;
+  const paletteIntensity = String(
+    formData.get("paletteIntensity") ?? "normal"
+  ) as PaletteIntensity;
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
   const heroImageUrl = String(formData.get("heroImageUrl") ?? "").trim();
   const heroBackgroundUrl = String(formData.get("heroBackgroundUrl") ?? "").trim();
@@ -94,6 +99,9 @@ export async function saveAppearance(formData: FormData) {
   if (!PALETTES.includes(palette)) {
     redirect("/admin/aparencia?error=palette");
   }
+  if (!INTENSITIES.includes(paletteIntensity)) {
+    redirect("/admin/aparencia?error=intensity");
+  }
   if (!HERO_MODES.includes(heroMode)) {
     redirect("/admin/aparencia?error=heroMode");
   }
@@ -117,6 +125,7 @@ export async function saveAppearance(formData: FormData) {
     primaryWhatsappDisplay,
     logoUrl,
     palette,
+    paletteIntensity,
     heroMode,
     heroImageUrl,
     heroBackgroundUrl,

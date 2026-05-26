@@ -273,6 +273,44 @@
   letter-spacing: -0.01em;
 }
 
+/* ============================================
+   INTENSIDADE — modifica as cores principais da paleta ativa
+   via color-mix(), sem precisar redefinir cada paleta.
+
+   Funciona assim: as variáveis "-tint" são versões derivadas das
+   variáveis brutas (--accent, --bg-dark, etc) e são REDEFINIDAS
+   quando data-intensity != "normal". As classes utilitárias usam
+   as tints em vez das variáveis brutas, então qualquer ajuste de
+   intensidade propaga automaticamente.
+   ============================================ */
+
+/* Defaults (intensity = "normal"): tints = variável bruta */
+:root {
+  --accent-tint: var(--accent);
+  --bg-dark-tint: var(--bg-dark);
+  --bg-dark-2-tint: var(--bg-dark-2);
+  --bg-dark-3-tint: var(--bg-dark-3);
+  --bg-darkest-tint: var(--bg-darkest);
+}
+
+[data-intensity="soft"] {
+  /* Mistura com branco → cores mais lavadas, mais pastéis */
+  --accent-tint: color-mix(in srgb, var(--accent) 70%, white);
+  --bg-dark-tint: color-mix(in srgb, var(--bg-dark) 72%, white);
+  --bg-dark-2-tint: color-mix(in srgb, var(--bg-dark-2) 72%, white);
+  --bg-dark-3-tint: color-mix(in srgb, var(--bg-dark-3) 72%, white);
+  --bg-darkest-tint: color-mix(in srgb, var(--bg-darkest) 65%, white);
+}
+
+[data-intensity="vibrant"] {
+  /* Mistura com preto → cores mais saturadas, mais punch */
+  --accent-tint: color-mix(in srgb, var(--accent) 85%, black);
+  --bg-dark-tint: color-mix(in srgb, var(--bg-dark) 88%, black);
+  --bg-dark-2-tint: color-mix(in srgb, var(--bg-dark-2) 88%, black);
+  --bg-dark-3-tint: color-mix(in srgb, var(--bg-dark-3) 88%, black);
+  --bg-darkest-tint: color-mix(in srgb, var(--bg-darkest) 92%, black);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -288,28 +326,30 @@ body {
   font-family: var(--font-serif);
 }
 
-/* Classes utilitárias que mapeiam pras variáveis da paleta ativa */
+/* Classes utilitárias — usam variáveis -tint (afetadas por data-intensity)
+   nas cores principais da paleta. As demais (text-light, page, etc) usam
+   as variáveis brutas porque intensity não deve afetar fundo claro/texto. */
 .bg-page { background: var(--bg-page); }
 .bg-page-2 { background: var(--bg-page-2); }
-.bg-dark { background: var(--bg-dark); }
-.bg-dark-2 { background: var(--bg-dark-2); }
-.bg-darkest { background: var(--bg-darkest); }
+.bg-dark { background: var(--bg-dark-tint); }
+.bg-dark-2 { background: var(--bg-dark-2-tint); }
+.bg-darkest { background: var(--bg-darkest-tint); }
 .text-light { color: var(--text-light); }
 .text-light-soft { color: var(--text-light-soft); }
 .text-light-soft-2 { color: var(--text-light-soft-2); }
 .text-dark { color: var(--text-dark); }
 .text-darker { color: var(--text-darker); }
-.text-accent { color: var(--accent); }
+.text-accent { color: var(--accent-tint); }
 .text-accent-soft { color: var(--accent-soft); }
 .text-accent-bright { color: var(--accent-bright); }
-.bg-accent { background: var(--accent); }
-.border-accent { border-color: var(--accent); }
+.bg-accent { background: var(--accent-tint); }
+.border-accent { border-color: var(--accent-tint); }
 .border-soft { border-color: var(--border-soft); }
 .border-soft-dark { border-color: var(--border-soft-dark); }
 
 .btn-primary {
-  background: var(--accent);
-  color: var(--bg-dark);
+  background: var(--accent-tint);
+  color: var(--bg-dark-tint);
   transition: background 0.2s ease;
 }
 .btn-primary:hover { background: var(--accent-hover); }
@@ -322,14 +362,14 @@ body {
 .btn-outline-light:hover { background: rgba(251, 248, 243, 0.1); }
 
 .btn-dark {
-  background: var(--bg-dark-2);
+  background: var(--bg-dark-2-tint);
   color: var(--text-light);
   transition: background 0.2s ease;
 }
-.btn-dark:hover { background: var(--bg-dark); }
+.btn-dark:hover { background: var(--bg-dark-tint); }
 
 .gold-rule {
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, var(--accent-tint), transparent);
   height: 1px;
 }
 
@@ -379,9 +419,9 @@ body {
 [data-palette="mint"] .hero-grad {
   background: linear-gradient(
     135deg,
-    var(--bg-dark) 0%,
-    var(--bg-dark-2) 50%,
-    var(--bg-dark-3) 100%
+    var(--bg-dark-tint) 0%,
+    var(--bg-dark-2-tint) 50%,
+    var(--bg-dark-3-tint) 100%
   );
 }
 [data-palette="sage"] .hero-grad::before,

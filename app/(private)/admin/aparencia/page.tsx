@@ -377,6 +377,87 @@ export default async function AppearancePage({
               </div>
             );
           })}
+
+          {/* Intensidade da paleta — slider de 3 stops */}
+          <div className="mt-8 pt-6 border-t" style={{ borderColor: "var(--border-soft)" }}>
+            <h4
+              className="font-serif text-base font-semibold mb-1"
+              style={{ color: "var(--bg-dark)" }}
+            >
+              Intensidade das cores
+            </h4>
+            <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
+              Ajusta a intensidade da paleta sem trocar de cor. Suave deixa
+              o site mais lavado/sereno; Vibrante traz mais punch e contraste.
+            </p>
+
+            <div className="grid grid-cols-3 gap-2">
+              {(
+                [
+                  {
+                    value: "soft",
+                    label: "Suave",
+                    description: "Mais lavado, sereno",
+                  },
+                  {
+                    value: "normal",
+                    label: "Normal",
+                    description: "Cores da paleta",
+                  },
+                  {
+                    value: "vibrant",
+                    label: "Vibrante",
+                    description: "Mais punch, contraste",
+                  },
+                ] as const
+              ).map((opt) => (
+                <label
+                  key={opt.value}
+                  className="cursor-pointer rounded-xl border p-3 hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition text-center"
+                  style={{ borderColor: "var(--border-soft)" }}
+                >
+                  <input
+                    type="radio"
+                    name="paletteIntensity"
+                    value={opt.value}
+                    defaultChecked={settings.paletteIntensity === opt.value}
+                    className="sr-only"
+                  />
+                  <div
+                    className="font-medium text-sm"
+                    style={{ color: "var(--bg-dark)" }}
+                  >
+                    {opt.label}
+                  </div>
+                  <div
+                    className="text-[11px] mt-0.5 text-dark"
+                    style={{ opacity: 0.6 }}
+                  >
+                    {opt.description}
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            {/* Barra visual sugerindo o slider */}
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-wider text-dark" style={{ opacity: 0.5 }}>
+                Suave
+              </span>
+              <div
+                className="flex-1 h-1.5 rounded-full"
+                style={{
+                  background: `linear-gradient(90deg,
+                    color-mix(in srgb, var(--accent) 65%, white) 0%,
+                    var(--accent) 50%,
+                    color-mix(in srgb, var(--accent) 85%, black) 100%)`,
+                }}
+              />
+              <span className="text-[10px] uppercase tracking-wider text-dark" style={{ opacity: 0.5 }}>
+                Vibrante
+              </span>
+            </div>
+          </div>
         </section>
 
         {/* ============ TEXTOS DO HERO ============ */}
