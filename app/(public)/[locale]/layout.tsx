@@ -113,11 +113,20 @@ export default async function PublicRootLayout({ children, params }: Props) {
     getSiteSettings(),
   ]);
 
+  // Accent customizado pelo cliente sobrescreve a variável CSS via inline
+  // style. As variantes (--accent-hover, --accent-soft, --accent-bright)
+  // são derivadas via color-mix() em globals.css.
+  const customAccentStyle = settings.customAccentColor
+    ? ({ "--accent": settings.customAccentColor } as React.CSSProperties)
+    : undefined;
+
   return (
     <html
       lang={locale}
       data-palette={settings.palette}
       data-intensity={settings.paletteIntensity}
+      data-custom-accent={settings.customAccentColor ? "true" : undefined}
+      style={customAccentStyle}
       className={`${inter.variable} ${cormorant.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

@@ -311,6 +311,18 @@
   --bg-darkest-tint: color-mix(in srgb, var(--bg-darkest) 92%, black);
 }
 
+/* ============================================
+   ACCENT CUSTOMIZADO — cliente escolhe via color picker no /admin
+   Quando data-custom-accent="true", --accent vem inline via style.
+   Aqui derivamos as variantes (hover/soft/bright) automaticamente
+   via color-mix() — assim o cliente só precisa escolher 1 cor.
+   ============================================ */
+[data-custom-accent="true"] {
+  --accent-hover: color-mix(in srgb, var(--accent) 85%, black);
+  --accent-soft: color-mix(in srgb, var(--accent) 70%, white);
+  --accent-bright: color-mix(in srgb, var(--accent) 55%, white);
+}
+
 html {
   scroll-behavior: smooth;
 }

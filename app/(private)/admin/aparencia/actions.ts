@@ -69,6 +69,13 @@ export async function saveAppearance(formData: FormData) {
   const paletteIntensity = String(
     formData.get("paletteIntensity") ?? "normal"
   ) as PaletteIntensity;
+  // Cor custom: aceita "#rrggbb" ou vazio (= usa accent da paleta).
+  const customAccentRaw = String(
+    formData.get("customAccentColor") ?? ""
+  ).trim();
+  const customAccentColor = /^#[0-9a-fA-F]{6}$/.test(customAccentRaw)
+    ? customAccentRaw.toLowerCase()
+    : "";
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
   const heroImageUrl = String(formData.get("heroImageUrl") ?? "").trim();
   const heroBackgroundUrl = String(formData.get("heroBackgroundUrl") ?? "").trim();
@@ -126,6 +133,7 @@ export async function saveAppearance(formData: FormData) {
     logoUrl,
     palette,
     paletteIntensity,
+    customAccentColor,
     heroMode,
     heroImageUrl,
     heroBackgroundUrl,

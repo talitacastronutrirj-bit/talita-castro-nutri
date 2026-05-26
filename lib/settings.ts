@@ -77,6 +77,10 @@ export type SiteSettings = {
   // Scalars (mesmo valor pra todos os idiomas)
   palette: Palette;
   paletteIntensity: PaletteIntensity;
+  // Cor accent customizada (hex "#rrggbb"). Vazio = usa o accent da paleta.
+  // Quando preenchido, sobrescreve --accent e suas variantes (hover/soft/bright)
+  // são derivadas automaticamente via color-mix() no CSS.
+  customAccentColor: string;
   heroMode: HeroMode;
   heroImageUrl: string;       // Foto que aparece NO CARD do hero quando heroMode=image
   heroBackgroundUrl: string;  // Imagem de FUNDO do hero (atrás dos textos) — "" cai pro CSS default
@@ -117,6 +121,7 @@ const DEFAULTS: SiteSettings = {
 
   palette: "navy",
   paletteIntensity: "normal",
+  customAccentColor: "",
   heroMode: "logo",
   heroImageUrl: "",
   heroBackgroundUrl: "",
@@ -164,6 +169,7 @@ const KEY_MAP = {
   // scalars
   palette: "palette",
   paletteIntensity: "palette_intensity",
+  customAccentColor: "custom_accent_color",
   heroMode: "hero_mode",
   heroImageUrl: "hero_image_url",
   heroBackgroundUrl: "hero_background_url",
@@ -266,6 +272,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       paletteIntensity:
         (getScalar(map, "paletteIntensity") as PaletteIntensity) ||
         DEFAULTS.paletteIntensity,
+      customAccentColor:
+        getScalar(map, "customAccentColor") || DEFAULTS.customAccentColor,
       heroMode:
         (getScalar(map, "heroMode") as HeroMode) || DEFAULTS.heroMode,
       heroImageUrl: getScalar(map, "heroImageUrl") || DEFAULTS.heroImageUrl,

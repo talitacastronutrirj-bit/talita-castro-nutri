@@ -4,6 +4,7 @@ import {
   LocalizedInput,
   LocalizedTextarea,
 } from "@/components/admin/LocalizedInput";
+import AccentColorPicker from "@/components/admin/AccentColorPicker";
 import { getSiteSettings } from "@/lib/settings";
 import { saveAppearance } from "./actions";
 
@@ -457,6 +458,23 @@ export default async function AppearancePage({
                 Vibrante
               </span>
             </div>
+          </div>
+
+          {/* ─── COR DOS DETALHES (accent custom) ─── */}
+          <div className="mt-8 pt-6 border-t" style={{ borderColor: "var(--border-soft)" }}>
+            <h4
+              className="font-serif text-base font-semibold mb-1"
+              style={{ color: "var(--bg-dark)" }}
+            >
+              Cor dos detalhes
+            </h4>
+            <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
+              Cor de destaque usada em botões, links, separadores e ícones.
+              Por padrão herda da paleta escolhida acima. Mude pra qualquer
+              cor — variantes (hover, claro, brilhante) são geradas automaticamente.
+            </p>
+
+            <AccentColorPicker defaultValue={settings.customAccentColor} />
           </div>
         </section>
 
