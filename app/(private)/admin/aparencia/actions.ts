@@ -86,37 +86,29 @@ export async function saveAppearance(formData: FormData) {
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
   const heroImageUrl = String(formData.get("heroImageUrl") ?? "").trim();
   const heroBackgroundUrl = String(formData.get("heroBackgroundUrl") ?? "").trim();
-  // Cor sólida do fundo do hero (alternativa ao gradient animado).
+  // Aceita hex de 6 (#rrggbb) ou 8 dígitos (#rrggbbaa, com alpha).
+  const isHex = (s: string) => /^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/.test(s);
+  // Cor sólida do fundo do hero — agora vem como valor consolidado do
+  // ColorChoicePicker (preset name OU hex). Não precisa mais de fields
+  // separados ("custom" + raw); o componente faz o merge.
   const heroBgColorRaw = String(
     formData.get("heroBackgroundColor") ?? ""
   ).trim();
-  const heroBgColorCustom = String(
-    formData.get("heroBackgroundColorCustom") ?? ""
-  ).trim();
-  const isHex = (s: string) => /^#[0-9a-fA-F]{6}$/.test(s);
-  const heroBackgroundColor = isHex(heroBgColorCustom)
-    ? heroBgColorCustom.toLowerCase()
-    : heroBgColorRaw === "page" ||
-        heroBgColorRaw === "accent" ||
-        heroBgColorRaw === "dark" ||
-        isHex(heroBgColorRaw)
+  const heroBackgroundColor =
+    heroBgColorRaw === "page" ||
+    heroBgColorRaw === "accent" ||
+    heroBgColorRaw === "dark" ||
+    isHex(heroBgColorRaw)
       ? heroBgColorRaw.toLowerCase()
       : "";
-  // Cor de fundo do card: o radio envia uma das presets ("page", "accent",
-  // hex de uma opção) ou vazio (default). O input text "Custom" sobrescreve
-  // tudo se for um hex válido.
+  // Cor de fundo do card — valor consolidado vindo do ColorChoicePicker.
   const heroCardBackgroundRaw = String(
     formData.get("heroCardBackground") ?? ""
   ).trim();
-  const heroCardBackgroundCustom = String(
-    formData.get("heroCardBackgroundCustom") ?? ""
-  ).trim();
-  const isValidHex = (s: string) => /^#[0-9a-fA-F]{6}$/.test(s);
-  const heroCardBackground = isValidHex(heroCardBackgroundCustom)
-    ? heroCardBackgroundCustom.toLowerCase()
-    : heroCardBackgroundRaw === "page" ||
-        heroCardBackgroundRaw === "accent" ||
-        isValidHex(heroCardBackgroundRaw)
+  const heroCardBackground =
+    heroCardBackgroundRaw === "page" ||
+    heroCardBackgroundRaw === "accent" ||
+    isHex(heroCardBackgroundRaw)
       ? heroCardBackgroundRaw.toLowerCase()
       : "";
   // Checkbox: presente no form = "on" (true); ausente = undefined (false)

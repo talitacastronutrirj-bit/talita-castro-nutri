@@ -158,11 +158,14 @@ export default async function Hero() {
 // - "accent"           → cor de destaque da paleta (--accent-tint)
 // - "dark"             → cor escura da paleta (--bg-dark-tint)
 // - "#rrggbb"          → hex livre escolhido pelo cliente
+// Aceita hex 6 dígitos (#rrggbb) ou 8 dígitos (#rrggbbaa, com alpha)
+const HEX_RE = /^#[0-9a-f]{6}([0-9a-f]{2})?$/i;
+
 function resolveCardBackground(value: string): string {
   if (value === "page") return "var(--bg-page)";
   if (value === "accent") return "var(--accent-tint)";
   if (value === "dark") return "var(--bg-dark-tint)";
-  if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+  if (HEX_RE.test(value)) return value;
   return "var(--bg-dark-tint)";
 }
 
@@ -172,7 +175,7 @@ function resolveSolidColor(value: string): string | null {
   if (value === "page") return "var(--bg-page)";
   if (value === "accent") return "var(--accent-tint)";
   if (value === "dark") return "var(--bg-dark-tint)";
-  if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+  if (HEX_RE.test(value)) return value;
   return null;
 }
 
