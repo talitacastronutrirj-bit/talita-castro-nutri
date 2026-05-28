@@ -104,6 +104,10 @@ export type SiteSettings = {
   // - "accent"  — usa --accent da paleta
   // - "#xxxxxx" — hex livre (cor customizada)
   heroCardBackground: string;
+  // Mostrar o "retângulo" do card lateral (border + background + shadow)?
+  // false = logo aparece solta, sem moldura. Default true (compatível
+  // com sites em produção).
+  heroCardEnabled: boolean;
   heroLogoEntrance: HeroEntrance;
   heroLogoIdle: HeroIdle;
   instagramUrl: string;
@@ -147,6 +151,7 @@ const DEFAULTS: SiteSettings = {
   heroImageUrl: "",
   heroBackgroundUrl: "",
   heroCardBackground: "",
+  heroCardEnabled: true,
   heroLogoEntrance: "slide",
   heroLogoIdle: "none",
   instagramUrl: "",
@@ -197,6 +202,7 @@ const KEY_MAP = {
   heroImageUrl: "hero_image_url",
   heroBackgroundUrl: "hero_background_url",
   heroCardBackground: "hero_card_background",
+  heroCardEnabled: "hero_card_enabled",
   heroLogoEntrance: "hero_logo_entrance",
   heroLogoIdle: "hero_logo_idle",
   instagramUrl: "instagram_url",
@@ -306,6 +312,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         getScalar(map, "heroBackgroundUrl") || DEFAULTS.heroBackgroundUrl,
       heroCardBackground:
         getScalar(map, "heroCardBackground") || DEFAULTS.heroCardBackground,
+      // Boolean armazenado como "true"/"false". Vazio (não existe no DB)
+      // = default true → mantém retângulo em sites antigos sem essa key.
+      heroCardEnabled: getScalar(map, "heroCardEnabled") !== "false",
       heroLogoEntrance:
         (getScalar(map, "heroLogoEntrance") as HeroEntrance) ||
         DEFAULTS.heroLogoEntrance,

@@ -913,13 +913,51 @@ export default async function AppearancePage({
               </p>
             </div>
 
+            {/* Toggle: mostrar o card (retângulo) ou logo solta */}
+            <div
+              className="rounded-xl border p-4"
+              style={{ borderColor: "var(--border-soft)" }}
+            >
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="heroCardEnabled"
+                  defaultChecked={settings.heroCardEnabled}
+                  className="mt-1 w-4 h-4 cursor-pointer accent-amber-500"
+                />
+                <div>
+                  <div
+                    className="font-medium text-sm"
+                    style={{ color: "var(--bg-dark)" }}
+                  >
+                    Mostrar moldura do card lateral
+                  </div>
+                  <div
+                    className="text-[11px] text-dark mt-1 leading-relaxed"
+                    style={{ opacity: 0.7 }}
+                  >
+                    Quando marcado, a logo (ou foto) aparece dentro de um
+                    retângulo arredondado com borda e sombra. <br />
+                    Desmarque pra deixar a logo &quot;solta&quot; flutuando,
+                    sem moldura — visual mais minimalista.
+                  </div>
+                </div>
+              </label>
+            </div>
+
             {/* Cor de fundo do card (visível quando modo=logo, ou sem foto) */}
             <div>
               <label
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--bg-dark)" }}
               >
-                Cor de fundo do card lateral
+                Cor de fundo do card lateral{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (ignorada se a moldura está desativada acima)
+                </span>
               </label>
               <p
                 className="text-[11px] text-dark mb-3"

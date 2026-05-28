@@ -80,23 +80,29 @@ export default async function Hero() {
 
         <div className="md:col-span-5 hidden md:block">
           <div
-            className="aspect-[4/5] rounded-2xl overflow-hidden border shadow-2xl relative"
-            style={{
-              // Border neutra (não derivada do accent) pra não brigar com
-              // accents fortes (vermelho, neon, etc). Em pastel: claro
-              // translúcido. Em institucional: dourado tradicional do
-              // accent (que ali é sutil dourado, não brigaria).
-              borderColor: isPastel
-                ? "rgba(255, 255, 255, 0.4)"
-                : "var(--accent)",
-              borderWidth: isPastel ? "2px" : "1px",
-              background: useImage
-                ? "transparent"
-                : resolveCardBackground(settings.heroCardBackground),
-              boxShadow: isPastel
-                ? "0 20px 50px -15px rgba(0,0,0,0.35), 0 8px 20px -10px rgba(0,0,0,0.2)"
-                : undefined,
-            }}
+            className={`aspect-[4/5] relative ${
+              settings.heroCardEnabled
+                ? "rounded-2xl overflow-hidden border shadow-2xl"
+                : ""
+            }`}
+            style={
+              settings.heroCardEnabled
+                ? {
+                    // Border neutra (não derivada do accent) pra não brigar
+                    // com accents fortes (vermelho, neon, etc).
+                    borderColor: isPastel
+                      ? "rgba(255, 255, 255, 0.4)"
+                      : "var(--accent)",
+                    borderWidth: isPastel ? "2px" : "1px",
+                    background: useImage
+                      ? "transparent"
+                      : resolveCardBackground(settings.heroCardBackground),
+                    boxShadow: isPastel
+                      ? "0 20px 50px -15px rgba(0,0,0,0.35), 0 8px 20px -10px rgba(0,0,0,0.2)"
+                      : undefined,
+                  }
+                : undefined
+            }
           >
             {useImage ? (
               <Image

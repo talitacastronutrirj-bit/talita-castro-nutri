@@ -103,6 +103,8 @@ export async function saveAppearance(formData: FormData) {
         isValidHex(heroCardBackgroundRaw)
       ? heroCardBackgroundRaw.toLowerCase()
       : "";
+  // Checkbox: presente no form = "on" (true); ausente = undefined (false)
+  const heroCardEnabled = formData.get("heroCardEnabled") !== null;
   const heroLogoEntrance = String(
     formData.get("heroLogoEntrance") ?? ""
   ) as HeroEntrance;
@@ -168,6 +170,7 @@ export async function saveAppearance(formData: FormData) {
     heroImageUrl,
     heroBackgroundUrl,
     heroCardBackground,
+    heroCardEnabled,
     heroLogoEntrance,
     heroLogoIdle,
     heroEyebrow,
