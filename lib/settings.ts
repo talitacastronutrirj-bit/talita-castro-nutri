@@ -68,6 +68,13 @@ export type HeroIdle = "none" | "float" | "pulse" | "slowrotate";
 // - "both": Calendly + WhatsApp como opções alternativas
 export type BookingMode = "whatsapp" | "calendly" | "both";
 
+// Como a seção Equipe se apresenta quando o profissional é SOLO (1 só
+// membro cadastrado). Pra 2+, sempre usa grid e o layout aqui é ignorado.
+// - "team":            mantém grid (foto pequena, vira "Equipe" mesmo solo)
+// - "about-centered":  foto grande centralizada, bio aparece no hover/click
+// - "about-side":      foto à esquerda + bio em texto à direita (sempre visível)
+export type TeamSoloLayout = "team" | "about-centered" | "about-side";
+
 export type SiteSettings = {
   // ─── Identificação do profissional (editável pelo admin) ───
   // Sobrescrevem os defaults de lib/site.ts. Vazios = usa lib/site.ts.
@@ -97,6 +104,7 @@ export type SiteSettings = {
   linkedinUrl: string;
   bookingMode: BookingMode;
   calendlyUrl: string;
+  teamSoloLayout: TeamSoloLayout;
 
   // Localized (objeto {pt, en, it} pra cada)
   heroEyebrow: LocalizedText;
@@ -138,6 +146,7 @@ const DEFAULTS: SiteSettings = {
   linkedinUrl: "",
   bookingMode: "whatsapp",
   calendlyUrl: "",
+  teamSoloLayout: "about-centered",
   // Defaults com PT preenchido pra preview funcionar antes do cliente editar
   heroEyebrow: { pt: "Atendimento profissional", en: "", it: "" },
   heroHeading: {
@@ -186,6 +195,7 @@ const KEY_MAP = {
   linkedinUrl: "linkedin_url",
   bookingMode: "booking_mode",
   calendlyUrl: "calendly_url",
+  teamSoloLayout: "team_solo_layout",
   // localized
   heroEyebrow: "hero_eyebrow",
   heroHeading: "hero_heading",
@@ -297,6 +307,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         (getScalar(map, "bookingMode") as BookingMode) ||
         DEFAULTS.bookingMode,
       calendlyUrl: getScalar(map, "calendlyUrl") || DEFAULTS.calendlyUrl,
+      teamSoloLayout:
+        (getScalar(map, "teamSoloLayout") as TeamSoloLayout) ||
+        DEFAULTS.teamSoloLayout,
 
       heroEyebrow: getLocalized(map, "heroEyebrow", DEFAULTS.heroEyebrow),
       heroHeading: getLocalized(map, "heroHeading", DEFAULTS.heroHeading),

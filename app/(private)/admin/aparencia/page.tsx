@@ -105,7 +105,13 @@ export default async function AppearancePage({
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--bg-dark)" }}
               >
-                Logo / marca
+                Logo da marca{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (aparece no Header e Footer)
+                </span>
               </label>
               <ImageUpload
                 name="logoUrl"
@@ -120,6 +126,9 @@ export default async function AppearancePage({
               >
                 Idealmente PNG ou SVG com fundo transparente. Se vazio, usa
                 <code> /images/logo.svg </code> (placeholder do template).
+                <br />
+                <strong>Não é o mesmo</strong> da imagem do hero — esse logo
+                aparece no topo do site em todas as páginas.
               </p>
             </div>
 
@@ -804,10 +813,17 @@ export default async function AppearancePage({
             className="font-serif text-lg font-semibold mb-1"
             style={{ color: "var(--bg-dark)" }}
           >
-            Hero da página inicial
+            Hero — imagens
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
-            O que aparece no card grande da direita no topo do site.
+            Hero é o topo do site (primeira coisa que o visitante vê).
+            Aqui você configura:
+            <br />
+            1. <strong>Card lateral</strong> (lado direito) — pode mostrar
+            seu logo animado OU uma foto que você escolher.
+            <br />
+            2. <strong>Imagem de fundo</strong> (atrás dos textos) — opcional,
+            uma foto que cobre toda a área do hero.
           </p>
 
           <div className="space-y-4">
@@ -863,13 +879,13 @@ export default async function AppearancePage({
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--bg-dark)" }}
               >
-                Imagem do hero{" "}
+                ① Foto do card lateral do hero{" "}
                 <span
                   className="font-normal text-dark"
                   style={{ opacity: 0.6 }}
                 >
-                  (usada apenas se &quot;Imagem personalizada&quot; estiver
-                  selecionada acima)
+                  (só usada se &quot;Imagem personalizada&quot; está marcada
+                  acima)
                 </span>
               </label>
               <ImageUpload
@@ -877,14 +893,15 @@ export default async function AppearancePage({
                 context="hero"
                 aspectRatio="wide"
                 defaultValue={settings.heroImageUrl}
-                label="Selecionar imagem do hero"
+                label="Selecionar foto do card"
               />
               <p
                 className="text-[11px] text-dark mt-2"
                 style={{ opacity: 0.6 }}
               >
-                Faça upload direto do seu computador. Aceita JPG, PNG, WEBP
-                ou GIF, até 5MB. A imagem fica hospedada no Cloudinary.
+                Foto vertical funciona melhor (card é 4:5). Pode ser uma
+                foto sua, do consultório, ou de algo simbólico. Ignorada
+                se o modo acima for &quot;Logo do site&quot;.
               </p>
             </div>
 
@@ -893,12 +910,12 @@ export default async function AppearancePage({
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--bg-dark)" }}
               >
-                Imagem de FUNDO do hero{" "}
+                ② Foto de FUNDO do hero{" "}
                 <span
                   className="font-normal text-dark"
                   style={{ opacity: 0.6 }}
                 >
-                  (atrás dos textos — opcional)
+                  (atrás de TODO o hero — opcional)
                 </span>
               </label>
               <ImageUpload
@@ -906,7 +923,7 @@ export default async function AppearancePage({
                 context="hero"
                 aspectRatio="wide"
                 defaultValue={settings.heroBackgroundUrl}
-                label="Selecionar imagem de fundo"
+                label="Selecionar foto de fundo"
               />
               <p
                 className="text-[11px] text-dark mt-2"
@@ -920,6 +937,76 @@ export default async function AppearancePage({
                 gradient da paleta.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* ============ LAYOUT EQUIPE/SOBRE ============ */}
+        <section
+          className="pt-6 border-t"
+          style={{ borderColor: "var(--border-soft)" }}
+        >
+          <h3
+            className="font-serif text-lg font-semibold mb-1"
+            style={{ color: "var(--bg-dark)" }}
+          >
+            Layout da seção Equipe
+          </h3>
+          <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
+            Quando você cadastra <strong>1 só profissional</strong> na Equipe
+            (atendimento autônomo), o site pode apresentar como &quot;Sobre&quot;
+            em vez de &quot;Equipe&quot;. Quando há 2+ profissionais, sempre
+            usa grid. Esta opção só afeta o caso solo.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-3">
+            {(
+              [
+                {
+                  value: "about-centered",
+                  label: "Centralizada com hover",
+                  description:
+                    "Foto grande centralizada. Nome e bio aparecem com efeito quando passa o mouse / toca.",
+                },
+                {
+                  value: "about-side",
+                  label: "Foto à esquerda + bio",
+                  description:
+                    "Foto à esquerda e bio em texto visível à direita (lado a lado).",
+                },
+                {
+                  value: "team",
+                  label: "Grid de equipe",
+                  description:
+                    "Mantém o layout de cards (mesmo solo). Útil se vai adicionar mais pessoas em breve.",
+                },
+              ] as const
+            ).map((opt) => (
+              <label
+                key={opt.value}
+                className="cursor-pointer rounded-xl border p-4 hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition"
+                style={{ borderColor: "var(--border-soft)" }}
+              >
+                <input
+                  type="radio"
+                  name="teamSoloLayout"
+                  value={opt.value}
+                  defaultChecked={settings.teamSoloLayout === opt.value}
+                  className="sr-only"
+                />
+                <div
+                  className="font-medium text-sm mb-1"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  {opt.label}
+                </div>
+                <div
+                  className="text-[11px] leading-relaxed text-dark"
+                  style={{ opacity: 0.7 }}
+                >
+                  {opt.description}
+                </div>
+              </label>
+            ))}
           </div>
         </section>
 

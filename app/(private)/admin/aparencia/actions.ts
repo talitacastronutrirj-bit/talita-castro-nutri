@@ -11,6 +11,7 @@ import {
   type HeroEntrance,
   type HeroIdle,
   type BookingMode,
+  type TeamSoloLayout,
 } from "@/lib/settings";
 import { readLocalizedFromFormData } from "@/lib/localized";
 
@@ -28,6 +29,11 @@ const PALETTES: Palette[] = [
   "rouge",
 ];
 const INTENSITIES: PaletteIntensity[] = ["soft", "normal", "vibrant"];
+const TEAM_SOLO_LAYOUTS: TeamSoloLayout[] = [
+  "team",
+  "about-centered",
+  "about-side",
+];
 const HERO_MODES: HeroMode[] = ["logo", "image"];
 const ENTRANCES: HeroEntrance[] = [
   "none",
@@ -89,6 +95,9 @@ export async function saveAppearance(formData: FormData) {
   const linkedinUrl = String(formData.get("linkedinUrl") ?? "").trim();
   const bookingMode = String(formData.get("bookingMode") ?? "whatsapp") as BookingMode;
   const calendlyUrl = String(formData.get("calendlyUrl") ?? "").trim();
+  const teamSoloLayout = String(
+    formData.get("teamSoloLayout") ?? "about-centered"
+  ) as TeamSoloLayout;
 
   // ─── Localized (lê <name>__pt, <name>__en, <name>__it) ────
   const heroEyebrow = readLocalizedFromFormData(formData, "heroEyebrow");
@@ -122,6 +131,9 @@ export async function saveAppearance(formData: FormData) {
   if (!BOOKING_MODES.includes(bookingMode)) {
     redirect("/admin/aparencia?error=booking");
   }
+  if (!TEAM_SOLO_LAYOUTS.includes(teamSoloLayout)) {
+    redirect("/admin/aparencia?error=teamSolo");
+  }
 
   await updateSiteSettings({
     siteName,
@@ -148,6 +160,7 @@ export async function saveAppearance(formData: FormData) {
     linkedinUrl,
     bookingMode,
     calendlyUrl,
+    teamSoloLayout,
     trustBar1Label,
     trustBar1Value,
     trustBar2Label,
