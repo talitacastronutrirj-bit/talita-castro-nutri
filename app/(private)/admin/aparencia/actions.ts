@@ -25,6 +25,7 @@ const PALETTES: Palette[] = [
   "blush",
   "honey",
   "mint",
+  "rouge",
 ];
 const INTENSITIES: PaletteIntensity[] = ["soft", "normal", "vibrant"];
 const HERO_MODES: HeroMode[] = ["logo", "image"];

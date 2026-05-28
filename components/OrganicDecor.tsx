@@ -13,7 +13,7 @@
 // Usado em Hero, Booking, etc — wrap em um div com `position: relative`.
 
 import { getSiteSettings } from "@/lib/settings";
-import { PASTEL_PALETTES } from "@/lib/settings";
+import { PASTEL_PALETTES, VIBRANT_PALETTES } from "@/lib/settings";
 
 type Variant = "hero" | "section" | "minimal";
 
@@ -26,8 +26,10 @@ type Props = {
 export default async function OrganicDecor({ variant = "section", forceShow }: Props) {
   const settings = await getSiteSettings();
   const isPastel = PASTEL_PALETTES.includes(settings.palette);
+  const isVibrant = VIBRANT_PALETTES.includes(settings.palette);
+  const shouldShow = isPastel || isVibrant;
 
-  if (!forceShow && !isPastel) return null;
+  if (!forceShow && !shouldShow) return null;
 
   if (variant === "hero") {
     return (
@@ -45,14 +47,15 @@ export default async function OrganicDecor({ variant = "section", forceShow }: P
         >
           <path d="M200,40 C290,40 360,110 360,200 C360,290 290,360 200,360 C110,360 40,290 40,200 C40,110 110,40 200,40 Z" />
         </svg>
-        {/* Folha estilizada inferior esquerda */}
+        {/* Folha estilizada inferior esquerda — usa --decor-color quando
+            paleta define (ex: rouge usa sage verde); senão herda da paleta */}
         <svg
           className="absolute bottom-8 -left-12 w-[280px] h-[280px]"
           viewBox="0 0 200 200"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
-          style={{ color: "var(--text-light)", opacity: 0.4 }}
+          style={{ color: "var(--decor-color, var(--text-light))", opacity: 0.55 }}
         >
           <path d="M100,20 C140,30 170,60 175,100 C175,150 140,180 100,180 C80,170 70,140 75,100 C80,60 80,30 100,20 Z" />
           <path d="M100,30 C100,50 100,170 100,180" strokeLinecap="round" />

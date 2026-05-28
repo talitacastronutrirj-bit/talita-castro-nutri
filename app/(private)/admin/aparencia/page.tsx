@@ -23,6 +23,8 @@ const PALETTE_OPTIONS = [
   { value: "blush", label: "Blush (rosa pó & nude)", swatch: "#b08b85", accent: "#c4977f", group: "pastel" },
   { value: "honey", label: "Honey (mel & terracota)", swatch: "#c89968", accent: "#c97a5a", group: "pastel" },
   { value: "mint", label: "Mint (menta & rose gold)", swatch: "#7ab8a0", accent: "#c89690", group: "pastel" },
+  // Vibrantes (saúde com alto contraste — nutri, derma, estética)
+  { value: "rouge", label: "Rouge (cereja & sage)", swatch: "#691c29", accent: "#b63249", group: "vibrant" },
 ] as const;
 
 const ENTRANCE_OPTIONS = [
@@ -329,12 +331,15 @@ export default async function AppearancePage({
             decorativos sutis — ideais pra saúde, wellness e beleza.
           </p>
 
-          {(["pastel", "institutional"] as const).map((group) => {
+          {(["vibrant", "pastel", "institutional"] as const).map((group) => {
             const items = PALETTE_OPTIONS.filter((o) => o.group === group);
+            if (items.length === 0) return null;
             const label =
-              group === "pastel"
-                ? "Pastel · saúde, wellness, beleza"
-                : "Institucional · formal, jurídico, finanças";
+              group === "vibrant"
+                ? "Vibrante · saúde com alto contraste"
+                : group === "pastel"
+                  ? "Pastel · saúde, wellness, beleza (cores suaves)"
+                  : "Institucional · formal, jurídico, finanças";
             return (
               <div key={group} className="mb-6 last:mb-0">
                 <div

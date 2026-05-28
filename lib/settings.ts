@@ -32,11 +32,17 @@ export type Palette =
   | "sage"
   | "blush"
   | "honey"
-  | "mint";
+  | "mint"
+  // ─── Vibrante saúde (alto contraste — nutri, derma, estética) ───
+  | "rouge";
 
 // Paletas pastel ganham tipografia alternativa (mais delicada/feminina)
 // no layout. Lista usada por components/Header e <html> data-attr.
 export const PASTEL_PALETTES: Palette[] = ["sage", "blush", "honey", "mint"];
+
+// Paletas vibrantes têm bg-dark forte (igual institucional) mas com cores
+// quentes/orgânicas voltadas pra saúde — alto contraste, identidade forte.
+export const VIBRANT_PALETTES: Palette[] = ["rouge"];
 
 // Intensidade aplicada SOBRE a paleta escolhida:
 // - soft:    cores diluídas com branco (~30%) — vibe lavado, sereno

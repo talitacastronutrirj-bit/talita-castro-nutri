@@ -262,6 +262,38 @@
   --hero-overlay-2: rgba(176, 106, 90, 0.72);
 }
 
+/* ============================================
+   PALETAS VIBRANTES — saúde com alto contraste
+   Bg-dark forte (igual institucional) + cores quentes orgânicas
+   Sem o "lavado" das pastel — identidade visual marcante.
+   ============================================ */
+
+[data-palette="rouge"] {
+  /* Cereja + sage + bordô + creme. Da ID visual da Talita. */
+  --bg-page: #f7f5dd;            /* Creme suave */
+  --bg-page-2: #ede8c9;          /* Creme escurecido pra alternar seções */
+  --bg-dark: #691c29;            /* Bordô profundo */
+  --bg-dark-2: #5a1822;          /* Bordô intermediário */
+  --bg-dark-3: #4e141c;          /* Bordô escuro */
+  --bg-darkest: #3a0e14;         /* Quase preto avermelhado */
+  --text-light: #f7f5dd;         /* Creme — máxima legibilidade sobre bordô */
+  --text-light-soft: rgba(247, 245, 221, 0.88);
+  --text-light-soft-2: rgba(247, 245, 221, 0.65);
+  --text-dark: #691c29;          /* Bordô — alta legibilidade sobre creme */
+  --text-darker: #3a0e14;
+  --accent: #b63249;             /* Cereja vibrante */
+  --accent-hover: #9c2a3e;
+  --accent-soft: #ce5469;
+  --accent-bright: #e0788c;
+  --border-soft: #d4ceaa;        /* Creme escurecido pra bordas visíveis */
+  --border-soft-dark: rgba(247, 245, 221, 0.3);
+  --hero-overlay-1: rgba(105, 28, 41, 0.92);   /* Overlay bordô */
+  --hero-overlay-2: rgba(159, 191, 155, 0.72); /* Sage como contraste */
+  /* Cor decorativa secundária — sage da ID visual, usada nas folhas
+     do OrganicDecor pra dar acento natural/orgânico. */
+  --decor-color: #9fbf9b;
+}
+
 /* Paletas pastel usam Playfair Display (mais delicada/feminina)
    em vez de Cormorant Garamond. Vale só pro .font-serif global. */
 [data-palette="sage"] .font-serif,
