@@ -287,8 +287,10 @@
   --accent-bright: #e0788c;
   --border-soft: #d4ceaa;        /* Creme escurecido pra bordas visíveis */
   --border-soft-dark: rgba(247, 245, 221, 0.3);
-  --hero-overlay-1: rgba(105, 28, 41, 0.92);   /* Overlay bordô */
-  --hero-overlay-2: rgba(159, 191, 155, 0.72); /* Sage como contraste */
+  /* Overlays mais leves que paletas escuras tradicionais (navy 0.92)
+     — deixam a foto de fundo (frutas/ingredientes) aparecer atrás. */
+  --hero-overlay-1: rgba(105, 28, 41, 0.62);   /* Bordô 62% — vê 38% da foto */
+  --hero-overlay-2: rgba(159, 191, 155, 0.55); /* Sage 55% — vê 45% da foto */
   /* Cor decorativa secundária — sage da ID visual, usada nas folhas
      do OrganicDecor pra dar acento natural/orgânico. */
   --decor-color: #9fbf9b;
