@@ -8,7 +8,7 @@ import { resolveSiteData } from "@/lib/site";
 import { getSiteSettings } from "@/lib/settings";
 
 export const metadata: Metadata = {
-  title: "Artigos",
+  title: "Blog",
 };
 
 type Props = {

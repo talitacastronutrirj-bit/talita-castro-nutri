@@ -4,11 +4,12 @@
     "about": "About",
     "services": "Services",
     "team": "Team",
+    "professional": "Professional",
     "testimonials": "Testimonials",
     "gallery": "Gallery",
     "pricing": "Pricing",
     "faq": "FAQ",
-    "articles": "Articles",
+    "articles": "Blog",
     "contact": "Contact"
   },
   "cta": {

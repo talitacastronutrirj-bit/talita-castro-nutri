@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPostsIncludingDrafts, formatDate } from "@/lib/posts";
 import { deleteExistingPost } from "./actions";
 
-export const metadata = { title: "Artigos" };
+export const metadata = { title: "Blog" };
 
 const NOTICES: Record<string, string> = {
   published: "Artigo publicado com sucesso.",
@@ -41,7 +41,7 @@ export default async function PostsListPage({
             className="font-serif text-2xl font-semibold"
             style={{ color: "var(--bg-dark)" }}
           >
-            Artigos
+            Blog
           </h2>
           <p className="text-sm text-dark" style={{ opacity: 0.7 }}>
             Posts publicados e rascunhos do blog do site.

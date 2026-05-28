@@ -3,15 +3,21 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { resolveSiteData } from "@/lib/site";
 import { getSiteSettings } from "@/lib/settings";
+import { getActiveTeam } from "@/lib/team";
 import WhatsAppCTA from "./WhatsAppCTA";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default async function Header() {
-  const [t, settings] = await Promise.all([
+  const [t, settings, team] = await Promise.all([
     getTranslations(),
     getSiteSettings(),
+    getActiveTeam(),
   ]);
   const siteData = resolveSiteData(settings);
+  // Profissional autônomo (1 membro + layout solo) → menu mostra
+  // "Profissional" em vez de "Equipe"
+  const isSolo = team.length === 1 && settings.teamSoloLayout !== "team";
+  const teamLabel = isSolo ? t("nav.professional") : t("nav.team");
 
   return (
     <header
@@ -45,10 +51,7 @@ export default async function Header() {
             {t("nav.services")}
           </Link>
           <Link href="/#equipe" className="hover:opacity-70">
-            {t("nav.team")}
-          </Link>
-          <Link href="/#quando" className="hover:opacity-70">
-            {t("nav.about")}
+            {teamLabel}
           </Link>
           <Link href="/#faq" className="hover:opacity-70">
             {t("nav.faq")}

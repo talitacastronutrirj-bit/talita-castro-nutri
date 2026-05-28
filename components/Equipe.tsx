@@ -21,7 +21,7 @@ export default async function Equipe() {
   const isSolo = team.length === 1;
   const useSoloLayout = isSolo && settings.teamSoloLayout !== "team";
   const sectionLabel = useSoloLayout
-    ? t("nav.about")
+    ? t("nav.professional")
     : t("nav.team");
 
   return (
@@ -46,7 +46,7 @@ export default async function Equipe() {
             layout={
               settings.teamSoloLayout as "about-centered" | "about-side"
             }
-            aboutLabel={t("nav.about")}
+            aboutLabel={t("nav.professional")}
           />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">

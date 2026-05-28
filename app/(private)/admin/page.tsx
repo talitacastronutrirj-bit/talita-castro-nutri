@@ -105,7 +105,7 @@ export default async function AdminDashboard() {
     },
     {
       href: "/admin/artigos",
-      title: "Artigos",
+      title: "Blog",
       description: "Publicar, editar e remover posts do blog.",
       meta:
         draftPosts > 0
@@ -124,7 +124,7 @@ export default async function AdminDashboard() {
           Painel
         </h2>
         <p className="text-sm text-dark" style={{ opacity: 0.7 }}>
-          Gerencie a aparência do site, a equipe e os artigos do blog.
+          Gerencie a aparência do site, a equipe e os posts do blog.
         </p>
       </div>
 

@@ -63,7 +63,7 @@ export default async function AdminLayout({
               FAQ
             </Link>
             <Link href="/admin/artigos" className="hover:opacity-70">
-              Artigos
+              Blog
             </Link>
             <Link
               href="/"
