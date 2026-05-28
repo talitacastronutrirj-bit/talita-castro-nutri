@@ -15,18 +15,29 @@ export default async function Hero() {
   ]);
   const siteData = resolveSiteData(settings);
   const useImage = settings.heroMode === "image" && settings.heroImageUrl;
-
-  // Background custom sobrescreve a foto default do .hero-grad. Mas em
-  // paletas pastel, o CSS força gradient da paleta — não devemos sobrepor
-  // a foto via style inline (style inline ganha de CSS).
   const isPastel = PASTEL_PALETTES.includes(settings.palette);
-  const heroBgStyle =
-    !isPastel && settings.heroBackgroundUrl
+
+  // Hero background — prioridade:
+  // 1. Cor sólida fixa (heroBackgroundColor) — desliga animação e foto
+  // 2. Foto custom (heroBackgroundUrl) — só pra paletas não-pastel
+  // 3. Default CSS (foto + cross-fade animado entre 2 overlays)
+  const hasFixedBg = Boolean(settings.heroBackgroundColor);
+  const fixedBgValue = hasFixedBg
+    ? resolveSolidColor(settings.heroBackgroundColor)
+    : null;
+
+  const heroBgStyle: React.CSSProperties | undefined = hasFixedBg
+    ? { background: fixedBgValue ?? undefined, backgroundImage: "none" }
+    : !isPastel && settings.heroBackgroundUrl
       ? { backgroundImage: `url("${settings.heroBackgroundUrl}")` }
       : undefined;
 
   return (
-    <section className="hero-grad text-light relative" style={heroBgStyle}>
+    <section
+      className="hero-grad text-light relative"
+      data-hero-bg={hasFixedBg ? "fixed" : undefined}
+      style={heroBgStyle}
+    >
       <OrganicDecor variant="hero" />
       <div className="relative max-w-6xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10 items-center" style={{ zIndex: 2 }}>
         <div className="md:col-span-7">
@@ -145,12 +156,24 @@ export default async function Hero() {
 // - ""        (default) → cor escura da paleta (--bg-dark-tint)
 // - "page"             → fundo claro do site (--bg-page)
 // - "accent"           → cor de destaque da paleta (--accent-tint)
+// - "dark"             → cor escura da paleta (--bg-dark-tint)
 // - "#rrggbb"          → hex livre escolhido pelo cliente
 function resolveCardBackground(value: string): string {
   if (value === "page") return "var(--bg-page)";
   if (value === "accent") return "var(--accent-tint)";
+  if (value === "dark") return "var(--bg-dark-tint)";
   if (/^#[0-9a-f]{6}$/i.test(value)) return value;
   return "var(--bg-dark-tint)";
+}
+
+// Igual ao resolveCardBackground, mas SEM default — retorna null quando vazio.
+// Usado pelo hero background fixo (vazio = mantém animação padrão CSS).
+function resolveSolidColor(value: string): string | null {
+  if (value === "page") return "var(--bg-page)";
+  if (value === "accent") return "var(--accent-tint)";
+  if (value === "dark") return "var(--bg-dark-tint)";
+  if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+  return null;
 }
 
 function buildAnimation(

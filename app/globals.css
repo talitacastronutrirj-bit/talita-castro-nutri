@@ -520,6 +520,14 @@ body {
   50% { opacity: 1; }
 }
 
+/* Quando cliente escolhe cor sólida fixa pro hero, desligar o
+   cross-fade entre os 2 overlays — fica só a cor pura. A foto de
+   fundo também é sobrescrita via `background-image: none` no inline. */
+.hero-grad[data-hero-bg="fixed"]::before,
+.hero-grad[data-hero-bg="fixed"]::after {
+  display: none;
+}
+
 /* Paletas pastel: hero mantém a foto de fundo (genérica ou custom),
    mas com overlay equilibrado (não abafa a foto). Garantimos
    legibilidade do texto via:

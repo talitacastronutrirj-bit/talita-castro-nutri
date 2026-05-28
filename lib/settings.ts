@@ -97,6 +97,13 @@ export type SiteSettings = {
   heroMode: HeroMode;
   heroImageUrl: string;       // Foto que aparece NO CARD do hero quando heroMode=image
   heroBackgroundUrl: string;  // Imagem de FUNDO do hero (atrás dos textos) — "" cai pro CSS default
+  // Cor SÓLIDA do fundo do hero (alternativa ao gradient animado padrão).
+  // Quando preenchido:
+  // - Desliga o cross-fade entre os 2 overlays
+  // - Ignora heroBackgroundUrl (foto de fundo)
+  // - Aplica a cor sólida em todo o hero
+  // Valores: "" (padrão animado), "page", "accent", "dark", ou "#rrggbb"
+  heroBackgroundColor: string;
   // Cor de fundo do card lateral do hero (quando heroMode=logo, ou
   // quando heroMode=image sem foto). Valores aceitos:
   // - ""        (default) — usa --bg-dark da paleta (cor escura)
@@ -150,6 +157,7 @@ const DEFAULTS: SiteSettings = {
   heroMode: "logo",
   heroImageUrl: "",
   heroBackgroundUrl: "",
+  heroBackgroundColor: "",
   heroCardBackground: "",
   heroCardEnabled: true,
   heroLogoEntrance: "slide",
@@ -201,6 +209,7 @@ const KEY_MAP = {
   heroMode: "hero_mode",
   heroImageUrl: "hero_image_url",
   heroBackgroundUrl: "hero_background_url",
+  heroBackgroundColor: "hero_background_color",
   heroCardBackground: "hero_card_background",
   heroCardEnabled: "hero_card_enabled",
   heroLogoEntrance: "hero_logo_entrance",
@@ -310,6 +319,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       heroImageUrl: getScalar(map, "heroImageUrl") || DEFAULTS.heroImageUrl,
       heroBackgroundUrl:
         getScalar(map, "heroBackgroundUrl") || DEFAULTS.heroBackgroundUrl,
+      heroBackgroundColor:
+        getScalar(map, "heroBackgroundColor") || DEFAULTS.heroBackgroundColor,
       heroCardBackground:
         getScalar(map, "heroCardBackground") || DEFAULTS.heroCardBackground,
       // Boolean armazenado como "true"/"false". Vazio (não existe no DB)

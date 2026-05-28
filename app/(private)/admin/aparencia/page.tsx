@@ -1087,17 +1087,167 @@ export default async function AppearancePage({
               </details>
             </div>
 
+            {/* Cor sólida fixa do fundo do hero (sobrescreve a foto + cross-fade) */}
             <div>
               <label
                 className="block text-sm font-medium mb-2"
                 style={{ color: "var(--bg-dark)" }}
               >
-                ② Foto de FUNDO do hero{" "}
+                ② Cor sólida do fundo do hero{" "}
                 <span
                   className="font-normal text-dark"
                   style={{ opacity: 0.6 }}
                 >
-                  (atrás de TODO o hero — opcional)
+                  (substitui a animação por uma cor fixa)
+                </span>
+              </label>
+              <p
+                className="text-[11px] text-dark mb-3"
+                style={{ opacity: 0.6 }}
+              >
+                Por padrão o fundo do hero tem uma foto + animação suave
+                alternando entre 2 cores da paleta. Escolha uma opção abaixo
+                pra deixar uma <strong>cor fixa</strong> em vez disso. A foto
+                de fundo (item ③ abaixo) é ignorada quando você escolhe cor sólida.
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                {(
+                  [
+                    {
+                      value: "",
+                      label: "Animado (padrão)",
+                      preview:
+                        "linear-gradient(135deg, var(--bg-dark) 0%, var(--accent-soft) 100%)",
+                      previewText: "white",
+                    },
+                    {
+                      value: "dark",
+                      label: "Escuro da paleta",
+                      preview: "var(--bg-dark)",
+                      previewText: "var(--text-light)",
+                    },
+                    {
+                      value: "page",
+                      label: "Claro do site",
+                      preview: "var(--bg-page)",
+                      previewText: "var(--text-dark)",
+                    },
+                    {
+                      value: "accent",
+                      label: "Accent",
+                      preview: "var(--accent)",
+                      previewText: "white",
+                    },
+                  ] as const
+                ).map((opt) => (
+                  <label
+                    key={opt.value}
+                    className="cursor-pointer rounded-xl border overflow-hidden hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition"
+                    style={{ borderColor: "var(--border-soft)" }}
+                  >
+                    <input
+                      type="radio"
+                      name="heroBackgroundColor"
+                      value={opt.value}
+                      defaultChecked={
+                        (settings.heroBackgroundColor || "") === opt.value
+                      }
+                      className="sr-only"
+                    />
+                    <div
+                      className="h-14 grid place-items-center"
+                      style={{
+                        background: opt.preview,
+                        color: opt.previewText,
+                      }}
+                    >
+                      <span className="font-serif text-sm">Aa</span>
+                    </div>
+                    <div
+                      className="text-[11px] font-medium text-center py-2 text-dark"
+                    >
+                      {opt.label}
+                    </div>
+                  </label>
+                ))}
+
+                {/* Opção custom — hex livre */}
+                <label
+                  className="cursor-pointer rounded-xl border overflow-hidden hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition relative"
+                  style={{ borderColor: "var(--border-soft)" }}
+                >
+                  <input
+                    type="radio"
+                    name="heroBackgroundColor"
+                    value={
+                      settings.heroBackgroundColor.startsWith("#")
+                        ? settings.heroBackgroundColor
+                        : "#ffffff"
+                    }
+                    defaultChecked={settings.heroBackgroundColor.startsWith("#")}
+                    className="sr-only"
+                  />
+                  <div
+                    className="h-14 grid place-items-center"
+                    style={{
+                      background: settings.heroBackgroundColor.startsWith("#")
+                        ? settings.heroBackgroundColor
+                        : "linear-gradient(45deg, #fff 25%, #f0f0f0 25%, #f0f0f0 50%, #fff 50%, #fff 75%, #f0f0f0 75%) 0 0/12px 12px",
+                      color: "#333",
+                    }}
+                  >
+                    <span className="font-serif text-sm">Aa</span>
+                  </div>
+                  <div className="text-[11px] font-medium text-center py-2 text-dark">
+                    Cor customizada
+                  </div>
+                </label>
+              </div>
+
+              <details className="mt-3">
+                <summary
+                  className="cursor-pointer text-[11px] text-dark"
+                  style={{ opacity: 0.7 }}
+                >
+                  Ou digite um hex customizado (ex: #f7f5dd) ▾
+                </summary>
+                <input
+                  type="text"
+                  name="heroBackgroundColorCustom"
+                  defaultValue={
+                    settings.heroBackgroundColor.startsWith("#")
+                      ? settings.heroBackgroundColor
+                      : ""
+                  }
+                  placeholder="#f7f5dd"
+                  pattern="^#[0-9a-fA-F]{6}$"
+                  className="mt-2 block w-40 rounded-lg border px-3 py-2 text-sm font-mono"
+                  style={{
+                    borderColor: "var(--border-soft)",
+                    background: "white",
+                  }}
+                />
+                <p
+                  className="text-[10px] mt-1 text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  Se preenchido, sobrescreve a opção marcada acima.
+                </p>
+              </details>
+            </div>
+
+            <div>
+              <label
+                className="block text-sm font-medium mb-2"
+                style={{ color: "var(--bg-dark)" }}
+              >
+                ③ Foto de FUNDO do hero{" "}
+                <span
+                  className="font-normal text-dark"
+                  style={{ opacity: 0.6 }}
+                >
+                  (atrás de TODO o hero — só se cor sólida acima for &quot;Animado&quot;)
                 </span>
               </label>
               <ImageUpload
