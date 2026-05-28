@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import type { PaletteSwatch } from "@/lib/palette-colors";
 
 type Props = {
   /** Cor inicial em hex "#rrggbb" ou string vazia */
   defaultValue: string;
+  /** Cores oficiais da paleta ativa (pra mostrar como atalhos clicáveis) */
+  paletteColors?: PaletteSwatch[];
+  /** Nome da paleta ativa (pra exibir no label dos swatches) */
+  paletteName?: string;
 };
 
 /**
@@ -12,14 +17,65 @@ type Props = {
  * de useState pra atualizar o label dinamicamente e botão "Limpar".
  *
  * Backend (action) interpreta valor vazio como "usar accent da paleta".
+ *
+ * Mostra swatches clicáveis com as cores oficiais da paleta ativa
+ * (passadas via paletteColors) pra escolha rápida sem digitar hex.
  */
-export default function AccentColorPicker({ defaultValue }: Props) {
+export default function AccentColorPicker({
+  defaultValue,
+  paletteColors = [],
+  paletteName,
+}: Props) {
   const [value, setValue] = useState(defaultValue);
 
   const isCustom = value !== "";
 
   return (
     <>
+      {/* Atalhos: clica numa cor oficial da paleta ativa pra usá-la */}
+      {paletteColors.length > 0 && (
+        <div className="mb-4">
+          <div
+            className="text-[11px] uppercase tracking-wider mb-2 text-dark"
+            style={{ opacity: 0.7 }}
+          >
+            Atalhos da paleta {paletteName ? `"${paletteName}"` : "atual"}
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {paletteColors.map((c) => (
+              <button
+                key={c.hex}
+                type="button"
+                onClick={() => setValue(c.hex)}
+                className="group flex items-center gap-2 rounded-full border px-2 py-1.5 transition hover:border-amber-400"
+                style={{
+                  borderColor:
+                    value === c.hex
+                      ? "var(--accent)"
+                      : "var(--border-soft)",
+                  background: value === c.hex ? "var(--bg-page-2)" : "transparent",
+                }}
+                title={`${c.name} (${c.hex})`}
+              >
+                <span
+                  className="w-6 h-6 rounded-full border"
+                  style={{
+                    background: c.hex,
+                    borderColor: "rgba(0,0,0,0.1)",
+                  }}
+                />
+                <span
+                  className="text-xs font-medium pr-1"
+                  style={{ color: "var(--bg-dark)" }}
+                >
+                  {c.name}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex items-center gap-4 flex-wrap">
         <label
           className="relative inline-flex items-center gap-3 cursor-pointer rounded-xl border p-3"

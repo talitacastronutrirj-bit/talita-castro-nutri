@@ -97,6 +97,13 @@ export type SiteSettings = {
   heroMode: HeroMode;
   heroImageUrl: string;       // Foto que aparece NO CARD do hero quando heroMode=image
   heroBackgroundUrl: string;  // Imagem de FUNDO do hero (atrás dos textos) — "" cai pro CSS default
+  // Cor de fundo do card lateral do hero (quando heroMode=logo, ou
+  // quando heroMode=image sem foto). Valores aceitos:
+  // - ""        (default) — usa --bg-dark da paleta (cor escura)
+  // - "page"    — usa --bg-page (fundo claro do site)
+  // - "accent"  — usa --accent da paleta
+  // - "#xxxxxx" — hex livre (cor customizada)
+  heroCardBackground: string;
   heroLogoEntrance: HeroEntrance;
   heroLogoIdle: HeroIdle;
   instagramUrl: string;
@@ -139,6 +146,7 @@ const DEFAULTS: SiteSettings = {
   heroMode: "logo",
   heroImageUrl: "",
   heroBackgroundUrl: "",
+  heroCardBackground: "",
   heroLogoEntrance: "slide",
   heroLogoIdle: "none",
   instagramUrl: "",
@@ -188,6 +196,7 @@ const KEY_MAP = {
   heroMode: "hero_mode",
   heroImageUrl: "hero_image_url",
   heroBackgroundUrl: "hero_background_url",
+  heroCardBackground: "hero_card_background",
   heroLogoEntrance: "hero_logo_entrance",
   heroLogoIdle: "hero_logo_idle",
   instagramUrl: "instagram_url",
@@ -295,6 +304,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       heroImageUrl: getScalar(map, "heroImageUrl") || DEFAULTS.heroImageUrl,
       heroBackgroundUrl:
         getScalar(map, "heroBackgroundUrl") || DEFAULTS.heroBackgroundUrl,
+      heroCardBackground:
+        getScalar(map, "heroCardBackground") || DEFAULTS.heroCardBackground,
       heroLogoEntrance:
         (getScalar(map, "heroLogoEntrance") as HeroEntrance) ||
         DEFAULTS.heroLogoEntrance,

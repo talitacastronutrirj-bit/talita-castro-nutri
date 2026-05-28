@@ -86,6 +86,23 @@ export async function saveAppearance(formData: FormData) {
   const heroMode = String(formData.get("heroMode") ?? "") as HeroMode;
   const heroImageUrl = String(formData.get("heroImageUrl") ?? "").trim();
   const heroBackgroundUrl = String(formData.get("heroBackgroundUrl") ?? "").trim();
+  // Cor de fundo do card: o radio envia uma das presets ("page", "accent",
+  // hex de uma opção) ou vazio (default). O input text "Custom" sobrescreve
+  // tudo se for um hex válido.
+  const heroCardBackgroundRaw = String(
+    formData.get("heroCardBackground") ?? ""
+  ).trim();
+  const heroCardBackgroundCustom = String(
+    formData.get("heroCardBackgroundCustom") ?? ""
+  ).trim();
+  const isValidHex = (s: string) => /^#[0-9a-fA-F]{6}$/.test(s);
+  const heroCardBackground = isValidHex(heroCardBackgroundCustom)
+    ? heroCardBackgroundCustom.toLowerCase()
+    : heroCardBackgroundRaw === "page" ||
+        heroCardBackgroundRaw === "accent" ||
+        isValidHex(heroCardBackgroundRaw)
+      ? heroCardBackgroundRaw.toLowerCase()
+      : "";
   const heroLogoEntrance = String(
     formData.get("heroLogoEntrance") ?? ""
   ) as HeroEntrance;
@@ -150,6 +167,7 @@ export async function saveAppearance(formData: FormData) {
     heroMode,
     heroImageUrl,
     heroBackgroundUrl,
+    heroCardBackground,
     heroLogoEntrance,
     heroLogoIdle,
     heroEyebrow,

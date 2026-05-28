@@ -90,7 +90,9 @@ export default async function Hero() {
                 ? "rgba(255, 255, 255, 0.4)"
                 : "var(--accent)",
               borderWidth: isPastel ? "2px" : "1px",
-              background: useImage ? "transparent" : "var(--bg-dark-tint)",
+              background: useImage
+                ? "transparent"
+                : resolveCardBackground(settings.heroCardBackground),
               boxShadow: isPastel
                 ? "0 20px 50px -15px rgba(0,0,0,0.35), 0 8px 20px -10px rgba(0,0,0,0.2)"
                 : undefined,
@@ -131,6 +133,18 @@ export default async function Hero() {
       </div>
     </section>
   );
+}
+
+// Resolve heroCardBackground setting:
+// - ""        (default) → cor escura da paleta (--bg-dark-tint)
+// - "page"             → fundo claro do site (--bg-page)
+// - "accent"           → cor de destaque da paleta (--accent-tint)
+// - "#rrggbb"          → hex livre escolhido pelo cliente
+function resolveCardBackground(value: string): string {
+  if (value === "page") return "var(--bg-page)";
+  if (value === "accent") return "var(--accent-tint)";
+  if (/^#[0-9a-f]{6}$/i.test(value)) return value;
+  return "var(--bg-dark-tint)";
 }
 
 function buildAnimation(
