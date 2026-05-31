@@ -132,12 +132,16 @@ export async function saveAppearance(formData: FormData) {
   const heroDescription = readLocalizedFromFormData(formData, "heroDescription");
   const trustBar1Label = readLocalizedFromFormData(formData, "trustBar1Label");
   const trustBar1Value = readLocalizedFromFormData(formData, "trustBar1Value");
+  const trustBar1Description = readLocalizedFromFormData(formData, "trustBar1Description");
   const trustBar2Label = readLocalizedFromFormData(formData, "trustBar2Label");
   const trustBar2Value = readLocalizedFromFormData(formData, "trustBar2Value");
+  const trustBar2Description = readLocalizedFromFormData(formData, "trustBar2Description");
   const trustBar3Label = readLocalizedFromFormData(formData, "trustBar3Label");
   const trustBar3Value = readLocalizedFromFormData(formData, "trustBar3Value");
+  const trustBar3Description = readLocalizedFromFormData(formData, "trustBar3Description");
   const trustBar4Label = readLocalizedFromFormData(formData, "trustBar4Label");
   const trustBar4Value = readLocalizedFromFormData(formData, "trustBar4Value");
+  const trustBar4Description = readLocalizedFromFormData(formData, "trustBar4Description");
 
   // ─── Validações ───────────────────────────────────────────
   if (!PALETTES.includes(palette)) {
@@ -193,12 +197,16 @@ export async function saveAppearance(formData: FormData) {
     teamSoloLayout,
     trustBar1Label,
     trustBar1Value,
+    trustBar1Description,
     trustBar2Label,
     trustBar2Value,
+    trustBar2Description,
     trustBar3Label,
     trustBar3Value,
+    trustBar3Description,
     trustBar4Label,
     trustBar4Value,
+    trustBar4Description,
   });
 
   revalidatePath("/", "layout");
