@@ -21,11 +21,9 @@ import { pickLocale, type Locale } from "@/i18n/config";
 type Props = {
   member: TeamMember;
   layout: "about-centered" | "about-side";
-  /** Texto traduzido pra "Sobre" (i18n via useTranslations no parent) */
-  aboutLabel: string;
 };
 
-export default function TeamMemberSolo({ member, layout, aboutLabel }: Props) {
+export default function TeamMemberSolo({ member, layout }: Props) {
   const locale = useLocale() as Locale;
   const bio = pickLocale(member.bio, locale);
   const details = pickLocale(member.details, locale);
@@ -60,9 +58,6 @@ export default function TeamMemberSolo({ member, layout, aboutLabel }: Props) {
 
         {/* Texto à direita */}
         <div className="md:col-span-7 space-y-5">
-          <div className="text-[11px] uppercase tracking-[0.3em] text-accent">
-            {aboutLabel}
-          </div>
           <h3
             className="font-serif text-3xl md:text-4xl leading-tight"
             style={{ color: "var(--bg-dark)" }}
@@ -129,9 +124,6 @@ export default function TeamMemberSolo({ member, layout, aboutLabel }: Props) {
             color: "var(--text-light)",
           }}
         >
-          <div className="text-[10px] uppercase tracking-[0.3em] text-accent-bright mb-2">
-            {aboutLabel}
-          </div>
           <h3 className="font-serif text-2xl md:text-3xl leading-tight mb-1">
             {member.name}
           </h3>
