@@ -5,6 +5,7 @@
     "services": "Servizi",
     "team": "Squadra",
     "professional": "Professionista",
+    "howItWorks": "Come funziona",
     "testimonials": "Testimonianze",
     "gallery": "Galleria",
     "pricing": "Tariffe",
@@ -24,7 +25,8 @@
   },
   "headings": {
     "blogRecent": "Articoli recenti",
-    "blogAll": "Tutti gli articoli"
+    "blogAll": "Tutti gli articoli",
+    "howItWorksTitle": "Consulenza semplice, in 4 passi"
   },
   "labels": {
     "credentials": "Credenziali",
