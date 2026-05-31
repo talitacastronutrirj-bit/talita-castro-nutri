@@ -75,6 +75,12 @@ export type BookingMode = "whatsapp" | "calendly" | "both";
 // - "about-side":      foto à esquerda + bio em texto à direita (sempre visível)
 export type TeamSoloLayout = "team" | "about-centered" | "about-side";
 
+// Como o banner abaixo do hero (trust bar) se apresenta:
+// - "slider": 1 destaque por vez, ocupa o banner inteiro, auto-play 5s
+// - "hover":  4 colunas lado a lado; ao passar mouse/touch numa coluna,
+//             ela expande e mostra a descrição (as outras encolhem)
+export type TrustBarMode = "slider" | "hover";
+
 export type SiteSettings = {
   // ─── Identificação do profissional (editável pelo admin) ───
   // Sobrescrevem os defaults de lib/site.ts. Vazios = usa lib/site.ts.
@@ -123,6 +129,7 @@ export type SiteSettings = {
   bookingMode: BookingMode;
   calendlyUrl: string;
   teamSoloLayout: TeamSoloLayout;
+  trustBarMode: TrustBarMode;
 
   // Localized (objeto {pt, en, it} pra cada)
   heroEyebrow: LocalizedText;
@@ -172,6 +179,7 @@ const DEFAULTS: SiteSettings = {
   bookingMode: "whatsapp",
   calendlyUrl: "",
   teamSoloLayout: "about-centered",
+  trustBarMode: "hover",
   // Defaults com PT preenchido pra preview funcionar antes do cliente editar
   heroEyebrow: { pt: "Atendimento profissional", en: "", it: "" },
   heroHeading: {
@@ -228,6 +236,7 @@ const KEY_MAP = {
   bookingMode: "booking_mode",
   calendlyUrl: "calendly_url",
   teamSoloLayout: "team_solo_layout",
+  trustBarMode: "trust_bar_mode",
   // localized
   heroEyebrow: "hero_eyebrow",
   heroHeading: "hero_heading",
@@ -357,6 +366,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
       teamSoloLayout:
         (getScalar(map, "teamSoloLayout") as TeamSoloLayout) ||
         DEFAULTS.teamSoloLayout,
+      trustBarMode:
+        (getScalar(map, "trustBarMode") as TrustBarMode) ||
+        DEFAULTS.trustBarMode,
 
       heroEyebrow: getLocalized(map, "heroEyebrow", DEFAULTS.heroEyebrow),
       heroHeading: getLocalized(map, "heroHeading", DEFAULTS.heroHeading),

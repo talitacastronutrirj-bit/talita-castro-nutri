@@ -584,15 +584,69 @@ export default async function AppearancePage({
             className="font-serif text-lg font-semibold mb-1"
             style={{ color: "var(--bg-dark)" }}
           >
-            Banner rotativo (logo abaixo do hero)
+            Banner de destaques (abaixo do hero)
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
-            Faixa escura que apresenta destaques rotacionando 1 por vez,
-            com auto-play de 5s. Cada item tem 3 campos: <strong>Título</strong> (eyebrow
-            pequeno), <strong>Destaque</strong> (grande — aceita emojis e bandeiras 🇧🇷
-            🇺🇸 🇮🇹) e <strong>Descrição</strong> (subtexto opcional). Deixe o destaque
-            vazio para esconder aquele slide — o banner se ajusta sozinho.
+            Faixa escura com até 4 destaques. Cada item tem 3 campos:{" "}
+            <strong>Título</strong> (eyebrow pequeno), <strong>Destaque</strong>{" "}
+            (grande — aceita emojis e bandeiras 🇧🇷 🇺🇸 🇮🇹) e{" "}
+            <strong>Descrição</strong> (subtexto explicativo). Deixe o destaque
+            vazio para esconder aquele slot.
           </p>
+
+          {/* Seletor de modo de apresentação */}
+          <div className="mb-6">
+            <div
+              className="text-[11px] uppercase tracking-widest mb-2 font-medium"
+              style={{ color: "var(--bg-dark)", opacity: 0.7 }}
+            >
+              Estilo do banner
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {(
+                [
+                  {
+                    value: "hover",
+                    label: "Hover expansivo",
+                    description:
+                      "4 colunas lado a lado. Passar o mouse (ou tocar no celular) numa coluna expande ela e revela a descrição. Mais elegante, sem auto-play.",
+                  },
+                  {
+                    value: "slider",
+                    label: "Slider rotativo",
+                    description:
+                      "1 destaque grande por vez, ocupa o banner inteiro. Roda automaticamente a cada 5s com fade. Visual mais impactante.",
+                  },
+                ] as const
+              ).map((opt) => (
+                <label
+                  key={opt.value}
+                  className="cursor-pointer rounded-xl border p-4 hover:border-amber-400 has-[:checked]:ring-2 has-[:checked]:ring-amber-400 has-[:checked]:border-amber-400 transition"
+                  style={{ borderColor: "var(--border-soft)" }}
+                >
+                  <input
+                    type="radio"
+                    name="trustBarMode"
+                    value={opt.value}
+                    defaultChecked={settings.trustBarMode === opt.value}
+                    className="sr-only"
+                  />
+                  <div
+                    className="font-medium text-sm mb-1"
+                    style={{ color: "var(--bg-dark)" }}
+                  >
+                    {opt.label}
+                  </div>
+                  <div
+                    className="text-[11px] leading-relaxed text-dark"
+                    style={{ opacity: 0.7 }}
+                  >
+                    {opt.description}
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
 
           <div className="space-y-6">
             {([1, 2, 3, 4] as const).map((n) => {

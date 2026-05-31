@@ -12,6 +12,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { pickLocale, type Locale } from "@/i18n/config";
 import { CountryFlag, flagCodeFromEmoji } from "./CountryFlag";
 import TrustBarSlider, { type TrustBarItem } from "./TrustBarSlider";
+import TrustBarHover from "./TrustBarHover";
 
 // Captura sequências de 2 Regional Indicators = uma bandeira Unicode
 const FLAG_RE = /[\u{1F1E6}-\u{1F1FF}]{2}/gu;
@@ -93,5 +94,11 @@ export default async function TrustBar() {
 
   if (items.length === 0) return null;
 
+  // Cliente escolhe modo em /admin/aparencia → Banner rotativo:
+  // - "slider": carrossel automático (1 destaque por vez, 5s)
+  // - "hover":  4 colunas que expandem no hover/touch
+  if (settings.trustBarMode === "hover") {
+    return <TrustBarHover items={items} />;
+  }
   return <TrustBarSlider items={items} />;
 }
