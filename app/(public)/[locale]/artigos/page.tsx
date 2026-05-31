@@ -37,7 +37,7 @@ export default async function ArtigosListPage({ params }: Props) {
             className="font-serif text-3xl md:text-5xl mb-4 leading-tight"
             style={{ color: "var(--bg-dark)" }}
           >
-            {t("nav.articles")}
+            {t("headings.blogAll")}
           </h1>
           <div className="gold-rule w-24 mx-auto mb-3" />
         </div>

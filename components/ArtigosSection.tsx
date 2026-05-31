@@ -28,7 +28,7 @@ export default async function ArtigosSection() {
             className="font-serif text-3xl md:text-4xl mb-4"
             style={{ color: "var(--bg-dark)" }}
           >
-            {t("nav.articles")}
+            {t("headings.blogRecent")}
           </h2>
           <div className="gold-rule w-24 mx-auto mb-3" />
         </div>

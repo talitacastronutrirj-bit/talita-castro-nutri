@@ -22,6 +22,10 @@
     "continueReading": "Continue reading",
     "sendMessage": "Send message"
   },
+  "headings": {
+    "blogRecent": "Recent posts",
+    "blogAll": "All posts"
+  },
   "labels": {
     "credentials": "Credentials",
     "offices": "Offices",

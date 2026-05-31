@@ -22,6 +22,10 @@
     "continueReading": "Continua a leggere",
     "sendMessage": "Invia messaggio"
   },
+  "headings": {
+    "blogRecent": "Articoli recenti",
+    "blogAll": "Tutti gli articoli"
+  },
   "labels": {
     "credentials": "Credenziali",
     "offices": "Uffici",
