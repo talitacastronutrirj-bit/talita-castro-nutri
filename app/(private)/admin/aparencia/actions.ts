@@ -12,6 +12,7 @@ import {
   type HeroIdle,
   type BookingMode,
   type TeamSoloLayout,
+  type TrustBarMode,
 } from "@/lib/settings";
 import { readLocalizedFromFormData } from "@/lib/localized";
 
@@ -34,6 +35,7 @@ const TEAM_SOLO_LAYOUTS: TeamSoloLayout[] = [
   "about-centered",
   "about-side",
 ];
+const TRUST_BAR_MODES: TrustBarMode[] = ["slider", "hover"];
 const HERO_MODES: HeroMode[] = ["logo", "image"];
 const ENTRANCES: HeroEntrance[] = [
   "none",
@@ -125,6 +127,9 @@ export async function saveAppearance(formData: FormData) {
   const teamSoloLayout = String(
     formData.get("teamSoloLayout") ?? "about-centered"
   ) as TeamSoloLayout;
+  const trustBarMode = String(
+    formData.get("trustBarMode") ?? "hover"
+  ) as TrustBarMode;
 
   // ─── Localized (lê <name>__pt, <name>__en, <name>__it) ────
   const heroEyebrow = readLocalizedFromFormData(formData, "heroEyebrow");
@@ -165,6 +170,9 @@ export async function saveAppearance(formData: FormData) {
   if (!TEAM_SOLO_LAYOUTS.includes(teamSoloLayout)) {
     redirect("/admin/aparencia?error=teamSolo");
   }
+  if (!TRUST_BAR_MODES.includes(trustBarMode)) {
+    redirect("/admin/aparencia?error=trustBarMode");
+  }
 
   await updateSiteSettings({
     siteName,
@@ -195,6 +203,7 @@ export async function saveAppearance(formData: FormData) {
     bookingMode,
     calendlyUrl,
     teamSoloLayout,
+    trustBarMode,
     trustBar1Label,
     trustBar1Value,
     trustBar1Description,
