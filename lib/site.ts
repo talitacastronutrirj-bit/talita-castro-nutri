@@ -68,8 +68,8 @@ export const site = {
   shortName: "Site",
   // Tagline curta (uso em fallback de metadata)
   tagline: "Atendimento profissional",
-  // URL canônica
-  url: "https://novo-site.vercel.app",
+  // URL canônica — usada em sitemap, robots, metadata Open Graph
+  url: "https://talita-castro-nutri.vercel.app",
   // Email institucional (fallback se DB não tiver contact_email)
   email: "contato@exemplo.com",
 
