@@ -20,22 +20,26 @@ export default async function Equipe() {
   // - "about-side":     foto à esquerda + bio em texto à direita
   const isSolo = team.length === 1;
   const useSoloLayout = isSolo && settings.teamSoloLayout !== "team";
-  const sectionLabel = useSoloLayout
+  // Eyebrow (texto pequeno em cima) = "PROFISSIONAL" quando solo
+  // H2 (título grande) = "Sobre" quando solo (evita duplicação visual)
+  // Pra equipe (2+ pessoas) ambos viram "Equipe"
+  const eyebrowLabel = useSoloLayout
     ? t("nav.professional")
     : t("nav.team");
+  const headingLabel = useSoloLayout ? t("nav.about") : t("nav.team");
 
   return (
     <section id="equipe" className="py-16 md:py-24 bg-page-2">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <div className="text-[11px] uppercase tracking-[0.3em] text-accent mb-3">
-            {sectionLabel}
+            {eyebrowLabel}
           </div>
           <h2
             className="font-serif text-3xl md:text-4xl mb-4"
             style={{ color: "var(--bg-dark)" }}
           >
-            {sectionLabel}
+            {headingLabel}
           </h2>
           <div className="gold-rule w-24 mx-auto mb-3" />
         </div>
@@ -46,7 +50,6 @@ export default async function Equipe() {
             layout={
               settings.teamSoloLayout as "about-centered" | "about-side"
             }
-            aboutLabel={t("nav.professional")}
           />
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
