@@ -130,12 +130,16 @@ export type SiteSettings = {
   heroDescription: LocalizedText;
   trustBar1Label: LocalizedText;
   trustBar1Value: LocalizedText;
+  trustBar1Description: LocalizedText;
   trustBar2Label: LocalizedText;
   trustBar2Value: LocalizedText;
+  trustBar2Description: LocalizedText;
   trustBar3Label: LocalizedText;
   trustBar3Value: LocalizedText;
+  trustBar3Description: LocalizedText;
   trustBar4Label: LocalizedText;
   trustBar4Value: LocalizedText;
+  trustBar4Description: LocalizedText;
 };
 
 // ─── Defaults (template — cliente substitui via admin) ────────
@@ -182,12 +186,16 @@ const DEFAULTS: SiteSettings = {
   },
   trustBar1Label: emptyLocalized(),
   trustBar1Value: emptyLocalized(),
+  trustBar1Description: emptyLocalized(),
   trustBar2Label: emptyLocalized(),
   trustBar2Value: emptyLocalized(),
+  trustBar2Description: emptyLocalized(),
   trustBar3Label: emptyLocalized(),
   trustBar3Value: emptyLocalized(),
+  trustBar3Description: emptyLocalized(),
   trustBar4Label: emptyLocalized(),
   trustBar4Value: emptyLocalized(),
+  trustBar4Description: emptyLocalized(),
 };
 
 // ─── Mapeamento JS → DB ──────────────────────────────────────
@@ -226,12 +234,16 @@ const KEY_MAP = {
   heroDescription: "hero_description",
   trustBar1Label: "trust_bar_1_label",
   trustBar1Value: "trust_bar_1_value",
+  trustBar1Description: "trust_bar_1_description",
   trustBar2Label: "trust_bar_2_label",
   trustBar2Value: "trust_bar_2_value",
+  trustBar2Description: "trust_bar_2_description",
   trustBar3Label: "trust_bar_3_label",
   trustBar3Value: "trust_bar_3_value",
+  trustBar3Description: "trust_bar_3_description",
   trustBar4Label: "trust_bar_4_label",
   trustBar4Value: "trust_bar_4_value",
+  trustBar4Description: "trust_bar_4_description",
 } as const;
 
 // Conjunto de chaves que armazenam LocalizedText (JSON serializado).
@@ -242,12 +254,16 @@ const LOCALIZED_KEYS = new Set<keyof typeof KEY_MAP>([
   "heroDescription",
   "trustBar1Label",
   "trustBar1Value",
+  "trustBar1Description",
   "trustBar2Label",
   "trustBar2Value",
+  "trustBar2Description",
   "trustBar3Label",
   "trustBar3Value",
+  "trustBar3Description",
   "trustBar4Label",
   "trustBar4Value",
+  "trustBar4Description",
 ]);
 
 // Helper: pega valor do mapa OU default
@@ -359,6 +375,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         "trustBar1Value",
         DEFAULTS.trustBar1Value
       ),
+      trustBar1Description: getLocalized(
+        map,
+        "trustBar1Description",
+        DEFAULTS.trustBar1Description
+      ),
       trustBar2Label: getLocalized(
         map,
         "trustBar2Label",
@@ -368,6 +389,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         map,
         "trustBar2Value",
         DEFAULTS.trustBar2Value
+      ),
+      trustBar2Description: getLocalized(
+        map,
+        "trustBar2Description",
+        DEFAULTS.trustBar2Description
       ),
       trustBar3Label: getLocalized(
         map,
@@ -379,6 +405,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         "trustBar3Value",
         DEFAULTS.trustBar3Value
       ),
+      trustBar3Description: getLocalized(
+        map,
+        "trustBar3Description",
+        DEFAULTS.trustBar3Description
+      ),
       trustBar4Label: getLocalized(
         map,
         "trustBar4Label",
@@ -388,6 +419,11 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         map,
         "trustBar4Value",
         DEFAULTS.trustBar4Value
+      ),
+      trustBar4Description: getLocalized(
+        map,
+        "trustBar4Description",
+        DEFAULTS.trustBar4Description
       ),
     };
   } catch (err) {

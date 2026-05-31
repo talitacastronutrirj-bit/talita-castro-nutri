@@ -584,52 +584,71 @@ export default async function AppearancePage({
             className="font-serif text-lg font-semibold mb-1"
             style={{ color: "var(--bg-dark)" }}
           >
-            Barra de destaque
+            Banner rotativo (logo abaixo do hero)
           </h3>
           <p className="text-xs text-dark mb-4" style={{ opacity: 0.7 }}>
-            A faixa escura abaixo do hero, com 4 indicadores rápidos do
-            site. Deixe um <em>valor</em> vazio para esconder aquele item
-            (a barra se reorganiza automaticamente).
+            Faixa escura que apresenta destaques rotacionando 1 por vez,
+            com auto-play de 5s. Cada item tem 3 campos: <strong>Título</strong> (eyebrow
+            pequeno), <strong>Destaque</strong> (grande — aceita emojis e bandeiras 🇧🇷
+            🇺🇸 🇮🇹) e <strong>Descrição</strong> (subtexto opcional). Deixe o destaque
+            vazio para esconder aquele slide — o banner se ajusta sozinho.
           </p>
 
           <div className="space-y-6">
             {([1, 2, 3, 4] as const).map((n) => {
               const labelKey = `trustBar${n}Label` as keyof typeof settings;
               const valueKey = `trustBar${n}Value` as keyof typeof settings;
+              const descKey = `trustBar${n}Description` as keyof typeof settings;
               const label = settings[labelKey] as typeof settings.trustBar1Label;
               const value = settings[valueKey] as typeof settings.trustBar1Value;
+              const description = settings[descKey] as typeof settings.trustBar1Description;
               return (
                 <div
                   key={n}
-                  className="grid sm:grid-cols-12 gap-3 items-start pb-4 border-b last:border-b-0"
+                  className="space-y-3 pb-5 border-b last:border-b-0"
                   style={{ borderColor: "var(--border-soft)" }}
                 >
-                  <div className="sm:col-span-4">
-                    <LocalizedInput
-                      name={`trustBar${n}Label`}
-                      defaultValue={label}
-                      label={
-                        <>
-                          Indicador {n} — Título{" "}
-                          <span
-                            className="font-normal text-dark"
-                            style={{ opacity: 0.6 }}
-                          >
-                            (eyebrow)
-                          </span>
-                        </>
-                      }
-                      maxLength={40}
-                    />
+                  <div
+                    className="text-[11px] uppercase tracking-widest font-medium"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    Slide {n}
                   </div>
-                  <div className="sm:col-span-8">
-                    <LocalizedInput
-                      name={`trustBar${n}Value`}
-                      defaultValue={value}
-                      label={`Indicador ${n} — Valor`}
-                      maxLength={80}
-                    />
+                  <div className="grid sm:grid-cols-12 gap-3 items-start">
+                    <div className="sm:col-span-4">
+                      <LocalizedInput
+                        name={`trustBar${n}Label`}
+                        defaultValue={label}
+                        label="Título (eyebrow)"
+                        maxLength={40}
+                      />
+                    </div>
+                    <div className="sm:col-span-8">
+                      <LocalizedInput
+                        name={`trustBar${n}Value`}
+                        defaultValue={value}
+                        label="Destaque (grande)"
+                        maxLength={80}
+                      />
+                    </div>
                   </div>
+                  <LocalizedTextarea
+                    name={`trustBar${n}Description`}
+                    defaultValue={description}
+                    rows={2}
+                    label={
+                      <>
+                        Descrição{" "}
+                        <span
+                          className="font-normal text-dark"
+                          style={{ opacity: 0.6 }}
+                        >
+                          (opcional — explicação curta abaixo do destaque)
+                        </span>
+                      </>
+                    }
+                    maxLength={200}
+                  />
                 </div>
               );
             })}
