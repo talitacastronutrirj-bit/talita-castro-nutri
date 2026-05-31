@@ -1,17 +1,19 @@
 // =================================================================
-// TrustBarSlider — banner rotativo com auto-play + bullets
+// TrustBarSlider — banner com slide horizontal contínuo
 // =================================================================
 //
-// Substitui o grid estático antigo. Cada item ocupa o banner inteiro:
-// label (eyebrow) + value (destaque grande, com bandeiras renderizadas)
-// + descrição (subtexto explicativo).
+// Cada item ocupa o banner inteiro. O conteúdo desliza:
+// - Entra da direita (translateX 100% → 0)
+// - Permanece visível ~3.5s
+// - Sai pela esquerda (translateX 0 → -100%)
+// - Próximo item entra pela direita simultaneamente
 //
-// Comportamento:
-// - Auto-play 5s entre slides, com fade
+// Transição rápida (500ms ease-out), sem fade — visual decisivo
+// estilo "news ticker" / banner de aeroporto.
+//
 // - Pause on hover/focus
 // - Bullets clicáveis pra navegação manual
-// - Setas opcionais
-// - Respeita prefers-reduced-motion (desliga animação)
+// - Respeita prefers-reduced-motion (mostra só o primeiro estático)
 // - Acessível (ARIA live region, keyboard nav)
 
 "use client";
@@ -83,34 +85,60 @@ export default function TrustBarSlider({ items, intervalMs = 5000 }: Props) {
       aria-roledescription="carrossel"
       aria-label="Destaques"
     >
-      <div className="max-w-5xl mx-auto px-6 py-10 md:py-14 min-h-[160px] md:min-h-[200px] flex items-center justify-center">
-        {/* Slides empilhados — só o ativo fica visível com fade */}
+      <div className="max-w-5xl mx-auto px-6 py-10 md:py-14 min-h-[160px] md:min-h-[200px] flex items-center justify-center overflow-hidden">
+        {/* Slides empilhados — translateX faz slide horizontal.
+            Distância "circular" determina posição:
+              delta  0 → translateX(0)      → centro, visível
+              delta -1 → translateX(-100%)  → saindo pela esquerda
+              delta +1 → translateX(100%)   → esperando à direita
+              outros: ficam à direita sem transição (escondidos) */}
         <div className="relative w-full" aria-live="polite">
-          {items.map((item, idx) => (
-            <div
-              key={idx}
-              className="text-center transition-opacity duration-700"
-              style={{
-                position: idx === active ? "relative" : "absolute",
-                inset: idx === active ? undefined : 0,
-                opacity: idx === active ? 1 : 0,
-                pointerEvents: idx === active ? "auto" : "none",
-              }}
-              aria-hidden={idx !== active}
-            >
-              <div className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-accent mb-3 md:mb-4">
-                {item.label}
+          {items.map((item, idx) => {
+            const total = items.length;
+            // Distância circular: -1 e +1 são "vizinhos próximos" mesmo
+            // quando idx e active estão nas extremidades do array
+            let delta = idx - active;
+            if (delta > total / 2) delta -= total;
+            else if (delta < -total / 2) delta += total;
+
+            const isActive = delta === 0;
+            const isLeaving = delta === -1;
+            // Itens visíveis (ativo + saindo) animam; outros ficam estáticos
+            const shouldAnimate = isActive || isLeaving;
+
+            const translateX = isActive
+              ? "0%"
+              : isLeaving
+                ? "-100%"
+                : "100%";
+
+            return (
+              <div
+                key={idx}
+                className="text-center absolute inset-0 flex flex-col items-center justify-center"
+                style={{
+                  transform: `translateX(${translateX})`,
+                  transition: shouldAnimate
+                    ? "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)"
+                    : "none",
+                  pointerEvents: isActive ? "auto" : "none",
+                }}
+                aria-hidden={!isActive}
+              >
+                <div className="text-[10px] md:text-xs uppercase tracking-[0.35em] text-accent mb-3 md:mb-4">
+                  {item.label}
+                </div>
+                <div className="font-serif text-3xl md:text-5xl leading-tight mb-3 md:mb-4 flex items-center justify-center gap-2 flex-wrap">
+                  {item.valueNode}
+                </div>
+                {item.description && (
+                  <p className="text-sm md:text-base text-light-soft max-w-2xl mx-auto leading-relaxed px-4">
+                    {item.description}
+                  </p>
+                )}
               </div>
-              <div className="font-serif text-3xl md:text-5xl leading-tight mb-3 md:mb-4 flex items-center justify-center gap-2 flex-wrap">
-                {item.valueNode}
-              </div>
-              {item.description && (
-                <p className="text-sm md:text-base text-light-soft max-w-2xl mx-auto leading-relaxed">
-                  {item.description}
-                </p>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
