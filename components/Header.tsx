@@ -50,6 +50,9 @@ export default async function Header() {
           <Link href="/#areas" className="hover:opacity-70">
             {t("nav.services")}
           </Link>
+          <Link href="/#como-funciona" className="hover:opacity-70">
+            {t("nav.howItWorks")}
+          </Link>
           <Link href="/#equipe" className="hover:opacity-70">
             {teamLabel}
           </Link>

@@ -6,10 +6,11 @@ import { getAllTestimonials } from "@/lib/testimonials";
 import { getAllGallery } from "@/lib/gallery";
 import { getAllFaq } from "@/lib/faq";
 import { getAllPricingPlans } from "@/lib/pricing";
+import { getAllHowItWorks } from "@/lib/how-it-works";
 import { getSiteSettings } from "@/lib/settings";
 
 export default async function AdminDashboard() {
-  const [team, posts, areas, testimonials, gallery, faq, pricing, settings] =
+  const [team, posts, areas, testimonials, gallery, faq, pricing, howItWorks, settings] =
     await Promise.all([
       getAllTeam(),
       getAllPostsIncludingDrafts(),
@@ -18,6 +19,7 @@ export default async function AdminDashboard() {
       getAllGallery().catch(() => []),
       getAllFaq().catch(() => []),
       getAllPricingPlans().catch(() => []),
+      getAllHowItWorks().catch(() => []),
       getSiteSettings(),
     ]);
 
@@ -29,6 +31,7 @@ export default async function AdminDashboard() {
   const activeGallery = gallery.filter((g) => g.isActive).length;
   const activeFaq = faq.filter((f) => f.isActive).length;
   const activePricing = pricing.filter((p) => p.isActive).length;
+  const activeHowItWorks = howItWorks.filter((h) => h.isActive).length;
 
   const PALETTE_LABELS: Record<string, string> = {
     navy: "Marinho clássico",
@@ -55,6 +58,16 @@ export default async function AdminDashboard() {
         activeAreas > 0
           ? `${activeAreas} área${activeAreas === 1 ? "" : "s"} ativa${activeAreas === 1 ? "" : "s"}`
           : "Nenhuma área ativa",
+    },
+    {
+      href: "/admin/como-funciona",
+      title: "Como funciona",
+      description:
+        "Etapas do atendimento (3-5 cards). Útil pra atendimento online/internacional.",
+      meta:
+        activeHowItWorks > 0
+          ? `${activeHowItWorks} etapa${activeHowItWorks === 1 ? "" : "s"} ativa${activeHowItWorks === 1 ? "" : "s"}`
+          : "Nenhuma etapa",
     },
     {
       href: "/admin/equipe",

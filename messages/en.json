@@ -5,6 +5,7 @@
     "services": "Services",
     "team": "Team",
     "professional": "Professional",
+    "howItWorks": "How it works",
     "testimonials": "Testimonials",
     "gallery": "Gallery",
     "pricing": "Pricing",
@@ -24,7 +25,8 @@
   },
   "headings": {
     "blogRecent": "Recent posts",
-    "blogAll": "All posts"
+    "blogAll": "All posts",
+    "howItWorksTitle": "Simple care, in 4 steps"
   },
   "labels": {
     "credentials": "Credentials",

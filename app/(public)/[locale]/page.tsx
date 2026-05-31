@@ -2,6 +2,7 @@ import { setRequestLocale } from "next-intl/server";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import Areas from "@/components/Areas";
+import HowItWorks from "@/components/HowItWorks";
 import Equipe from "@/components/Equipe";
 import Testimonials from "@/components/Testimonials";
 import Gallery from "@/components/Gallery";
@@ -27,6 +28,7 @@ export default async function Home({ params }: Props) {
       <Hero />
       <TrustBar />
       <Areas />
+      <HowItWorks />
       <Pricing />
       <Equipe />
       <Gallery />
