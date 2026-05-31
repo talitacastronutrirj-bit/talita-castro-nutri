@@ -2,6 +2,20 @@ import { getLocale } from "next-intl/server";
 import { getSiteSettings } from "@/lib/settings";
 import { pickLocale, type Locale } from "@/i18n/config";
 
+// Detecta se o valor contém emojis (bandeiras, símbolos, ícones). Quando
+// tem, renderizamos com tamanho maior e mais respiro — fica visualmente
+// forte. Útil pra trust bar de "🇧🇷 🇺🇸 🇮🇹" tipo "países atendidos".
+const EMOJI_RE =
+  /\p{Extended_Pictographic}|\p{Regional_Indicator}/u;
+
+function hasEmoji(s: string): boolean {
+  try {
+    return EMOJI_RE.test(s);
+  } catch {
+    return false;
+  }
+}
+
 export default async function TrustBar() {
   const [settings, locale] = await Promise.all([
     getSiteSettings(),
@@ -45,14 +59,30 @@ export default async function TrustBar() {
                 : "md:grid-cols-4"
         } gap-6 text-center`}
       >
-        {items.map((item, idx) => (
-          <div key={idx}>
-            <div className="text-xs uppercase tracking-widest text-accent mb-1">
-              {item.label}
+        {items.map((item, idx) => {
+          const valueHasEmoji = hasEmoji(item.value);
+          return (
+            <div key={idx}>
+              <div className="text-xs uppercase tracking-widest text-accent mb-1">
+                {item.label}
+              </div>
+              <div
+                className={
+                  valueHasEmoji
+                    ? "font-serif text-2xl md:text-3xl tracking-wide leading-tight"
+                    : "font-serif text-lg"
+                }
+                style={
+                  valueHasEmoji
+                    ? { letterSpacing: "0.15em" }
+                    : undefined
+                }
+              >
+                {item.value}
+              </div>
             </div>
-            <div className="font-serif text-lg">{item.value}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
