@@ -20,13 +20,15 @@ export default async function Equipe() {
   // - "about-side":     foto à esquerda + bio em texto à direita
   const isSolo = team.length === 1;
   const useSoloLayout = isSolo && settings.teamSoloLayout !== "team";
-  // Eyebrow (texto pequeno em cima) = "PROFISSIONAL" quando solo
-  // H2 (título grande) = "Sobre" quando solo (evita duplicação visual)
-  // Pra equipe (2+ pessoas) ambos viram "Equipe"
+  // Quando solo: eyebrow "PROFISSIONAL" + h2 com o NOME dela em destaque
+  // (a pessoa é o foco, não um título genérico).
+  // Pra equipe (2+ pessoas): ambos viram "Equipe" (foco no grupo).
   const eyebrowLabel = useSoloLayout
     ? t("nav.professional")
     : t("nav.team");
-  const headingLabel = useSoloLayout ? t("nav.about") : t("nav.team");
+  const headingLabel = useSoloLayout ? team[0].name : t("nav.team");
+  // Cargo da pessoa solo, mostrado como subtítulo abaixo do nome
+  const headingSubtitle = useSoloLayout ? team[0].role : null;
 
   return (
     <section id="equipe" className="py-16 md:py-24 bg-page-2">
@@ -36,11 +38,19 @@ export default async function Equipe() {
             {eyebrowLabel}
           </div>
           <h2
-            className="font-serif text-3xl md:text-4xl mb-4"
+            className="font-serif text-3xl md:text-5xl mb-3"
             style={{ color: "var(--bg-dark)" }}
           >
             {headingLabel}
           </h2>
+          {headingSubtitle && (
+            <div
+              className="text-sm md:text-base font-medium mb-4"
+              style={{ color: "var(--accent)" }}
+            >
+              {headingSubtitle}
+            </div>
+          )}
           <div className="gold-rule w-24 mx-auto mb-3" />
         </div>
 

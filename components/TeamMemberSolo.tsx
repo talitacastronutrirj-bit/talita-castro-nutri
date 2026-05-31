@@ -56,30 +56,16 @@ export default function TeamMemberSolo({ member, layout }: Props) {
           </div>
         </div>
 
-        {/* Texto à direita */}
+        {/* Texto à direita — apenas bio + detalhes (nome e cargo já
+            aparecem em destaque no h2 da seção em cima) */}
         <div className="md:col-span-7 space-y-5">
-          <h3
-            className="font-serif text-3xl md:text-4xl leading-tight"
-            style={{ color: "var(--bg-dark)" }}
-          >
-            {member.name}
-          </h3>
-          {member.role && (
-            <div
-              className="text-sm font-medium"
-              style={{ color: "var(--accent)" }}
-            >
-              {member.role}
-            </div>
-          )}
-          <div className="gold-rule w-16" />
           {bio && (
-            <p className="text-base leading-relaxed text-dark whitespace-pre-line">
+            <p className="text-base md:text-lg leading-relaxed text-dark whitespace-pre-line">
               {bio}
             </p>
           )}
           {details && (
-            <div className="text-sm leading-relaxed text-dark whitespace-pre-line" style={{ opacity: 0.85 }}>
+            <div className="text-sm md:text-base leading-relaxed text-dark whitespace-pre-line" style={{ opacity: 0.85 }}>
               {details}
             </div>
           )}
